@@ -13,6 +13,13 @@ I'm an Engineering Leader specializing in Machine Learning and Semiconductors. I
 <div class="projects-grid">
 
 <div class="project-card">
+<h3>🤖 Project title</h3>
+<p>Project description.</p>
+<p><strong>Tech:</strong> Python</p>
+<p><a href="https://github.com/shashankbl">View on GitHub →</a></p>
+</div>
+
+<!-- <div class="project-card">
 <h3>🤖 ML Pipeline Framework</h3>
 <p>An end-to-end machine learning pipeline framework for training, evaluating, and deploying models at scale. Built with Python, PyTorch, and Kubernetes.</p>
 <p><strong>Tech:</strong> Python, PyTorch, Kubernetes, MLflow</p>
@@ -52,7 +59,7 @@ I'm an Engineering Leader specializing in Machine Learning and Semiconductors. I
 <p>Forecasting system for predicting equipment failures and maintenance needs in semiconductor manufacturing environments.</p>
 <p><strong>Tech:</strong> Python, Prophet, LSTM, Airflow</p>
 <p><a href="https://github.com/shashankbl">View on GitHub →</a></p>
-</div>
+</div> -->
 
 </div>
 
@@ -61,5 +68,5 @@ I'm an Engineering Leader specializing in Machine Learning and Semiconductors. I
 ## Contact
 
 - **GitHub:** [github.com/shashankbl](https://github.com/shashankbl)
-- **LinkedIn:** [Connect with me](https://linkedin.com)
+- **LinkedIn:** [Connect with me](https://linkedin.com/in/shashankbl)
 - **Email:** [Get in touch](mailto:your.email@example.com)
