@@ -8,6 +8,7 @@
 {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     <link rel="stylesheet" href="{{ "/assets/css/custom.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -24,9 +25,9 @@
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
         <nav class="site-nav">
-          <a href="{{ "/" | relative_url }}" {% if page.url == "/" %}class="active"{% endif %}>Home</a>
-          <a href="{{ "/projects" | relative_url }}" {% if page.url contains "/projects" %}class="active"{% endif %}>Projects</a>
-          <a href="{{ "/blog" | relative_url }}" {% if page.url contains "/blog" or page.layout == "post" %}class="active"{% endif %}>Blog</a>
+          <a href="{{ "/" | relative_url }}" {% if page.url == "/" %}class="active"{% endif %}><i class="fa-solid fa-house"></i> Home</a>
+          <a href="{{ "/projects" | relative_url }}" {% if page.url contains "/projects" %}class="active"{% endif %}><i class="fa-solid fa-folder-open"></i> Projects</a>
+          <a href="{{ "/blog" | relative_url }}" {% if page.url contains "/blog" or page.layout == "post" %}class="active"{% endif %}><i class="fa-solid fa-pen-to-square"></i> Blog</a>
         </nav>
 
         {% if site.github.is_project_page %}
