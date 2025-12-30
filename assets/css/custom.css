@@ -1,3 +1,93 @@
+/* Navigation Styles */
+
+.site-nav {
+  margin: 1.5rem 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.site-nav a {
+  display: inline-block;
+  margin-right: 1.5rem;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover {
+  color: #0366d6;
+}
+
+.site-nav a.active {
+  color: #0366d6;
+  border-bottom: 2px solid #0366d6;
+  padding-bottom: 2px;
+}
+
+/* Blog Styles */
+
+.posts-list {
+  margin: 1.5rem 0;
+}
+
+.post-preview {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.post-preview:last-child {
+  border-bottom: none;
+}
+
+.post-preview h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.post-preview h3 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.post-preview h3 a:hover {
+  color: #0366d6;
+}
+
+.post-meta {
+  color: #777;
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.post-preview p {
+  margin: 0.5rem 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.post-header h1 {
+  margin: 0 0 0.5rem 0;
+}
+
+.post-content {
+  line-height: 1.7;
+}
+
+.post-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
 /* Project Portfolio Styles */
 
 .projects-grid {

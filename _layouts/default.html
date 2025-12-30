@@ -23,6 +23,12 @@
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
+        <nav class="site-nav">
+          <a href="{{ "/" | relative_url }}" {% if page.url == "/" %}class="active"{% endif %}>Home</a>
+          <a href="{{ "/projects" | relative_url }}" {% if page.url contains "/projects" %}class="active"{% endif %}>Projects</a>
+          <a href="{{ "/blog" | relative_url }}" {% if page.url contains "/blog" or page.layout == "post" %}class="active"{% endif %}>Blog</a>
+        </nav>
+
         {% if site.github.is_project_page %}
         <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
         {% endif %}
