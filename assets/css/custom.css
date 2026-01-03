@@ -21,6 +21,26 @@
   color: #0366d6;
 }
 
+/* Sidebar Image */
+
+.sidebar-image {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.sidebar-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-image img:hover {
+  opacity: 1;
+}
+
 /* Dark Mode Styles */
 
 [data-theme="dark"] {
@@ -133,6 +153,10 @@
 [data-theme="dark"] code {
   background: var(--card-bg);
   color: var(--text-color);
+}
+
+[data-theme="dark"] .sidebar-image {
+  border-color: var(--border-color);
 }
 
 /* Navigation Styles */
