@@ -9,16 +9,16 @@ title: Projects
 
 <div class="project-card">
 <h3>Intuitive Deep Learning</h3>
-<p>Collections of Deep Learning experiments with analysis</p>
-<p>Python, Numpy, PyTorch, Matplotlib</p>
+<p>Collection of Deep Learning notebooks with analysis</p>
+<p>Python, Numpy, PyTorch, Matplotlib, Jupyter</p>
 <p><a href="https://shashankbl.github.io/intuitive-deep-learning/">View on GitHub</a></p>
 </div>
 
 <div class="project-card">
-<h3>Project title</h3>
-<p>Project description.</p>
-<p><strong>Tech:</strong> Python</p>
-<p><a href="https://github.com/shashankbl">View on GitHub</a></p>
+<h3>Roofline Radar</h3>
+<p>Roofline analysis of AI models against COTS hardware</p>
+<p>Python, Matplotlib, Streamlit, Docker</p>
+<p><a href="https://shashankbl.github.io/roofline-radar/">View on GitHub</a></p>
 </div>
 
 </div>
