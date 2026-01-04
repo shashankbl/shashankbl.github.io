@@ -16,7 +16,7 @@ title: Projects
 
 <div class="project-card">
 <h3>Roofline Radar</h3>
-<p>Roofline analysis of AI models against COTS hardware. WebUI is deployed to Heroku for live demo.</p>
+<p>Roofline analysis tool for AI models and popular COTS (AI) hardware. WebUI is deployed to Heroku for live demo.</p>
 <p>Python, Matplotlib, Streamlit, Docker</p>
 <p><a href="https://shashankbl.github.io/roofline-radar/">View on GitHub</a></p>
 </div>
