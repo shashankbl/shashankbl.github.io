@@ -11,8 +11,9 @@ Recognized inventor with 24 U.S. patents, I thrive on turning complex technology
 I believe engineering success rests on three pillars: People, Product, and Traction. My growth has been accelerated by many wonderful mentors, and I pay it forward by mentoring interns and early-career professionals.
 
 Community Volunteering:
-- Active K-12 STEM volunteer and hackathon mentor
-- Maker at heart — experimenting with robotics, IoT, 3D printing, and AI art
+- K-12 STEM volunteer
+- Early career mentor
+- Maker: IoT, 3D printing, and Computational Art
 
 ---
 
