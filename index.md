@@ -19,6 +19,6 @@ Community Volunteering:
 
 ## Contact
 
-- GitHub: [github.com/shashankbl](https://github.com/shashankbl)
 - LinkedIn: [Connect with me](https://linkedin.com/in/shashankbl)
+- GitHub: [github.com/shashankbl](https://github.com/shashankbl)
 - Google Scholar: [Publications/Patents](https://scholar.google.com/citations?user=_BI5HM8AAAAJ)
