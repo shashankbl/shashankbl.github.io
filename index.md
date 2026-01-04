@@ -18,6 +18,6 @@ Community Volunteering:
 
 ## Contact
 
-- **GitHub:** [github.com/shashankbl](https://github.com/shashankbl)
-- **LinkedIn:** [Connect with me](https://linkedin.com/in/shashankbl)
-- **Email:** [Get in touch](mailto:your.email@example.com)
+- GitHub: [github.com/shashankbl](https://github.com/shashankbl)
+- LinkedIn: [Connect with me](https://linkedin.com/in/shashankbl)
+- Google Scholar: [Publications/Patents](https://scholar.google.com/citations?user=_BI5HM8AAAAJ)
