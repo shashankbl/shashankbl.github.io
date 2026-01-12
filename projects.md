@@ -5,6 +5,8 @@ title: Projects
 
 ## Projects
 
+### Engineering
+
 <div class="projects-grid">
 
 <div class="project-card">
@@ -20,6 +22,12 @@ title: Projects
 <p>Python, Matplotlib, Streamlit, Docker</p>
 <p><a href="https://shashankbl.github.io/roofline-radar/">View on GitHub</a></p>
 </div>
+
+</div>
+
+### Engineered Art
+
+<div class="projects-grid">
 
 <div class="project-card">
 <h3>Pixel Synth</h3>
