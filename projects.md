@@ -24,7 +24,7 @@ title: Projects
 <div class="project-card">
 <h3>Pixel Synth</h3>
 <p>Pixel Synth is a collection of dynamic effects that can be applied on webcam live feed.</p>
-<p>Python</p>
+<p>Python, Javascript, p5js</p>
 <p><a href="https://shashankbl.github.io/pixelsynth/">View on GitHub</a></p>
 </div>
 
