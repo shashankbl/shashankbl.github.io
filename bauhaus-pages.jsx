@@ -328,16 +328,16 @@ window.HomePage = function HomePage({ nav }) {
   return (
     <>
       {/* Hero */}
-      <section style={{ maxWidth: 1180, margin: '0 auto', padding: '72px 32px 56px' }}>
+      <section className="pad-x hero-section" style={{ maxWidth: 1180, margin: '0 auto', padding: '72px 32px 56px' }}>
         <div className="reveal">
           <SectionLabel n="01">HELLO</SectionLabel>
         </div>
 
-        <div style={{
+        <div className="hero-grid" style={{
           marginTop: 22, display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'end',
         }}>
           <div>
-            <div className="reveal" style={{
+            <div className="reveal icon-row" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(6, 1fr)',
               gap: 12,
@@ -364,7 +364,7 @@ window.HomePage = function HomePage({ nav }) {
                 </div>
               ))}
             </div>
-            <h1 className="reveal display" style={{
+            <h1 className="reveal display hero-headline" style={{
               font: '500 clamp(36px, 5vw, 56px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
             }}>
@@ -385,6 +385,7 @@ window.HomePage = function HomePage({ nav }) {
                aria-label="hookem — UT Austin"
                style={{ display: 'block' }}>
               <img src="images/hookem.png" alt="hookem — UT Austin"
+                   className="hookem-img"
                    style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 176, objectFit: 'contain' }}/>
             </a>
             <div className="reveal" style={{
@@ -403,7 +404,7 @@ window.HomePage = function HomePage({ nav }) {
                 <span style={{ color: 'var(--accent)' }}>● collaborations · talks</span>
               </div>
             </div>
-            <div className="reveal" style={{
+            <div className="reveal stats-card" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
               display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14,
             }}>
@@ -419,7 +420,7 @@ window.HomePage = function HomePage({ nav }) {
       </section>
 
       {/* Affiliations */}
-      <section style={{
+      <section className="pad-x section-block" style={{
         maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
         borderTop: '1px solid var(--rule)',
       }}>
@@ -449,7 +450,7 @@ window.HomePage = function HomePage({ nav }) {
       </section>
 
       {/* Now */}
-      <section style={{
+      <section className="pad-x section-block" style={{
         maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
         borderTop: '1px solid var(--rule)',
       }}>

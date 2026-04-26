@@ -113,8 +113,51 @@
 
   .focus-outline:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 
+  /* Mobile / tablet adjustments */
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+      align-items: stretch !important;
+    }
+    .icon-row {
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    }
+  }
+
   @media (max-width: 720px) {
     body { font-size: 14px; }
+    section.pad-x,
+    .pad-x {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+    .hero-section {
+      padding-top: 40px !important;
+      padding-bottom: 32px !important;
+    }
+    .section-block {
+      padding-top: 36px !important;
+      padding-bottom: 36px !important;
+    }
+    .hero-headline {
+      font-size: clamp(30px, 8vw, 44px) !important;
+      line-height: 1.08 !important;
+    }
+    .hookem-img {
+      max-height: 120px !important;
+    }
+    .stats-card {
+      grid-template-columns: 1fr 1fr !important;
+      row-gap: 14px !important;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .icon-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      row-gap: 8px !important;
+    }
   }
 </style>
 </head>
