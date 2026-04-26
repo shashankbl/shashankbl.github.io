@@ -368,7 +368,7 @@ window.Footer = function Footer() {
         font: '400 10.5px var(--mono)', color: 'color-mix(in oklab, var(--bg) 50%, transparent)',
         letterSpacing: '.1em', textTransform: 'uppercase',
       }}>
-        <span>© {SITE.name} · 2014 → {new Date().getFullYear()}</span>
+        <span>© {SITE.name} · {new Date().getFullYear()}</span>
         <span>Press <kbd style={{
           background: 'transparent',
           border: '1px solid color-mix(in oklab, var(--bg) 30%, transparent)',
