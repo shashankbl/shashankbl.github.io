@@ -267,7 +267,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
           </span>
         </a>
         <span className="lbl-mono" style={{ display: 'inline-block' }}>
-          AI · Software · Semiconductors
+          Innovation at Hyperscale
         </span>
         <button
           onClick={toggleTheme}
