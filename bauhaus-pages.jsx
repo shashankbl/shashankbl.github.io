@@ -190,7 +190,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/blog', 'writing'],
     ['/talks', 'talks'],
     ['/news', 'news'],
-    ['/resume', 'resume'],
+    ['/experience', 'experience'],
     ['/contact', 'contact'],
   ];
   const isDark = theme === 'dark';
@@ -645,10 +645,10 @@ window.PostPage = function PostPage({ slug, nav }) {
   );
 };
 
-window.ResumePage = function ResumePage() {
+window.ExperiencePage = function ExperiencePage() {
   return (
     <section style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="04">Resume</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="04">Experience</SectionLabel></div>
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -938,7 +938,7 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['g p',     'projects'],
     ['g o',     'open-source'],
     ['g w',     'writing / blog'],
-    ['g r',     'resume'],
+    ['g e',     'experience'],
     ['g t',     'talks'],
     ['g n',     'news'],
     ['g c',     'contact'],

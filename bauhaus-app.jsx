@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/open-source', '/blog', '/talks', '/news', '/resume', '/contact'];
+const ROUTES = ['/', '/projects', '/open-source', '/blog', '/talks', '/news', '/experience', '/contact'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -87,12 +87,12 @@ function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
 
       const now = Date.now();
       if (lastKey.current.k === 'g' && now - lastKey.current.t < 800) {
-        const map = { h: '/', p: '/projects', o: '/open-source', w: '/blog', r: '/resume', t: '/talks', n: '/news', c: '/contact' };
+        const map = { h: '/', p: '/projects', o: '/open-source', w: '/blog', e: '/experience', t: '/talks', n: '/news', c: '/contact' };
         if (map[e.key]) { nav(map[e.key]); lastKey.current = { k: '', t: 0 }; return; }
       }
       if (e.key === 'g') { lastKey.current = { k: 'g', t: now }; return; }
 
-      const numMap = { '1': '/projects', '2': '/open-source', '3': '/blog', '4': '/talks', '5': '/news', '6': '/resume', '7': '/contact' };
+      const numMap = { '1': '/projects', '2': '/open-source', '3': '/blog', '4': '/talks', '5': '/news', '6': '/experience', '7': '/contact' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
@@ -131,7 +131,7 @@ function App() {
   else if (path === '/open-source') page = <window.OpenSourcePage/>;
   else if (path === '/blog') page = <window.BlogPage nav={nav}/>;
   else if (path.startsWith('/blog/')) page = <window.PostPage slug={path.slice(6)} nav={nav}/>;
-  else if (path === '/resume') page = <window.ResumePage/>;
+  else if (path === '/experience') page = <window.ExperiencePage/>;
   else if (path === '/talks') page = <window.TalksPage/>;
   else if (path === '/news') page = <window.NewsPage/>;
   else if (path === '/contact') page = <window.ContactPage/>;
