@@ -657,10 +657,10 @@ window.ResumePage = function ResumePage() {
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Thirteen years in engineering. Two+ years leading ML.
+        Thirteen years across memory, compute, and AI. Two+ years leading ML engineering.
       </h1>
-      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Memory, compute, accelerators — and the MLOps that ties them to product.
+      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
+        From NVM silicon pathfinding to AI accelerator solutions and cloud-native MLOps — and 25+ U.S. patents along the way.
       </p>
       <ResumeGroup label="Professional experience" entries={PROFESSIONAL}/>
       <ResumeGroup label="Academic experience"     entries={ACADEMIC}/>
