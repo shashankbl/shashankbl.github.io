@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shashank Bangalore Lakshman — Engineer · AI &amp; Semiconductors</title>
+<meta name="description" content="Shashank Bangalore Lakshman. Engineer working at the intersection of AI and silicon. Austin, TX." />
+<meta property="og:title" content="Shashank Bangalore Lakshman" />
+<meta property="og:description" content="Engineer · AI &amp; Semiconductors. Austin, TX." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&display=swap" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --bg: #f4f1ec;
+    --paper: #fbf9f5;
+    --ink: #1a1814;
+    --muted: rgba(26,24,20,.55);
+    --faint: rgba(26,24,20,.28);
+    --rule: rgba(26,24,20,.18);
+    --rule-soft: rgba(26,24,20,.1);
+    --accent: #d4502a;
+    --display: 'Fraunces', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  :root[data-theme="dark"] {
+    --bg: #14110d;
+    --paper: #1c1813;
+    --ink: #ece6da;
+    --muted: rgba(236,230,218,.55);
+    --faint: rgba(236,230,218,.25);
+    --rule: rgba(236,230,218,.16);
+    --rule-soft: rgba(236,230,218,.08);
+  }
+  :root[data-font="grotesk"] {
+    --display: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  :root[data-font="mono"] {
+    --display: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: var(--sans);
+    font-size: 15px; line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* Schematic dot grid background, fixed */
+  #dot-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(26,24,20,.13) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(180deg, #000 0%, transparent 95%);
+  }
+  :root[data-theme="dark"] #dot-bg {
+    background-image: radial-gradient(rgba(236,230,218,.10) 1px, transparent 1px);
+  }
+  /* ASCII particle layer (subtle, behind content) */
+  #ascii-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    font: 400 12px/1.2 var(--mono);
+    color: var(--faint); white-space: pre; user-select: none;
+    overflow: hidden; opacity: .35;
+    mix-blend-mode: multiply;
+  }
+  :root[data-theme="dark"] #ascii-bg { mix-blend-mode: screen; opacity: .22; }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(14px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  kbd {
+    background: var(--paper); border: 1px solid var(--rule);
+    padding: 1px 6px; border-radius: 3px;
+    font: 400 11px var(--mono); color: var(--ink);
+  }
+
+  hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+  .lbl-mono {
+    font: 400 10.5px var(--mono);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .lbl-mono .num { color: var(--accent); }
+
+  .display { font-family: var(--display); letter-spacing: -.02em; font-weight: 500; }
+
+  .hover-line { position: relative; }
+  .hover-line::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: var(--accent); transform: scaleX(0);
+    transform-origin: left; transition: transform .25s ease;
+  }
+  .hover-line:hover::after { transform: scaleX(1); }
+
+  .focus-outline:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 720px) {
+    body { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div id="dot-bg" aria-hidden="true"></div>
+<div id="ascii-bg" aria-hidden="true"></div>
+<div id="root" style="position:relative; z-index:1;"></div>
+
+<script>
+  // Slow ASCII drift behind the dot grid — sparse + subtle.
+  (function() {
+    const el = document.getElementById('ascii-bg');
+    const chars = [' ',' ',' ',' ',' ',' ',' ',' ',' ','·','·','·','·','+','+','*','◇','○','●'];
+    let cols = 0, rows = 0;
+    function size() {
+      cols = Math.ceil(window.innerWidth / 7.5);
+      rows = Math.ceil(window.innerHeight / 14.4);
+    }
+    size(); window.addEventListener('resize', size);
+    let t = 0;
+    function frame() {
+      t += 0.006;
+      const lines = new Array(rows);
+      for (let y = 0; y < rows; y++) {
+        let line = '';
+        for (let x = 0; x < cols; x++) {
+          const v = Math.sin((x*0.05) + t) + Math.cos((y*0.07) - t*0.6) + Math.sin((x+y)*0.03 + t*0.8);
+          const idx = ((v + 3.5) * 2.7) | 0;
+          line += chars[Math.max(0, Math.min(chars.length - 1, idx))];
+        }
+        lines[y] = line;
+      }
+      el.textContent = lines.join('\n');
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="bauhaus-data.jsx"></script>
+<script type="text/babel" src="bauhaus-pages.jsx"></script>
+<script type="text/babel" src="bauhaus-app.jsx"></script>
+</body>
+</html>
