@@ -337,7 +337,7 @@ window.HomePage = function HomePage({ nav }) {
         }}>
           <div>
             <h1 className="reveal display" style={{
-              font: '500 clamp(48px, 7vw, 78px)/1.02 var(--display)',
+              font: '500 clamp(36px, 5vw, 56px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
             }}>
               Engineering Leader at the<br/>
