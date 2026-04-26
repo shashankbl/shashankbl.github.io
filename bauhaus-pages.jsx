@@ -53,7 +53,7 @@ window.Header = function Header({ path, nav }) {
            style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--ink)' }}>
           <span style={{ width: 14, height: 14, background: 'var(--accent)', borderRadius: '50%' }}/>
           <span style={{ font: '500 12px var(--mono)', letterSpacing: '.06em', textTransform: 'uppercase' }}>
-            Shashank&nbsp;BL
+            Shashank&nbsp;Bangalore&nbsp;Lakshman
           </span>
         </a>
         <span className="lbl-mono" style={{ display: 'inline-block' }}>

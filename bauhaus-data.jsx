@@ -2,9 +2,9 @@
 
 window.SITE = {
   name: 'Shashank Bangalore Lakshman',
-  short: 'Shashank BL',
+  short: 'Shashank Bangalore Lakshman',
   tagline: 'Engineer at the intersection of AI and silicon.',
-  blurb: 'I build the systems that make models faster — and the silicon that makes them possible. Compilers, kernels, accelerators.',
+  blurb: 'I build AI and AI tools for On-Device Inference. I\'ve worked on semiconductors (SoC and memories), software (embedded and cloud) and systems engineering.',
   location: 'Austin, TX',
   status: 'Open to collaborations · talks',
   social: {
