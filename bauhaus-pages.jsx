@@ -186,6 +186,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
   const items = [
     ['/', 'index'],
     ['/projects', 'work'],
+    ['/research', 'research'],
     ['/open-source', 'open-source'],
     ['/blog', 'writing'],
     ['/talks', 'talks'],
@@ -283,7 +284,7 @@ window.Footer = function Footer() {
       }}>
         <div>
           <div className="lbl-mono" style={{ color: 'rgba(244,241,236,.5)' }}>
-            ── <span style={{ color: 'var(--accent)' }}>07</span> / CONTACT
+            ── <span style={{ color: 'var(--accent)' }}>08</span> / CONTACT
           </div>
           <div className="display" style={{
             font: '500 30px/1.15 var(--display)', marginTop: 10, maxWidth: 540,
@@ -454,7 +455,7 @@ window.HomePage = function HomePage({ nav }) {
         borderTop: '1px solid var(--rule)',
       }}>
         <div className="reveal">
-          <SectionLabel n="02">Now</SectionLabel>
+          <SectionLabel n="01·c">Now</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
             What I'm doing now.
           </h2>
@@ -587,7 +588,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
 window.BlogPage = function BlogPage({ nav }) {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="03">Writing</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="05">Writing</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -687,11 +688,11 @@ window.PostPage = function PostPage({ slug, nav }) {
 window.AboutMePage = function AboutMePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="04">About me</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="08">About me</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Thirteen years across memory, compute, and AI. Two+ years leading ML engineering.
+        Thirteen years engineering and leadership across memory, compute, and AI.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
         From NVM silicon pathfinding to AI accelerator solutions and cloud-native MLOps — and 25+ U.S. patents along the way.
@@ -793,6 +794,11 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
                   }}>
                     {r.role}
                   </h4>
+                  {r.note && (
+                    <div className="lbl-mono" style={{ marginTop: 4, color: 'var(--muted)' }}>
+                      {r.note}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -806,7 +812,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
 window.TalksPage = function TalksPage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="05">Talks</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="06">Talks</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 32px', letterSpacing: '-.025em',
       }}>
@@ -833,7 +839,7 @@ window.TalksPage = function TalksPage() {
 window.NewsPage = function NewsPage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="06">News</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="07">News</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -872,10 +878,56 @@ window.NewsPage = function NewsPage() {
   );
 };
 
+window.ResearchPage = function ResearchPage() {
+  return (
+    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+      <div className="reveal"><SectionLabel n="03">Research</SectionLabel></div>
+      <h1 className="display reveal page-headline" style={{
+        font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
+      }}>
+        Papers &amp; research.
+      </h1>
+      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
+        Selected publications, posters, and research artifacts.
+      </p>
+
+      {(!RESEARCH || RESEARCH.length === 0) ? (
+        <div className="reveal lbl-mono" style={{
+          marginTop: 36, padding: '28px 0', borderTop: '1px solid var(--rule)',
+          color: 'var(--muted)',
+        }}>
+          ◇ More coming soon. Browse{' '}
+          <a className="hover-line" href={SITE.social.scholar} target="_blank" rel="noreferrer"
+             style={{ color: 'var(--ink)' }}>
+            Google Scholar ↗
+          </a>{' '}in the meantime.
+        </div>
+      ) : (
+        <div style={{ marginTop: 32 }}>
+          {RESEARCH.map((r, i) => (
+            <a key={i} href={r.url} target="_blank" rel="noreferrer"
+               className="reveal hover-line list-row"
+               style={{
+                 display: 'grid', gridTemplateColumns: '90px 200px 1fr 140px',
+                 padding: '20px 0', borderTop: '1px solid var(--rule)',
+                 alignItems: 'baseline', gap: 16, color: 'var(--ink)',
+               }}>
+              <span className="lbl-mono">{r.date}</span>
+              <span className="lbl-mono" style={{ color: 'var(--accent)' }}>{r.venue}</span>
+              <span className="display" style={{ font: '500 18px/1.3 var(--display)' }}>{r.title}</span>
+              <span className="lbl-mono" style={{ textAlign: 'right' }}>{r.loc} ↗</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
+
 window.OpenSourcePage = function OpenSourcePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="02">Open-source</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="04">Open-source</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -956,12 +1008,13 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['k  /  ↑', 'scroll up'],
     ['g h',     'home'],
     ['g p',     'projects'],
+    ['g r',     'research'],
     ['g o',     'open-source'],
     ['g w',     'writing / blog'],
     ['g t',     'talks'],
     ['g n',     'news'],
     ['g a',     'about me'],
-    ['1 — 6',   'jump to section'],
+    ['1 — 7',   'jump to section'],
     ['t',       'toggle theme'],
     ['?',       'this help'],
     ['esc',     'close'],

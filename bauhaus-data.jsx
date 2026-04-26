@@ -66,6 +66,11 @@ window.NEWS = [
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
 ];
 
+window.RESEARCH = [
+  // { date: 'YYYY·MM', venue: 'Venue / Conference', title: 'Paper title',
+  //   authors: 'Authors', url: 'https://...', loc: 'Type · paper · poster' },
+];
+
 window.TALKS = [
   { date: '2025·04', venue: 'FLC Tech Summit 2025',
     title: 'Agentic BoD: Building my own LLM-powered personal board of directors',
@@ -113,7 +118,7 @@ window.PROFESSIONAL = [
           'Mapped trending automotive AI workloads to memory systems requirements to technically influence the automotive memory/storage product roadmap.',
           'Evangelized memory products to OEM/Tier-1 customers through demos and workshops in the US and Japan.',
         ] },
-      { y: 'Aug 2021 → Mar 2023', role: 'Senior Systems Architect · AI Solutions',
+      { y: 'Aug 2021 → Mar 2023', role: 'Senior Systems Engineer · AI Solutions',
         bullets: [
           'Technical leader for the AI acceleration solution (Micron DLA) — delivered AI accelerator demos and the "MDLA CEBU" benchmarking suite.',
           'Filed 20+ patent disclosures, demonstrating strong understanding of pathfinding and innovation in AI applications and hardware architectures.',
@@ -158,7 +163,8 @@ window.ACADEMIC = [
 
   { co: 'Boise State University', loc: 'Boise, ID', span: 'Jan 2020 → Jun 2022',
     roles: [
-      { y: 'Jan 2020 → Jun 2022', role: 'Graduate Coursework in Machine Learning (non-degree)',
+      { y: 'Jan 2020 → Jun 2022', role: 'Ph.D. program in Computer Science',
+        note: 'Withdrew from program · graduate coursework in ML / DL / NLP / AI.',
         bullets: [
           'Machine Learning, Deep Learning, Natural Language Processing, Artificial Intelligence, Design and Analysis of Algorithms, Advanced Software Engineering.',
         ] },
