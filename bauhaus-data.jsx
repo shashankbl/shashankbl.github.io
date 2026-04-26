@@ -193,7 +193,7 @@ window.PROFESSIONAL = [
       { y: 'Aug 2021 → Mar 2023', role: 'Senior Systems Engineer · AI Solutions',
         bullets: [
           'Technical leader for the AI acceleration solution (Micron DLA) — delivered AI accelerator demos and the "MDLA CEBU" benchmarking suite.',
-          'Filed 20+ patent disclosures, demonstrating strong understanding of pathfinding and innovation in AI applications and hardware architectures.',
+          'Filed 20+ patents, demonstrating strong understanding of pathfinding and innovation in AI applications and hardware architectures.',
           'Built a customer-centric AI lab at the Folsom site to accelerate AI solutions; led two Ph.D. interns.',
           'Conducted competitor research on edge AI inference and PIM/PNM, influencing product strategy.',
         ] },
