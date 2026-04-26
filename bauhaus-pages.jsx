@@ -541,11 +541,11 @@ window.ContactPage = function ContactPage() {
         font: '500 56px/1.05 var(--display)', margin: '14px 0 8px',
         letterSpacing: '-.025em', maxWidth: 620,
       }}>
-        Currently open to <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>collaborations</span> on AI/HW co-design.
+        Currently open to <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>collaborations</span> on AI/HW co-design research.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, marginTop: 18, fontSize: 15 }}>
         Drop a line if you're working on inference systems, accelerator co-design, or vector ISAs —
-        or just want to swap notes on the state of the art.
+        or just want to swap notes on the state of the art in AI and semiconductors.
       </p>
       <div className="reveal" style={{
         marginTop: 36, display: 'grid', gridTemplateColumns: '120px 1fr',
