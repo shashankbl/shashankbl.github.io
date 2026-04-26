@@ -125,7 +125,7 @@ window.Placeholder = function Placeholder({ label, h = 180 }) {
   );
 };
 
-window.Header = function Header({ path, nav }) {
+window.Header = function Header({ path, nav, theme, toggleTheme }) {
   const items = [
     ['/', 'index'],
     ['/projects', 'work'],
@@ -135,6 +135,7 @@ window.Header = function Header({ path, nav }) {
     ['/now', 'now'],
     ['/contact', 'contact'],
   ];
+  const isDark = theme === 'dark';
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 30,
@@ -142,6 +143,7 @@ window.Header = function Header({ path, nav }) {
       backdropFilter: 'blur(10px)',
       borderBottom: '1px solid var(--rule)',
     }}>
+      {/* Top row — brand + theme toggle */}
       <div style={{
         maxWidth: 1180, margin: '0 auto', padding: '14px 32px',
         display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap',
@@ -156,8 +158,39 @@ window.Header = function Header({ path, nav }) {
         <span className="lbl-mono" style={{ display: 'inline-block' }}>
           AI · Software · Semiconductors
         </span>
+        <button
+          onClick={toggleTheme}
+          aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          className="focus-outline"
+          style={{
+            marginLeft: 'auto',
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '6px 12px',
+            background: 'var(--paper)', color: 'var(--ink)',
+            border: '1px solid var(--rule)', borderRadius: 999,
+            font: '400 11px var(--mono)', letterSpacing: '.1em', textTransform: 'uppercase',
+            cursor: 'pointer',
+            transition: 'border-color .2s ease',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}
+        >
+          <span style={{ color: 'var(--accent)', fontSize: 13, lineHeight: 1 }}>
+            {isDark ? '☀' : '☾'}
+          </span>
+          <span>{isDark ? 'Light' : 'Dark'}</span>
+        </button>
+      </div>
+
+      {/* Bottom row — nav menu */}
+      <div style={{
+        maxWidth: 1180, margin: '0 auto', padding: '0 32px 12px',
+        borderTop: '1px solid var(--rule-soft)',
+      }}>
         <nav style={{
-          marginLeft: 'auto', display: 'flex', gap: 22, flexWrap: 'wrap',
+          paddingTop: 12,
+          display: 'flex', gap: 22, flexWrap: 'wrap',
           font: '400 11px var(--mono)', letterSpacing: '.1em', textTransform: 'uppercase',
         }}>
           {items.map(([href, lbl], i) => {

@@ -140,7 +140,7 @@ function App() {
 
   return (
     <>
-      <window.Header path={path} nav={nav}/>
+      <window.Header path={path} nav={nav} theme={t.theme} toggleTheme={toggleTheme}/>
       <window.DevBanner/>
       <main key={path} style={{ minHeight: 'calc(100vh - 280px)' }}>{page}</main>
       <window.Footer/>
