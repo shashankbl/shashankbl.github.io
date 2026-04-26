@@ -88,16 +88,14 @@ window.RESEARCH = {
 
 // Capabilities (what I do)
 window.SKILLS = [
-  { group: 'Semiconductor Engineering',
+  { group: 'Hardware Engineering',
     items: ['Silicon characterization', 'System validation', 'Probing', 'RTL Design Verification', 'Circuit Design', 'Embedded Systems', 'Sensors and Actuators'] },
   { group: 'Machine Learning',
     items: ['Pre-training', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Model evals'] },
   { group: 'AI Engineering',
-    items: ['NLP', 'LLM & Agentic AI', 'RAG', 'Computer vision'] },
+    items: ['NLP', 'LLM & Agentic AI', 'RAG', 'Computer vision', 'MLOps'] },
   { group: 'Software Engineering',
-    items: ['Spec-driven development', 'Web UI', 'API'] },
-  { group: 'Systems',
-    items: ['Containerization', 'CI/CD · DevOps', 'MLOps'] },
+    items: ['Spec-driven development', 'Web UI', 'API', 'Containerization', 'CI/CD · DevOps'] },
   { group: 'Leadership',
     items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Technical writing', 'Patent disclosures'] },
 ];
