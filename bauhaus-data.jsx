@@ -126,6 +126,9 @@ window.TOOLS = [
 ];
 
 window.TALKS = [
+  { date: '2026·04', venue: 'Los Rios STEM Fair',
+    title: 'Keynote · STEM Professional 2.0: Thriving on the Razor Edge of AI',
+    loc: 'Folsom, CA' },
   { date: '2025·04', venue: 'FLC Tech Summit 2025',
     title: 'Agentic BoD: Building my own LLM-powered personal board of directors',
     loc: 'Folsom, CA' },
