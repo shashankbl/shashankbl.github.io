@@ -71,15 +71,29 @@ window.RESEARCH = [
   //   authors: 'Authors', url: 'https://...', loc: 'Type · paper · poster' },
 ];
 
-// 25 top skills, grouped into 4 categories.
 window.SKILLS = [
-  { group: 'AI · ML',
-    items: ['LLMs', 'RAG', 'Agents', 'MLOps', 'PyTorch', 'ONNX', 'Model evals'] },
-  { group: 'Software · Cloud',
-    items: ['Python', 'C / C++', 'JavaScript', 'Azure', 'CI/CD', 'MLflow', 'Airflow'] },
-  { group: 'Silicon · Systems',
-    items: ['SoC architecture', 'ASIC characterization', 'RTL · Verilog', 'Memory · NVM', 'Embedded SW', 'ADAS / R-Car'] },
-  { group: 'Leadership · Methods',
+  { group: 'Semiconductor Engineering',
+    items: ['Silicon characterization', 'System validation', 'Benchlab', 'Probing'] },
+  { group: 'Programming',
+    items: ['Python', 'C / C++', 'Verilog / SystemVerilog', 'Spec-Driven Development', 'OpenCode', 'Claude Code'] },
+  { group: 'Machine Learning',
+    subgroups: [
+      { label: 'Core',
+        items: ['Pre-training', 'Transfer learning', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Performance evals'] },
+      { label: 'NLP, LLM & Agentic AI',
+        items: ['OpenAI SDK', 'Autogen', 'LangChain', 'Google ADK', 'MCP', 'SLMs (Qwen / Llama)'] },
+      { label: 'Computer vision',
+        items: ['CNN', 'ViT'] },
+      { label: 'Model engineering',
+        items: ['scikit-learn', 'PyTorch', 'NumPy', 'Pandas', 'Matplotlib', 'ONNX', 'OpenCV', 'OpenMMLab', 'Hugging Face'] },
+      { label: 'MLOps',
+        items: ['SQL', 'Streamlit', 'Airflow', 'MLflow'] },
+    ] },
+  { group: 'AI Hardware',
+    items: ['Nvidia A100 / T4 / RTX', 'Jetson Orin', 'Renesas R-Car SoC', 'Raspberry Pi', 'Arduino'] },
+  { group: 'Systems Engineering',
+    items: ['Azure Cloud (VM)', 'Linux', 'Containerization', 'CI/CD · DevOps'] },
+  { group: 'Leadership',
     items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Patent disclosures', 'Technical writing'] },
 ];
 

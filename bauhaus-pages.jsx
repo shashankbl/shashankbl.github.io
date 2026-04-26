@@ -170,34 +170,60 @@ window.LogoTile = function LogoTile({ item }) {
   );
 };
 
+window.SkillList = function SkillList({ items }) {
+  return (
+    <ul style={{
+      margin: 0, padding: 0, listStyle: 'none',
+      display: 'grid', gap: 6,
+    }}>
+      {items.map(s => (
+        <li key={s} style={{
+          display: 'grid', gridTemplateColumns: '14px 1fr', gap: 8,
+          font: '400 13px/1.45 var(--mono)', color: 'var(--ink)',
+        }}>
+          <span style={{ color: 'var(--accent)' }}>▸</span>
+          <span>{s}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 window.SkillMatrix = function SkillMatrix({ groups }) {
   return (
     <div className="skills-grid" style={{
       display: 'grid', gap: 28,
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gridTemplateColumns: 'repeat(2, 1fr)',
     }}>
-      {groups.map(g => (
-        <div key={g.group} className="reveal">
-          <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 10 }}>
-            {g.group}
-          </div>
-          <hr className="rule" style={{ marginBottom: 12 }}/>
-          <ul style={{
-            margin: 0, padding: 0, listStyle: 'none',
-            display: 'grid', gap: 6,
-          }}>
-            {g.items.map(s => (
-              <li key={s} style={{
-                display: 'grid', gridTemplateColumns: '14px 1fr', gap: 8,
-                font: '400 13px/1.45 var(--mono)', color: 'var(--ink)',
+      {groups.map(g => {
+        const isNested = Array.isArray(g.subgroups);
+        return (
+          <div key={g.group} className="reveal"
+               style={isNested ? { gridColumn: '1 / -1' } : undefined}>
+            <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 10 }}>
+              {g.group}
+            </div>
+            <hr className="rule" style={{ marginBottom: 14 }}/>
+            {isNested ? (
+              <div className="skills-subgrid" style={{
+                display: 'grid', gap: 22,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               }}>
-                <span style={{ color: 'var(--accent)' }}>▸</span>
-                <span>{s}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+                {g.subgroups.map(sg => (
+                  <div key={sg.label}>
+                    <div className="lbl-mono" style={{ color: 'var(--ink)', marginBottom: 8 }}>
+                      {sg.label}
+                    </div>
+                    <SkillList items={sg.items}/>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <SkillList items={g.items}/>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -503,7 +529,7 @@ window.HomePage = function HomePage({ nav }) {
         <div className="reveal">
           <SectionLabel n="01·c">Skills</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
-            Top twenty-five.
+            Technical skills.
           </h2>
           <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
             Things I lean on day-to-day, grouped by category.
