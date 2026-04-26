@@ -909,10 +909,10 @@ window.GanttChart = function GanttChart({ professional, academic }) {
   const acadEntries = buildEntries(academic, 'school');
   if (profEntries.length === 0 && acadEntries.length === 0) return null;
 
-  // Sort each employer's roles oldest first; sort employers by earliest role.
+  // Sort each employer's roles oldest first; sort employers newest-first (resume order).
   [...profEntries, ...acadEntries].forEach(e => e.roles.sort((a, b) => a.start - b.start));
-  profEntries.sort((a, b) => a.roles[0].start - b.roles[0].start);
-  acadEntries.sort((a, b) => a.roles[0].start - b.roles[0].start);
+  profEntries.sort((a, b) => b.roles[0].start - a.roles[0].start);
+  acadEntries.sort((a, b) => b.roles[0].start - a.roles[0].start);
 
   const allDates = [...profEntries, ...acadEntries].flatMap(e => e.roles.flatMap(r => [r.start, r.end]));
   const minYear = new Date(Math.min.apply(null, allDates)).getFullYear();
@@ -921,13 +921,13 @@ window.GanttChart = function GanttChart({ professional, academic }) {
   const maxB = new Date(maxYear, 0, 1);
 
   // Layout
-  const W = 1100;
-  const rowHeight = 38;
-  const barHeight = 14;
-  const yearAxisHeight = 28;
-  const sectionHeaderHeight = 22;
-  const sectionGap = 10;
-  const labelWidth = 280;
+  const W = 1180;
+  const rowHeight = 30;
+  const barHeight = 12;
+  const yearAxisHeight = 26;
+  const sectionHeaderHeight = 20;
+  const sectionGap = 8;
+  const labelWidth = 340;
   const chartLeft = labelWidth + 16;
   const chartRight = W - 24;
   const chartWidth = chartRight - chartLeft;
@@ -944,7 +944,7 @@ window.GanttChart = function GanttChart({ professional, academic }) {
 
   // Truncate role text to fit a given segment width.
   const truncate = (text, maxW) => {
-    const charW = 5.0;
+    const charW = 5.6;
     const maxChars = Math.max(1, Math.floor(maxW / charW));
     return text.length > maxChars ? (maxChars > 1 ? text.slice(0, maxChars - 1) + '…' : '…') : text;
   };
@@ -1097,6 +1097,8 @@ window.AboutMePage = function AboutMePage() {
         From NVM silicon pathfinding to AI accelerator solutions and cloud-native MLOps — and 25+ U.S. patents along the way.
       </p>
       <GanttChart professional={PROFESSIONAL} academic={ACADEMIC}/>
+      <ResumeGroup label="Professional experience" entries={PROFESSIONAL}/>
+      <ResumeGroup label="Academic experience"     entries={ACADEMIC}/>
     </section>
   );
 };
