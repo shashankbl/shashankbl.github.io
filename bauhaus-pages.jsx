@@ -353,17 +353,14 @@ window.HomePage = function HomePage({ nav }) {
               ].map(d => (
                 <div key={d.label} title={d.label}
                      style={{
-                       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                        padding: '6px 4px',
                      }}>
-                  <span className="material-symbols-outlined" aria-hidden="true"
+                  <span className="material-symbols-outlined" aria-label={d.label}
                         style={{
                           fontSize: 28, color: 'var(--accent)', lineHeight: 1,
                           fontVariationSettings: '"opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0',
                         }}>{d.icon}</span>
-                  <span className="lbl-mono" style={{ fontSize: 9.5, textAlign: 'center' }}>
-                    {d.label}
-                  </span>
                 </div>
               ))}
             </div>
