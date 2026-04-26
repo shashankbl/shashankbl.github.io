@@ -90,7 +90,7 @@ window.PROFESSIONAL = [
   { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
     logo: 'images/logos/renesas.svg',
     roles: [
-      { y: 'Oct 2024 → now', role: 'Engineering Lead Manager · ML/MLOps',
+      { y: 'Oct 2024 → now', role: 'Engineering Lead and Manager · ML/MLOps',
         bullets: [
           'Experienced Engineer managing a team of engineers in the ML solutions team.',
           'Building LLM tools: RAG and Agents for engineering workflows.',
