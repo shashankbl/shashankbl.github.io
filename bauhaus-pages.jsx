@@ -487,22 +487,51 @@ window.ResumePage = function ResumePage() {
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
         Memory, compute, accelerators — and the MLOps that ties them to product.
       </p>
-      <div style={{ marginTop: 36 }}>
-        {RESUME.map((r, i) => (
+      <ResumeGroup label="Professional experience" entries={PROFESSIONAL}/>
+      <ResumeGroup label="Academic experience"     entries={ACADEMIC}/>
+    </section>
+  );
+};
+
+window.ResumeGroup = function ResumeGroup({ label, entries }) {
+  return (
+    <div style={{ marginTop: 48 }}>
+      <h2 className="display reveal" style={{
+        font: '500 26px/1.2 var(--display)', margin: '0 0 4px',
+        letterSpacing: '-.01em',
+      }}>
+        {label}
+      </h2>
+      <hr className="rule" style={{ marginTop: 12 }}/>
+      <div>
+        {entries.map((r, i) => (
           <div key={i} className="reveal" style={{
             display: 'grid', gridTemplateColumns: '160px 1fr',
-            padding: '24px 0', borderTop: '1px solid var(--rule)', gap: 24,
+            padding: '24px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none', gap: 24,
           }}>
             <div className="lbl-mono">{r.y}</div>
             <div>
               <h3 className="display" style={{ font: '500 22px/1.25 var(--display)', margin: 0 }}>{r.role}</h3>
               <div className="lbl-mono" style={{ marginTop: 4, color: 'var(--accent)' }}>{r.co}</div>
-              <p style={{ marginTop: 10, color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65 }}>{r.d}</p>
+              <ul style={{
+                marginTop: 12, marginBottom: 0, paddingLeft: 0, listStyle: 'none',
+                color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65,
+              }}>
+                {r.bullets.map((b, j) => (
+                  <li key={j} style={{
+                    display: 'grid', gridTemplateColumns: '14px 1fr', gap: 10,
+                    marginTop: j ? 8 : 0,
+                  }}>
+                    <span style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', lineHeight: 1.65 }}>▸</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
