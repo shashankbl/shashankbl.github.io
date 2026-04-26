@@ -764,20 +764,6 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
                   }}>
                     {r.role}
                   </h4>
-                  <ul style={{
-                    marginTop: 10, marginBottom: 0, paddingLeft: 0, listStyle: 'none',
-                    color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65,
-                  }}>
-                    {r.bullets.map((b, k) => (
-                      <li key={k} style={{
-                        display: 'grid', gridTemplateColumns: '14px 1fr', gap: 10,
-                        marginTop: k ? 8 : 0,
-                      }}>
-                        <span style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', lineHeight: 1.65 }}>▸</span>
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               ))}
             </div>
