@@ -863,6 +863,192 @@ window.PostPage = function PostPage({ slug, nav }) {
   );
 };
 
+// Parse date strings like 'Jan 2024 → now', 'Aug 2015 → Aug 2021', '2020 → Jun 2022'.
+window.parseRange = function parseRange(y) {
+  if (!y) return null;
+  const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6,
+                   Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+  const parseOne = (s) => {
+    const t = s.trim();
+    if (!t) return null;
+    if (/^now$/i.test(t)) return new Date();
+    const parts = t.split(/\s+/);
+    if (parts.length === 1) {
+      const yr = parseInt(parts[0], 10);
+      return isNaN(yr) ? null : new Date(yr, 0, 1);
+    }
+    const m = MONTHS[parts[0]] ?? 0;
+    const yr = parseInt(parts[1], 10);
+    return isNaN(yr) ? null : new Date(yr, m, 1);
+  };
+  const sides = y.split(/\s*(?:→|->)\s*/);
+  if (sides.length === 1) {
+    const d = parseOne(sides[0]);
+    return d ? { start: d, end: d } : null;
+  }
+  const start = parseOne(sides[0]);
+  const end = parseOne(sides[1]);
+  if (!start || !end) return null;
+  return { start, end };
+};
+
+window.GanttChart = function GanttChart({ professional, academic }) {
+  const svgRef = React.useRef(null);
+
+  const items = [];
+  (professional || []).forEach(emp => (emp.roles || []).forEach(role => {
+    const r = parseRange(role.y);
+    if (r) items.push({ kind: 'work', co: emp.co, role: role.role, ...r });
+  }));
+  (academic || []).forEach(emp => (emp.roles || []).forEach(role => {
+    const r = parseRange(role.y);
+    if (r) items.push({ kind: 'school', co: emp.co, role: role.role, ...r });
+  }));
+  if (items.length === 0) return null;
+  items.sort((a, b) => a.start - b.start);
+
+  const allDates = items.flatMap(i => [i.start, i.end]);
+  const minYear = new Date(Math.min.apply(null, allDates)).getFullYear();
+  const maxYear = new Date(Math.max.apply(null, allDates)).getFullYear() + 1;
+  const minB = new Date(minYear, 0, 1);
+  const maxB = new Date(maxYear, 0, 1);
+
+  // Layout
+  const W = 1100;
+  const rowHeight = 26;
+  const yearAxisHeight = 28;
+  const labelWidth = 320;
+  const chartLeft = labelWidth + 16;
+  const chartRight = W - 24;
+  const chartWidth = chartRight - chartLeft;
+
+  const palette = ['#d4502a', '#3a8fa3', '#3f8a6a', '#c08e2c', '#7a5ec0', '#5a7a8c', '#8d5a3a', '#a64b69'];
+  const companies = [];
+  items.forEach(i => { if (!companies.includes(i.co)) companies.push(i.co); });
+  const coColor = {};
+  companies.forEach((c, i) => coColor[c] = palette[i % palette.length]);
+
+  // Legend layout: 2 columns, dynamic rows
+  const legendCols = 2;
+  const legendRowH = 16;
+  const legendRows = Math.ceil(companies.length / legendCols);
+  const legendHeight = 12 + legendRows * legendRowH + 12;
+
+  const H = yearAxisHeight + items.length * rowHeight + legendHeight + 8;
+
+  const xScale = (date) => chartLeft + ((date - minB) / (maxB - minB)) * chartWidth;
+  const yearTicks = [];
+  for (let yr = minYear; yr <= maxYear; yr++) yearTicks.push(yr);
+
+  const downloadPNG = () => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const scale = 2;
+      const canvas = document.createElement('canvas');
+      canvas.width = W * scale;
+      canvas.height = H * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fbf9f5';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'experience-gantt.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 'image/png');
+      URL.revokeObjectURL(svgUrl);
+    };
+    img.src = svgUrl;
+  };
+
+  return (
+    <div className="reveal" style={{ marginTop: 32 }}>
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+        marginBottom: 12, flexWrap: 'wrap', gap: 12,
+      }}>
+        <h2 className="display" style={{ font: '500 24px/1.2 var(--display)', margin: 0 }}>
+          Timeline
+        </h2>
+        <button onClick={downloadPNG} className="focus-outline" style={{
+          background: 'var(--paper)', border: '1px solid var(--rule)',
+          padding: '6px 14px', cursor: 'default', color: 'var(--ink)',
+          font: '500 11px var(--mono)', letterSpacing: '.1em', textTransform: 'uppercase',
+        }}>
+          ↓ Download PNG
+        </button>
+      </div>
+      <div style={{ overflowX: 'auto', border: '1px solid var(--rule)' }}>
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg"
+             style={{ width: '100%', height: 'auto', display: 'block', minWidth: 700, background: '#fbf9f5' }}>
+          <rect x="0" y="0" width={W} height={H} fill="#fbf9f5"/>
+
+          {/* Year ticks */}
+          {yearTicks.map(yr => {
+            const x = xScale(new Date(yr, 0, 1));
+            return (
+              <g key={yr}>
+                <line x1={x} y1={yearAxisHeight} x2={x} y2={yearAxisHeight + items.length * rowHeight}
+                      stroke="rgba(26,24,20,.08)" strokeDasharray="3 5"/>
+                <text x={x} y={20} textAnchor="middle" fontSize="10.5"
+                      fontFamily="ui-monospace, monospace" fill="rgba(26,24,20,.55)">
+                  {yr}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Bars and role labels */}
+          {items.map((it, i) => {
+            const y = yearAxisHeight + i * rowHeight + (rowHeight - 14) / 2;
+            const x1 = xScale(it.start);
+            const x2 = xScale(it.end);
+            const isSchool = it.kind === 'school';
+            return (
+              <g key={i}>
+                <title>{`${it.co} · ${it.role}`}</title>
+                <text x={labelWidth} y={y + 11} textAnchor="end" fontSize="10.5"
+                      fontFamily="ui-monospace, monospace" fill="#1a1814">
+                  {it.role}
+                </text>
+                <rect x={x1} y={y} width={Math.max(2, x2 - x1)} height={14}
+                      fill={coColor[it.co]} fillOpacity={isSchool ? 0.5 : 0.9}/>
+              </g>
+            );
+          })}
+
+          {/* Legend */}
+          <g transform={`translate(${chartLeft}, ${yearAxisHeight + items.length * rowHeight + 16})`}>
+            {companies.map((co, ci) => {
+              const col = ci % legendCols;
+              const row = Math.floor(ci / legendCols);
+              const cellW = chartWidth / legendCols;
+              return (
+                <g key={ci} transform={`translate(${col * cellW}, ${row * legendRowH})`}>
+                  <rect x="0" y="0" width="10" height="10" fill={coColor[co]}/>
+                  <text x="16" y="9" fontSize="10.5"
+                        fontFamily="ui-monospace, monospace" fill="#1a1814">
+                    {co}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
 window.AboutMePage = function AboutMePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
@@ -875,8 +1061,7 @@ window.AboutMePage = function AboutMePage() {
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
         From NVM silicon pathfinding to AI accelerator solutions and cloud-native MLOps — and 25+ U.S. patents along the way.
       </p>
-      <ResumeGroup label="Professional experience" entries={PROFESSIONAL}/>
-      <ResumeGroup label="Academic experience"     entries={ACADEMIC}/>
+      <GanttChart professional={PROFESSIONAL} academic={ACADEMIC}/>
     </section>
   );
 };
