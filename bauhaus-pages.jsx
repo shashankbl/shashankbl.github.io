@@ -402,7 +402,7 @@ window.HomePage = function HomePage({ nav }) {
       {/* Hero */}
       <section className="pad-x hero-section" style={{ maxWidth: 1180, margin: '0 auto', padding: '72px 32px 56px' }}>
         <div className="reveal">
-          <SectionLabel n="01">HELLO</SectionLabel>
+          <SectionLabel n="01">Index</SectionLabel>
         </div>
 
         <div className="hero-grid" style={{
@@ -583,7 +583,7 @@ window.HomePage = function HomePage({ nav }) {
 window.ProjectsPage = function ProjectsPage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="02">Selected work</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="02">Work</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -1108,7 +1108,7 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['g t',     'talks'],
     ['g n',     'news'],
     ['g a',     'about me'],
-    ['1 — 7',   'jump to section'],
+    ['1 — 8',   'jump to section'],
     ['t',       'toggle theme'],
     ['?',       'this help'],
     ['esc',     'close'],

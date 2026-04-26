@@ -92,7 +92,7 @@ function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
       }
       if (e.key === 'g') { lastKey.current = { k: 'g', t: now }; return; }
 
-      const numMap = { '1': '/projects', '2': '/research', '3': '/open-source', '4': '/blog', '5': '/talks', '6': '/news', '7': '/about-me' };
+      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/blog', '6': '/talks', '7': '/news', '8': '/about-me' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
