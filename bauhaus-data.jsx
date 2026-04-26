@@ -147,21 +147,21 @@ window.ACADEMIC = [
     ] },
 ];
 
-// Affiliations shown on the home page. `slug` resolves to a Simple Icons SVG
-// (https://cdn.simpleicons.org/{slug}); entries without a slug render as a
-// typographic wordmark.
+// Affiliations shown on the home page. `file` points to a local logo asset
+// in /logos. If absent, `slug` resolves to a Simple Icons SVG. Entries with
+// neither render as a typographic wordmark.
 window.AFFILIATIONS = {
   current: [
-    { name: 'Renesas Electronics', short: 'Renesas',  slug: 'renesas',  kind: 'employer' },
-    { name: 'UT Austin',           short: 'UT Austin',                  kind: 'school'   },
+    { name: 'Renesas Electronics', short: 'Renesas',  file: 'logos/renesas.svg', kind: 'employer' },
+    { name: 'UT Austin',           short: 'UT Austin',                            kind: 'school'   },
   ],
   past: [
-    { name: 'Micron Technology',          short: 'Micron',     slug: 'micron',  kind: 'employer' },
-    { name: 'SanDisk',                    short: 'SanDisk',    slug: 'sandisk', kind: 'employer' },
-    { name: 'Bosch',                      short: 'Bosch',      slug: 'bosch',   kind: 'employer' },
-    { name: 'Boise State University',     short: 'Boise State',                 kind: 'school'   },
-    { name: 'San Jose State University',  short: 'SJSU',                        kind: 'school'   },
-    { name: 'VTU India',                  short: 'VTU',                         kind: 'school'   },
+    { name: 'Micron Technology',          short: 'Micron',     file: 'logos/micron.png',  kind: 'employer' },
+    { name: 'SanDisk',                    short: 'SanDisk',    file: 'logos/sandisk.svg', kind: 'employer' },
+    { name: 'Bosch',                      short: 'Bosch',      file: 'logos/bosch.svg',   kind: 'employer' },
+    { name: 'Boise State University',     short: 'Boise State',                            kind: 'school'   },
+    { name: 'San Jose State University',  short: 'SJSU',                                   kind: 'school'   },
+    { name: 'VTU India',                  short: 'VTU',                                    kind: 'school'   },
   ],
 };
 

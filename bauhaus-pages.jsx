@@ -42,7 +42,7 @@ window.Pill = function Pill({ kind }) {
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
   const kindGlyph = item.kind === 'school' ? '▲' : '■';
-  const useImg = item.slug && !failed;
+  const src = !failed && (item.file || (item.slug && `https://cdn.simpleicons.org/${item.slug}`));
   return (
     <div title={item.name} style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
@@ -57,9 +57,9 @@ window.LogoTile = function LogoTile({ item }) {
         height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
         width: '100%',
       }}>
-        {useImg ? (
+        {src ? (
           <img
-            src={`https://cdn.simpleicons.org/${item.slug}`}
+            src={src}
             alt={item.name}
             onError={() => setFailed(true)}
             style={{
