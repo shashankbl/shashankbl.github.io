@@ -46,6 +46,54 @@ window.flagEmoji = function flagEmoji(cc) {
   ).join('');
 };
 
+window.SubstackAd = function SubstackAd() {
+  const [failed, setFailed] = React.useState(false);
+  const href = (window.SITE && SITE.social && SITE.social.substack) || 'https://substack.com/@shashankbl';
+  return (
+    <a href={href} target="_blank" rel="noreferrer"
+       className="reveal focus-outline"
+       style={{
+         display: 'block', marginTop: 28,
+         border: '1px solid var(--rule)', background: 'var(--paper)',
+         color: 'var(--ink)',
+         transition: 'border-color .2s ease',
+       }}
+       onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+       onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+      {!failed ? (
+        <img
+          src="images/substack-ad.png"
+          alt="Subscribe to my Substack"
+          onError={() => setFailed(true)}
+          style={{ display: 'block', width: '100%', height: 'auto' }}
+        />
+      ) : (
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr auto', gap: 24,
+          alignItems: 'center', padding: '20px 24px',
+        }}>
+          <div>
+            <div className="lbl-mono" style={{ marginBottom: 6 }}>
+              ── <span className="num">SUBSTACK</span>
+            </div>
+            <div className="display" style={{ font: '500 22px/1.25 var(--display)' }}>
+              Read my notes on AI, silicon &amp; systems.
+            </div>
+            <div style={{ marginTop: 6, color: 'var(--muted)', fontSize: 14 }}>
+              Subscribe at <span style={{ color: 'var(--ink)' }}>@shashankbl</span> on Substack.
+            </div>
+          </div>
+          <div className="lbl-mono" style={{
+            color: 'var(--accent)', whiteSpace: 'nowrap',
+          }}>
+            Subscribe →
+          </div>
+        </div>
+      )}
+    </a>
+  );
+};
+
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
   const src = !failed && (item.file || (item.slug && `https://cdn.simpleicons.org/${item.slug}`));
@@ -523,6 +571,9 @@ window.BlogPage = function BlogPage({ nav }) {
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
         On inference, accelerators, and the seam between the two.
       </p>
+
+      <SubstackAd/>
+
       <div style={{ marginTop: 32 }}>
         {POSTS.map((p, i) => (
           <a key={p.slug} href={'#/blog/'+p.slug}

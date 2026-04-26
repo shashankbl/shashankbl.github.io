@@ -11,6 +11,7 @@ window.SITE = {
     github:   'https://github.com/shashankbl',
     linkedin: 'https://www.linkedin.com/in/shashankbl/',
     scholar:  'https://scholar.google.com/citations?user=_BI5HM8AAAAJ&hl=en',
+    substack: 'https://substack.com/@shashankbl',
   },
 };
 
@@ -152,16 +153,16 @@ window.ACADEMIC = [
 // neither render as a typographic wordmark.
 window.AFFILIATIONS = {
   current: [
-    { name: 'Renesas Electronics', short: 'Renesas',   file: 'logos/renesas.svg', kind: 'employer', cc: 'US' },
-    { name: 'UT Austin',           short: 'UT Austin',                            kind: 'school',   cc: 'US' },
+    { name: 'Renesas Electronics', short: 'Renesas',   file: 'images/logos/renesas.svg', kind: 'employer', cc: 'US' },
+    { name: 'UT Austin',           short: 'UT Austin',                                   kind: 'school',   cc: 'US' },
   ],
   past: [
-    { name: 'Micron Technology',          short: 'Micron',      file: 'logos/micron.png',  kind: 'employer', cc: 'US' },
-    { name: 'SanDisk',                    short: 'SanDisk',     file: 'logos/sandisk.svg', kind: 'employer', cc: 'US' },
-    { name: 'Bosch',                      short: 'Bosch',       file: 'logos/bosch.svg',   kind: 'employer', cc: 'IN' },
-    { name: 'Boise State University',     short: 'Boise State',                            kind: 'school',   cc: 'US' },
-    { name: 'San Jose State University',  short: 'SJSU',                                   kind: 'school',   cc: 'US' },
-    { name: 'VTU India',                  short: 'VTU',                                    kind: 'school',   cc: 'IN' },
+    { name: 'Micron Technology',          short: 'Micron',      file: 'images/logos/micron.png',  kind: 'employer', cc: 'US' },
+    { name: 'SanDisk',                    short: 'SanDisk',     file: 'images/logos/sandisk.svg', kind: 'employer', cc: 'US' },
+    { name: 'Bosch',                      short: 'Bosch',       file: 'images/logos/bosch.svg',   kind: 'employer', cc: 'IN' },
+    { name: 'Boise State University',     short: 'Boise State',                                   kind: 'school',   cc: 'US' },
+    { name: 'San Jose State University',  short: 'SJSU',                                          kind: 'school',   cc: 'US' },
+    { name: 'VTU India',                  short: 'VTU',                                           kind: 'school',   cc: 'IN' },
   ],
 };
 
