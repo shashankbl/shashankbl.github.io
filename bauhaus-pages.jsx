@@ -348,7 +348,7 @@ window.HomePage = function HomePage({ nav }) {
               marginTop: 26, font: '400 14.5px/1.7 var(--mono)',
               color: 'var(--muted)', maxWidth: 520,
             }}>
-              {SITE.name}. {SITE.blurb}
+              {SITE.blurb}
             </p>
           </div>
           <div style={{ display: 'grid', gap: 14 }}>

@@ -4,7 +4,7 @@ window.SITE = {
   name: 'Shashank Bangalore Lakshman',
   short: 'Shashank Bangalore Lakshman',
   tagline: 'Silicon to Software Systems for AI',
-  blurb: 'Engineering leader at the intersection of memory, compute, and AI. I build MLOps platforms and AI systems for edge accelerators — from silicon characterization to cloud-native deployment.',
+  blurb: "Engineering experience at the intersection of silicon and AI. I've done pathfinding for high-density NVM and AI accelerators, and shipped AI solutions, MLOps products, and automotive software.",
   location: 'Folsom, CA',
   status: 'Open to collaborations · talks',
   social: {
