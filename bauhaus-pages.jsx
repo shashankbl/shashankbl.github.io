@@ -101,7 +101,7 @@ window.Footer = function Footer() {
           <div className="display" style={{
             font: '500 30px/1.15 var(--display)', marginTop: 10, maxWidth: 540,
           }}>
-            Currently open to collaborations on AI/HW co-design.
+            Let's connect if you are interested to chat about my expertise or projects.
           </div>
         </div>
         <div style={{
