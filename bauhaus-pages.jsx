@@ -649,7 +649,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 </p>
                 <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
                   <span>STACK · {p.stack}</span>
-                  <span>SCALE · {p.loc}</span>
+                  <span>{p.loc}</span>
                   {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
                     <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"
                        style={{ color: 'var(--accent)' }}>
