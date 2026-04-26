@@ -31,7 +31,7 @@ window.TALKS = [
 ];
 
 window.RESUME = [
-  { y: 'mm/yyyy → now',  role: '..., co: 'company',
+  { y: 'mm/yyyy → now',  role: '...', co: 'company',
     d: 'description' },
 ];
 
