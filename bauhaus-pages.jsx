@@ -230,7 +230,7 @@ window.HomePage = function HomePage({ nav }) {
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
               display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14,
             }}>
-              {[['14+','years'],['...','papers'],['...','patents']].map(([a,b]) => (
+              {[['13+','years'],['M.S.','UT Austin'],['25+','patents']].map(([a,b]) => (
                 <div key={b}>
                   <div className="display" style={{ font: '500 30px/1 var(--display)' }}>{a}</div>
                   <div className="lbl-mono" style={{ marginTop: 4 }}>{b}</div>
@@ -482,10 +482,10 @@ window.ResumePage = function ResumePage() {
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Fourteen years in engineering. Three years in leadership.
+        Thirteen years in engineering. Two+ years leading ML.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Compilers, accelerators, and the path that connected them.
+        Memory, compute, accelerators — and the MLOps that ties them to product.
       </p>
       <div style={{ marginTop: 36 }}>
         {RESUME.map((r, i) => (
