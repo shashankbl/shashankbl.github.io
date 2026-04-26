@@ -147,12 +147,17 @@ window.PROFESSIONAL = [
         ] },
     ] },
 
-  { co: 'Bosch', loc: 'Bangalore, India', span: 'Sep 2010 → Jun 2012',
+  { co: 'Bosch', loc: 'Bangalore, India', span: 'Feb 2010 → Jun 2012',
     logo: 'images/logos/bosch.svg',
     roles: [
       { y: 'Sep 2010 → Jun 2012', role: 'Software Engineer · Powertrain Systems',
         bullets: [
           'Developed and validated automotive embedded platform software for global OEM customers.',
+        ] },
+      { y: 'Feb 2010 → Jun 2010', role: 'Project Intern',
+        note: 'Internship · 5 mos',
+        bullets: [
+          'Developed online production monitoring system for Industrial CNC, using PLC+HMI (Bosch Rexroth) and proximity+position sensors (Festo) to provide real-time insights to senior managers overseeing the production of diesel pump camshafts.',
         ] },
     ] },
 ];
