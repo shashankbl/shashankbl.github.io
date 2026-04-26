@@ -37,6 +37,7 @@ window.PROJECTS = [
     stack: 'Verilog · Python · Benchlab', loc: 'Micron Technology',
     links: [
       { label: 'Related work', url: 'https://ieeexplore.ieee.org/abstract/document/10413848' },
+      { label: 'Related work', url: 'https://ieeexplore.ieee.org/document/11075050' },
     ] },
   { id: 'campml', n: '004', kind: 'engineering',
     title: 'CampML.org', tag: 'COMMUNITY · EDU', year: 'Ongoing',
