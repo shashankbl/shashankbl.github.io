@@ -61,12 +61,20 @@ window.SubstackAd = function SubstackAd() {
        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
       {!failed ? (
-        <img
-          src="images/substack-ad.png"
-          alt="Subscribe to my Substack"
-          onError={() => setFailed(true)}
-          style={{ display: 'block', width: '100%', height: 'auto' }}
-        />
+        <div style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+          background: 'var(--paper)', padding: 16,
+        }}>
+          <img
+            src="images/substack-ad.jpeg"
+            alt="HYPERSCALE — Subscribe on Substack"
+            onError={() => setFailed(true)}
+            style={{
+              display: 'block', maxWidth: '100%', maxHeight: 520,
+              width: 'auto', height: 'auto', objectFit: 'contain',
+            }}
+          />
+        </div>
       ) : (
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr auto', gap: 24,
@@ -74,13 +82,13 @@ window.SubstackAd = function SubstackAd() {
         }}>
           <div>
             <div className="lbl-mono" style={{ marginBottom: 6 }}>
-              ── <span className="num">SUBSTACK</span>
+              ── <span className="num">HYPERSCALE</span> · ON SUBSTACK
             </div>
             <div className="display" style={{ font: '500 22px/1.25 var(--display)' }}>
               Read my notes on AI, silicon &amp; systems.
             </div>
             <div style={{ marginTop: 6, color: 'var(--muted)', fontSize: 14 }}>
-              Subscribe at <span style={{ color: 'var(--ink)' }}>@shashankbl</span> on Substack.
+              Subscribe to <span style={{ color: 'var(--ink)' }}>HYPERSCALE</span> at @shashankbl on Substack.
             </div>
           </div>
           <div className="lbl-mono" style={{
