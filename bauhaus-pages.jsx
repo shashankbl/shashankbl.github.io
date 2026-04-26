@@ -871,11 +871,19 @@ window.OpenSourcePage = function OpenSourcePage() {
                   </p>
                 )}
               </div>
-              <div className="lbl-mono" style={{ textAlign: 'right' }}>
+              <div className="lbl-mono" style={{
+                textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end',
+              }}>
                 {o.url && (
                   <a className="hover-line" href={o.url} target="_blank" rel="noreferrer"
                      style={{ color: 'var(--accent)' }}>
                     REPO ↗
+                  </a>
+                )}
+                {o.demo && (
+                  <a className="hover-line" href={o.demo} target="_blank" rel="noreferrer"
+                     style={{ color: 'var(--accent)' }}>
+                    DEMO ↗
                   </a>
                 )}
               </div>
