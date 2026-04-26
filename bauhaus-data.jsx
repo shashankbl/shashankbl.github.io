@@ -66,10 +66,25 @@ window.NEWS = [
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
 ];
 
-window.RESEARCH = [
-  // { date: 'YYYY·MM', venue: 'Venue / Conference', title: 'Paper title',
-  //   authors: 'Authors', url: 'https://...', loc: 'Type · paper · poster' },
-];
+window.RESEARCH = {
+  active: [
+    // { id: 'proj-id', year: '2026', title: 'Title', blurb: 'One-liner.',
+    //   status: 'In progress', url: 'https://...' },
+  ],
+  publications: [
+    { date: '2025', kind: 'science', venue: 'IOVS 66(8)',
+      title: 'High-Resolution Wireless EOG Sensor for Real-Time Characterization of Blink Kinematics',
+      authors: 'H Govinde, SR Singh, SB Lakshman, P Padmanabhan, S Rachapalli, et al.',
+      loc: 'Journal · abstract' },
+    { date: '2022', kind: 'engineering', venue: 'SERP4IoT',
+      title: 'Software engineering approaches for TinyML based IoT embedded vision: A systematic literature review',
+      authors: 'SB Lakshman, NU Eisty',
+      loc: 'Workshop · paper' },
+  ],
+  collaborators: [
+    // { name: 'Name', affiliation: 'Lab / University', url: 'https://...' },
+  ],
+};
 
 window.SKILLS = [
   { group: 'Semiconductor Engineering',
