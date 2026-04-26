@@ -136,7 +136,7 @@ window.LogoTile = function LogoTile({ item }) {
           />
         ) : (
           <span className="display" style={{
-            font: '500 18px/1 var(--display)', color: 'var(--ink)',
+            font: '500 18px/1 var(--display)', color: 'var(--logo-frame-ink)',
             letterSpacing: '-.01em', textAlign: 'center',
           }}>{item.short}</span>
         )}
