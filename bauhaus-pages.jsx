@@ -187,23 +187,21 @@ window.SkillList = function SkillList({ items }) {
 
 window.SkillMatrix = function SkillMatrix({ groups }) {
   return (
-    <div className="skills-grid" style={{
-      display: 'grid', gap: 14,
-      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    }}>
+    <div className="skills-grid" style={{ display: 'grid', gap: 10 }}>
       {groups.map(g => (
-        <div key={g.group} className="reveal" style={{
+        <div key={g.group} className="reveal skill-row" style={{
           border: '1px solid var(--rule)',
           background: 'var(--paper)',
-          padding: '16px 18px',
+          padding: '12px 18px',
+          display: 'grid', gridTemplateColumns: '180px 1fr', gap: 20,
+          alignItems: 'center',
           transition: 'border-color .2s ease',
         }}
         onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
         onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-          <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 8 }}>
+          <div className="lbl-mono" style={{ color: 'var(--accent)' }}>
             {g.group}
           </div>
-          <hr className="rule" style={{ marginBottom: 10 }}/>
           <SkillList items={g.items}/>
         </div>
       ))}
