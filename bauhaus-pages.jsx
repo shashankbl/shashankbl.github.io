@@ -739,7 +739,7 @@ window.BlogPage = function BlogPage({ nav }) {
   const grouped = order.map(g => groups[g]);
 
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="05">Writing</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
@@ -771,7 +771,7 @@ window.PostPage = function PostPage({ slug, nav }) {
   const idx = POSTS.indexOf(post);
   const prev = POSTS[idx - 1], next = POSTS[idx + 1];
   return (
-    <article className="pad-x section-block" style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
+    <article className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <a href="#/blog" onClick={(e)=>{e.preventDefault(); nav('/blog');}}
          className="hover-line lbl-mono" style={{ color: 'var(--ink)' }}>
         ← back to writing
@@ -823,7 +823,7 @@ window.PostPage = function PostPage({ slug, nav }) {
 
 window.AboutMePage = function AboutMePage() {
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="08">About me</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
@@ -950,7 +950,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
 
 window.TalksPage = function TalksPage() {
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="06">Talks</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 32px', letterSpacing: '-.025em',
@@ -977,7 +977,7 @@ window.TalksPage = function TalksPage() {
 
 window.NewsPage = function NewsPage() {
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="07">News</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
@@ -1100,7 +1100,7 @@ window.ResearchPage = function ResearchPage() {
   const collabs = r.collaborators || [];
 
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="03">Research</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
@@ -1209,7 +1209,7 @@ window.ResearchPage = function ResearchPage() {
 
 window.OpenSourcePage = function OpenSourcePage() {
   return (
-    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="04">Open-source</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
