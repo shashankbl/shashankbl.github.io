@@ -922,7 +922,7 @@ window.GanttChart = function GanttChart({ professional, academic }) {
 
   // Layout
   const W = 1180;
-  const rowHeight = 30;
+  const rowHeight = 24;
   const barHeight = 12;
   const yearAxisHeight = 26;
   const sectionHeaderHeight = 20;
@@ -932,22 +932,20 @@ window.GanttChart = function GanttChart({ professional, academic }) {
   const chartRight = W - 24;
   const chartWidth = chartRight - chartLeft;
 
-  const palette = ['#d4502a', '#3a8fa3', '#3f8a6a', '#c08e2c', '#7a5ec0', '#5a7a8c', '#8d5a3a', '#a64b69'];
-  const companies = [];
-  [...profEntries, ...acadEntries].forEach(e => { if (!companies.includes(e.co)) companies.push(e.co); });
-  const coColor = {};
-  companies.forEach((c, i) => coColor[c] = palette[i % palette.length]);
+  // Single base color; per-employer opacity goes light (oldest) → dark (newest).
+  const baseColor = '#d4502a';
+  const allEmployers = [...profEntries, ...acadEntries];
+  const sortedByEarliest = [...allEmployers].sort(
+    (a, b) => a.roles[0].start - b.roles[0].start);
+  const N = sortedByEarliest.length;
+  const opacityByCo = {};
+  sortedByEarliest.forEach((e, i) => {
+    opacityByCo[e.co] = N === 1 ? 0.7 : 0.30 + (0.65 * i) / (N - 1);
+  });
 
   const xScale = (date) => chartLeft + ((date - minB) / (maxB - minB)) * chartWidth;
   const yearTicks = [];
   for (let yr = minYear; yr <= maxYear; yr++) yearTicks.push(yr);
-
-  // Truncate role text to fit a given segment width.
-  const truncate = (text, maxW) => {
-    const charW = 5.6;
-    const maxChars = Math.max(1, Math.floor(maxW / charW));
-    return text.length > maxChars ? (maxChars > 1 ? text.slice(0, maxChars - 1) + '…' : '…') : text;
-  };
 
   // Y bookkeeping: section header → rows.
   let yCursor = yearAxisHeight;
@@ -964,7 +962,7 @@ window.GanttChart = function GanttChart({ professional, academic }) {
 
   const renderRow = (e, y) => (
     <g key={`${e.kind}-${e.co}`}>
-      <text x={labelWidth} y={y + barHeight - 3} textAnchor="end" fontSize="11"
+      <text x={labelWidth} y={y + barHeight - 2} textAnchor="end" fontSize="11"
             fontFamily="ui-monospace, monospace" fontWeight="500" fill="#1a1814">
         {e.co}
       </text>
@@ -974,17 +972,13 @@ window.GanttChart = function GanttChart({ professional, academic }) {
         const w = Math.max(2, x2 - x1);
         return (
           <g key={ri}>
-            <title>{`${e.co} · ${r.role}`}</title>
+            <title>{`${e.co} · ${r.role} (${r.start.toLocaleString('en-US', { month: 'short', year: 'numeric' })} → ${r.end.toLocaleString('en-US', { month: 'short', year: 'numeric' })})`}</title>
             <rect x={x1} y={y} width={w} height={barHeight}
-                  fill={coColor[e.co]} fillOpacity={e.kind === 'school' ? 0.5 : 0.9}/>
+                  fill={baseColor} fillOpacity={opacityByCo[e.co]}/>
             {ri > 0 && (
               <line x1={x1} y1={y} x2={x1} y2={y + barHeight}
                     stroke="#fbf9f5" strokeWidth="2"/>
             )}
-            <text x={x1 + 4} y={y - 4} fontSize="9"
-                  fontFamily="ui-monospace, monospace" fill="rgba(26,24,20,.65)">
-              {truncate(r.role, w - 6)}
-            </text>
           </g>
         );
       })}
