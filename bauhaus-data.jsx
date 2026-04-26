@@ -15,7 +15,7 @@ window.SITE = {
   },
 };
 
-// kind: 'engineering' (■) | 'art' (●) | 'science' (▲)
+// kind: 'engineering' (■) | 'art' (●)
 window.PROJECTS = [
   { id: 'rox-ai-studio', n: '001', kind: 'engineering',
     title: 'RoX AI Studio', tag: 'AI · MLOPS', year: '2024',
@@ -25,7 +25,7 @@ window.PROJECTS = [
     title: 'MDLA CEBU', tag: 'AI · ACCELERATION', year: '2023',
     blurb: 'AI accelerator demos and benchmarking suite for Micron DLA. Customer-centric AI lab in Folsom; led two Ph.D. interns; influenced edge AI/PIM/PNM product strategy.',
     stack: 'Python · CUDA · ONNX', loc: 'Micron Technology' },
-  { id: 'feram-tft-pathfinding', n: '003', kind: 'science',
+  { id: 'feram-tft-pathfinding', n: '003', kind: 'engineering',
     title: '3D NV-RAM Pathfinding', tag: 'SILICON · MEMORIES', year: '2015 → 2021',
     blurb: 'Silicon characterization for industry-first multi-Gb 3D NV-RAM (FeRAM, TFT). Novel bit-level analytics technique unlocked deeper insight into process and reliability. Four patents filed.',
     stack: 'Verilog · Python · Benchlab', loc: 'Micron Technology' },

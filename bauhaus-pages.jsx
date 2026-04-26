@@ -16,7 +16,6 @@ window.Pill = function Pill({ kind }) {
   const map = {
     engineering: { glyph: '■', label: 'Engineering' },
     art:         { glyph: '●', label: 'Art' },
-    science:     { glyph: '▲', label: 'Science' },
   };
   const m = map[kind];
   if (!m) return null;
@@ -471,37 +470,72 @@ window.ProjectsPage = function ProjectsPage() {
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
         A handful of artifacts across the AI / software / silicon stack.
       </p>
-      <div style={{ marginTop: 36, display: 'grid', gap: 0 }}>
-        {PROJECTS.map((p, i) => (
-          <article key={p.id} className="reveal" style={{
-            display: 'grid', gridTemplateColumns: '60px 1fr 200px',
-            gap: 28, padding: '32px 0',
-            borderTop: '1px solid var(--rule)',
-          }}>
-            <div className="lbl-mono"><span className="num">{p.n}</span></div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <span className="lbl-mono">{p.tag} · {p.year}</span>
-                <Pill kind={p.kind}/>
-              </div>
-              <h3 className="display" style={{
-                font: '500 28px/1.15 var(--display)', margin: '8px 0 0',
-              }}>{p.title}</h3>
-              <p style={{ marginTop: 10, color: 'var(--muted)', maxWidth: 720, fontSize: 14.5, lineHeight: 1.65 }}>
-                {p.blurb}
-              </p>
-              <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-                <span>STACK · {p.stack}</span>
-                <span>SCALE · {p.loc}</span>
-              </div>
-            </div>
-            <div>
-              <Placeholder label={`Figure / ${p.n}`} h={120}/>
-            </div>
-          </article>
-        ))}
-      </div>
+
+      <ProjectGroup label="Engineering" kind="engineering"
+                    items={PROJECTS.filter(p => p.kind === 'engineering')}/>
+      <ProjectGroup label="Art"         kind="art"
+                    items={PROJECTS.filter(p => p.kind === 'art')}/>
     </section>
+  );
+};
+
+window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
+  return (
+    <div style={{ marginTop: 48 }}>
+      <div className="reveal" style={{
+        display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 4,
+      }}>
+        <h2 className="display" style={{
+          font: '500 26px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>
+          {label}
+        </h2>
+        <Pill kind={kind}/>
+        <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+          {items.length} {items.length === 1 ? 'piece' : 'pieces'}
+        </span>
+      </div>
+      <hr className="rule" style={{ marginTop: 8 }}/>
+
+      {items.length === 0 ? (
+        <div className="reveal lbl-mono" style={{
+          padding: '28px 0', color: 'var(--muted)',
+        }}>
+          ◇ More coming soon.
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gap: 0 }}>
+          {items.map((p) => (
+            <article key={p.id} className="reveal" style={{
+              display: 'grid', gridTemplateColumns: '60px 1fr 200px',
+              gap: 28, padding: '32px 0',
+              borderTop: '1px solid var(--rule-soft)',
+            }}>
+              <div className="lbl-mono"><span className="num">{p.n}</span></div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  <span className="lbl-mono">{p.tag} · {p.year}</span>
+                  <Pill kind={p.kind}/>
+                </div>
+                <h3 className="display" style={{
+                  font: '500 28px/1.15 var(--display)', margin: '8px 0 0',
+                }}>{p.title}</h3>
+                <p style={{ marginTop: 10, color: 'var(--muted)', maxWidth: 720, fontSize: 14.5, lineHeight: 1.65 }}>
+                  {p.blurb}
+                </p>
+                <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
+                  <span>STACK · {p.stack}</span>
+                  <span>SCALE · {p.loc}</span>
+                </div>
+              </div>
+              <div>
+                <Placeholder label={`Figure / ${p.n}`} h={120}/>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
