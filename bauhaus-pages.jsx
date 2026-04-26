@@ -75,7 +75,7 @@ window.SubstackAd = function SubstackAd() {
           />
         </div>
       ) : (
-        <div style={{
+        <div className="substack-fallback" style={{
           display: 'grid', gridTemplateColumns: '1fr auto', gap: 24,
           alignItems: 'center', padding: '20px 24px',
         }}>
@@ -274,11 +274,11 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
 
 window.Footer = function Footer() {
   return (
-    <footer style={{
+    <footer className="pad-x" style={{
       marginTop: 80, background: 'var(--ink)', color: 'var(--bg)',
       padding: '40px 32px 28px',
     }}>
-      <div style={{
+      <div className="footer-grid" style={{
         maxWidth: 1180, margin: '0 auto',
         display: 'grid', gridTemplateColumns: '1fr auto', gap: 28, alignItems: 'baseline',
       }}>
@@ -308,7 +308,7 @@ window.Footer = function Footer() {
           <div style={{ marginTop: 16, color: 'var(--accent)' }}>● AVAILABLE</div>
         </div>
       </div>
-      <div style={{
+      <div className="footer-bottom" style={{
         maxWidth: 1180, margin: '32px auto 0', paddingTop: 18,
         borderTop: '1px solid rgba(244,241,236,.15)',
         display: 'flex', justifyContent: 'space-between',
@@ -491,9 +491,9 @@ window.HomePage = function HomePage({ nav }) {
 
 window.ProjectsPage = function ProjectsPage() {
   return (
-    <section style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="02">Selected work</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
         Things I've shipped.
@@ -535,7 +535,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
       ) : (
         <div style={{ display: 'grid', gap: 0 }}>
           {items.map((p) => (
-            <article key={p.id} className="reveal" style={{
+            <article key={p.id} className="reveal proj-row" style={{
               display: 'grid', gridTemplateColumns: '60px 1fr 200px',
               gap: 28, padding: '32px 0',
               borderTop: '1px solid var(--rule-soft)',
@@ -576,9 +576,9 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
 
 window.BlogPage = function BlogPage({ nav }) {
   return (
-    <section style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="03">Writing</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
         Long-form notes.
@@ -598,7 +598,7 @@ window.BlogPage = function BlogPage({ nav }) {
                display: 'block', padding: '24px 0',
                borderTop: '1px solid var(--rule)', color: 'var(--ink)',
              }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'baseline' }}>
+            <div className="post-row" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'baseline', flexWrap: 'wrap' }}>
               <span style={{ font: '400 11px var(--mono)', color: 'var(--muted)', letterSpacing: '.06em', minWidth: 90 }}>
                 {p.date}
               </span>
@@ -609,7 +609,7 @@ window.BlogPage = function BlogPage({ nav }) {
                 {p.read}
               </span>
             </div>
-            <p style={{ margin: '8px 0 0 106px', color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>
+            <p className="post-blurb" style={{ margin: '8px 0 0 106px', color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>
               {p.blurb}
             </p>
           </a>
@@ -624,7 +624,7 @@ window.PostPage = function PostPage({ slug, nav }) {
   const idx = POSTS.indexOf(post);
   const prev = POSTS[idx - 1], next = POSTS[idx + 1];
   return (
-    <article style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
+    <article className="pad-x section-block" style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
       <a href="#/blog" onClick={(e)=>{e.preventDefault(); nav('/blog');}}
          className="hover-line lbl-mono" style={{ color: 'var(--ink)' }}>
         ← back to writing
@@ -676,9 +676,9 @@ window.PostPage = function PostPage({ slug, nav }) {
 
 window.ExperiencePage = function ExperiencePage() {
   return (
-    <section style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="04">Experience</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
         Thirteen years across memory, compute, and AI. Two+ years leading ML engineering.
@@ -708,7 +708,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
             padding: '28px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none',
           }}>
             {/* Employer header */}
-            <div style={{
+            <div className="stack-grid" style={{
               display: 'grid', gridTemplateColumns: '160px 1fr',
               gap: 24, alignItems: 'center',
             }}>
@@ -740,9 +740,9 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
             </div>
 
             {/* Roles under this employer */}
-            <div style={{ marginTop: 18, paddingLeft: 184, borderLeft: 'none' }}>
+            <div className="role-indent" style={{ marginTop: 18, paddingLeft: 184, borderLeft: 'none' }}>
               {emp.roles.map((r, j) => (
-                <div key={j} style={{
+                <div key={j} className="stack-grid-role" style={{
                   marginTop: j ? 22 : 0,
                   paddingTop: j ? 22 : 0,
                   borderTop: j ? '1px dashed var(--rule-soft)' : 'none',
@@ -779,16 +779,16 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
 
 window.TalksPage = function TalksPage() {
   return (
-    <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="05">Talks</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 32px', letterSpacing: '-.025em',
       }}>
         Things I've said out loud.
       </h1>
       <div>
         {TALKS.map((t, i) => (
-          <div key={i} className="reveal" style={{
+          <div key={i} className="reveal list-row" style={{
             display: 'grid', gridTemplateColumns: '90px 180px 1fr 140px',
             padding: '20px 0', borderTop: '1px solid var(--rule)',
             alignItems: 'baseline', gap: 16,
@@ -806,9 +806,9 @@ window.TalksPage = function TalksPage() {
 
 window.NewsPage = function NewsPage() {
   return (
-    <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="06">News</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
         News &amp; announcements.
@@ -828,7 +828,7 @@ window.NewsPage = function NewsPage() {
         <div style={{ marginTop: 32 }}>
           {NEWS.map((m, i) => (
             <a key={i} href={m.url} target="_blank" rel="noreferrer"
-               className="reveal hover-line"
+               className="reveal hover-line list-row"
                style={{
                  display: 'grid', gridTemplateColumns: '90px 200px 1fr 140px',
                  padding: '20px 0', borderTop: '1px solid var(--rule)',
@@ -848,9 +848,9 @@ window.NewsPage = function NewsPage() {
 
 window.OpenSourcePage = function OpenSourcePage() {
   return (
-    <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="02">Open-source</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
         Open-source contributions.
@@ -873,7 +873,7 @@ window.OpenSourcePage = function OpenSourcePage() {
       ) : (
         <div style={{ marginTop: 32 }}>
           {OSS.map((o, i) => (
-            <article key={i} className="reveal" style={{
+            <article key={i} className="reveal list-row" style={{
               display: 'grid', gridTemplateColumns: '90px 1fr 140px',
               padding: '24px 0', borderTop: '1px solid var(--rule)',
               gap: 20, alignItems: 'baseline',
@@ -924,19 +924,19 @@ window.OpenSourcePage = function OpenSourcePage() {
 
 window.ContactPage = function ContactPage() {
   return (
-    <section style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
+    <section className="pad-x section-block" style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="07">Contact</SectionLabel></div>
-      <h1 className="display reveal" style={{
+      <h1 className="display reveal page-headline" style={{
         font: '500 56px/1.05 var(--display)', margin: '14px 0 8px',
         letterSpacing: '-.025em', maxWidth: 620,
       }}>
-        Currently open to <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>collaborations</span> on AI/HW co-design research.
+        Currently open to <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>collaborations</span> on AI systems research.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, marginTop: 18, fontSize: 15 }}>
-        Drop a line if you're working on inference systems, accelerator co-design, or vector ISAs —
+        Drop a line if you're working on AI systems, on-device inference, or accelerator co-design —
         or just want to swap notes on the state of the art in AI and semiconductors.
       </p>
-      <div className="reveal" style={{
+      <div className="reveal contact-grid" style={{
         marginTop: 36, display: 'grid', gridTemplateColumns: '120px 1fr',
         gap: '14px 28px', font: '400 14px/1.6 var(--mono)',
       }}>

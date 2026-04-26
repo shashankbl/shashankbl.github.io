@@ -144,12 +144,66 @@
       font-size: clamp(30px, 8vw, 44px) !important;
       line-height: 1.08 !important;
     }
+    .page-headline {
+      font-size: clamp(30px, 8vw, 44px) !important;
+      line-height: 1.08 !important;
+    }
     .hookem-img {
       max-height: 120px !important;
     }
     .stats-card {
       grid-template-columns: 1fr 1fr !important;
       row-gap: 14px !important;
+    }
+    /* Tighten header padding */
+    header > div {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+    /* Stack two-column row grids (160px | 1fr etc.) */
+    .stack-grid {
+      grid-template-columns: 1fr !important;
+      gap: 6px !important;
+    }
+    /* Stack project article: 60 | 1fr | 200 → 1 col */
+    .proj-row {
+      grid-template-columns: 1fr !important;
+      gap: 14px !important;
+    }
+    /* Stack list rows (talks / news / oss) into a single column */
+    .list-row {
+      grid-template-columns: 1fr !important;
+      gap: 4px !important;
+    }
+    .list-row > *:last-child { text-align: left !important; }
+    /* Drop the resume role indent on mobile */
+    .role-indent { padding-left: 0 !important; }
+    /* Footer */
+    .footer-grid {
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+    }
+    .footer-grid > *:last-child { text-align: left !important; }
+    .footer-bottom {
+      flex-direction: column !important;
+      gap: 8px !important;
+      align-items: flex-start !important;
+    }
+    /* Blog post row */
+    .post-row {
+      grid-template-columns: 1fr !important;
+      gap: 4px !important;
+    }
+    .post-blurb { margin-left: 0 !important; }
+    /* Contact grid */
+    .contact-grid {
+      grid-template-columns: 1fr !important;
+      gap: 6px 0 !important;
+    }
+    /* Substack ad fallback layout */
+    .substack-fallback {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
     }
   }
 
