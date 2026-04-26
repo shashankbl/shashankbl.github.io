@@ -42,6 +42,11 @@ window.POSTS = [
 ];
 
 window.OSS = [
+  { name: 'LiveResume', role: 'Author · MIT licensed', year: '2026',
+    tag: 'TOOLING · DEV',
+    desc: 'Turn a Markdown resume into a print-ready PDF and host it on a GitHub Pages site. No build step or dependencies — vanilla HTML, CSS, and JavaScript; auto-detects the latest dated file in resume_md/.',
+    url: 'https://github.com/shashankbl/LiveResume' },
+
   { name: 'PixelSynth', role: 'Author · MIT licensed', year: '2025',
     tag: 'CREATIVE CODING · ART',
     desc: 'A creative-coding tool that uses Python to procedurally compile and generate interactive p5.js sketches for live webcam manipulation — so indie artists can make fun music videos at zero budget. Vibe-coded.',
