@@ -86,30 +86,34 @@ window.RESEARCH = {
   ],
 };
 
+// Capabilities (what I do)
 window.SKILLS = [
   { group: 'Semiconductor Engineering',
-    items: ['Silicon characterization', 'System validation', 'Benchlab', 'Probing'] },
-  { group: 'Programming',
-    items: ['Python', 'C / C++', 'Verilog / SystemVerilog', 'Spec-Driven Development', 'OpenCode', 'Claude Code'] },
+    items: ['Silicon characterization', 'System validation', 'Probing'] },
   { group: 'Machine Learning',
-    subgroups: [
-      { label: 'Core',
-        items: ['Pre-training', 'Transfer learning', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Performance evals'] },
-      { label: 'NLP, LLM & Agentic AI',
-        items: ['OpenAI SDK', 'Autogen', 'LangChain', 'Google ADK', 'MCP', 'SLMs (Qwen / Llama)'] },
-      { label: 'Computer vision',
-        items: ['CNN', 'ViT'] },
-      { label: 'Model engineering',
-        items: ['scikit-learn', 'PyTorch', 'NumPy', 'Pandas', 'Matplotlib', 'ONNX', 'OpenCV', 'OpenMMLab', 'Hugging Face'] },
-      { label: 'MLOps',
-        items: ['SQL', 'Streamlit', 'Airflow', 'MLflow'] },
-    ] },
-  { group: 'AI Hardware',
-    items: ['Nvidia A100 / T4 / RTX', 'Jetson Orin', 'Renesas R-Car SoC', 'Raspberry Pi', 'Arduino'] },
-  { group: 'Systems Engineering',
-    items: ['Azure Cloud (VM)', 'Linux', 'Containerization', 'CI/CD · DevOps'] },
+    items: ['Pre-training', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Model evals'] },
+  { group: 'AI Engineering',
+    items: ['NLP', 'LLM & Agentic AI', 'Computer vision'] },
+  { group: 'Systems',
+    items: ['Containerization', 'CI/CD · DevOps', 'MLOps'] },
   { group: 'Leadership',
-    items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Patent disclosures', 'Technical writing'] },
+    items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Technical writing', 'Patent disclosures'] },
+];
+
+// Specific tools, libraries, frameworks, hardware (what I use)
+window.TOOLS = [
+  { group: 'Languages',
+    items: ['Python', 'C / C++', 'Verilog / SystemVerilog', 'SQL'] },
+  { group: 'ML & DL',
+    items: ['PyTorch', 'ONNX', 'scikit-learn', 'NumPy', 'Pandas', 'Hugging Face', 'OpenCV'] },
+  { group: 'LLM stack',
+    items: ['OpenAI SDK', 'LangChain', 'Autogen', 'Google ADK', 'MCP'] },
+  { group: 'MLOps',
+    items: ['Streamlit', 'Airflow', 'MLflow', 'Matplotlib'] },
+  { group: 'Hardware',
+    items: ['Nvidia A100 / T4 / RTX', 'Jetson Orin', 'Renesas R-Car SoC', 'Raspberry Pi', 'Arduino'] },
+  { group: 'Cloud & DevTools',
+    items: ['Azure', 'Linux', 'Claude Code', 'OpenCode'] },
 ];
 
 window.TALKS = [

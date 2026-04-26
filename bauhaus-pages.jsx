@@ -188,46 +188,25 @@ window.SkillList = function SkillList({ items }) {
 window.SkillMatrix = function SkillMatrix({ groups }) {
   return (
     <div className="skills-grid" style={{
-      display: 'grid', gap: 16,
-      gridTemplateColumns: 'repeat(2, 1fr)',
+      display: 'grid', gap: 14,
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
     }}>
-      {groups.map(g => {
-        const isNested = Array.isArray(g.subgroups);
-        return (
-          <div key={g.group} className="reveal"
-               style={{
-                 ...(isNested ? { gridColumn: '1 / -1' } : {}),
-                 border: '1px solid var(--rule)',
-                 background: 'var(--paper)',
-                 padding: '18px 20px',
-                 transition: 'border-color .2s ease',
-               }}
-               onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-            <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 8 }}>
-              {g.group}
-            </div>
-            <hr className="rule" style={{ marginBottom: 12 }}/>
-            {isNested ? (
-              <div className="skills-subgrid" style={{
-                display: 'grid', gap: '16px 28px',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              }}>
-                {g.subgroups.map(sg => (
-                  <div key={sg.label}>
-                    <div className="lbl-mono" style={{ color: 'var(--ink)', marginBottom: 6 }}>
-                      {sg.label}
-                    </div>
-                    <SkillList items={sg.items}/>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <SkillList items={g.items}/>
-            )}
+      {groups.map(g => (
+        <div key={g.group} className="reveal" style={{
+          border: '1px solid var(--rule)',
+          background: 'var(--paper)',
+          padding: '16px 18px',
+          transition: 'border-color .2s ease',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+          <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 8 }}>
+            {g.group}
           </div>
-        );
-      })}
+          <hr className="rule" style={{ marginBottom: 10 }}/>
+          <SkillList items={g.items}/>
+        </div>
+      ))}
     </div>
   );
 };
@@ -537,14 +516,33 @@ window.HomePage = function HomePage({ nav }) {
         <div className="reveal">
           <SectionLabel n="01·c">Skills</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
-            Technical skills.
+            What I do.
           </h2>
           <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
-            Things I lean on day-to-day, grouped by category.
+            Capabilities, grouped by domain.
           </p>
         </div>
         <div style={{ marginTop: 28 }}>
           <SkillMatrix groups={SKILLS}/>
+        </div>
+      </section>
+
+      {/* Tools */}
+      <section className="pad-x section-block" style={{
+        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
+        borderTop: '1px solid var(--rule)',
+      }}>
+        <div className="reveal">
+          <SectionLabel n="01·d">Tools</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            What I use.
+          </h2>
+          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
+            Languages, libraries, frameworks, and hardware.
+          </p>
+        </div>
+        <div style={{ marginTop: 28 }}>
+          <SkillMatrix groups={TOOLS}/>
         </div>
       </section>
 
@@ -554,7 +552,7 @@ window.HomePage = function HomePage({ nav }) {
         borderTop: '1px solid var(--rule)',
       }}>
         <div className="reveal">
-          <SectionLabel n="01·d">Now</SectionLabel>
+          <SectionLabel n="01·e">Now</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
             What I'm doing now.
           </h2>
