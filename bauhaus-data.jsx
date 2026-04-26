@@ -18,21 +18,21 @@ window.SITE = {
 // kind: 'engineering' (■) | 'art' (●)
 window.PROJECTS = [
   { id: 'rox-ai-studio', n: '001', kind: 'engineering',
-    title: 'RoX AI Studio', tag: 'AI · MLOPS', year: '2024',
-    blurb: 'Cloud-native MLOps platform for Renesas R-Car SoC customers. Enables HIL performance evaluation for BYO models on a custom Web UI. Featured at Renesas CES demo pavilion.',
+    title: 'RoX AI Studio', tag: 'AI · MLOPS · Evals', year: '2024-Present',
+    blurb: 'Cloud-native MLOps platform for Renesas R-Car SoC customers. Enables HIL performance evaluation for BYO models on an intuitive Web UI. Featured at Renesas CES demo pavilion.',
     stack: 'Python · Azure · CI/CD', loc: 'Renesas Electronics' },
   { id: 'mdla-cebu', n: '002', kind: 'engineering',
-    title: 'MDLA CEBU', tag: 'AI · ACCELERATION', year: '2023',
-    blurb: 'AI accelerator demos and benchmarking suite for Micron DLA. Customer-centric AI lab in Folsom; led two Ph.D. interns; influenced edge AI/PIM/PNM product strategy.',
+    title: 'Micron DLA Customer Eval and Benchmark Utility', tag: 'AI · MLOps · Evals', year: '2021-2023',
+    blurb: 'AI accelerator customer demos and benchmarking suite for Micron DLA.',
     stack: 'Python · CUDA · ONNX', loc: 'Micron Technology' },
   { id: 'feram-tft-pathfinding', n: '003', kind: 'engineering',
     title: '3D NV-RAM Pathfinding', tag: 'SILICON · MEMORIES', year: '2015 → 2021',
-    blurb: 'Silicon characterization for industry-first multi-Gb 3D NV-RAM (FeRAM, TFT). Novel bit-level analytics technique unlocked deeper insight into process and reliability. Four patents filed.',
+    blurb: 'Silicon characterization for industry-first multi-Gb 3D NV-RAM (FeRAM, TFT). Novel bit-level analytics technique unlocked deeper insight into process and reliability.',
     stack: 'Verilog · Python · Benchlab', loc: 'Micron Technology' },
   { id: 'campml', n: '004', kind: 'engineering',
     title: 'CampML.org', tag: 'COMMUNITY · EDU', year: 'Ongoing',
-    blurb: 'Founder and AI educator at CampML.org — a community-driven ML bootcamp. Also AI technical advisor at Folsom Lake College CS and industry evaluator at UC Davis.',
-    stack: 'Curriculum · Mentorship', loc: 'Volunteer' },
+    blurb: 'Founder and AI educator at CampML.org — a community-driven ML bootcamp. Technical keynote, AI technical advisor/mentor at Folsom Lake College, Industry evaluator at UC Davis Engg Design Showcase.',
+    stack: 'Volunteer · Mentorship', loc: 'CampML.org' },
 ];
 
 window.POSTS = [
