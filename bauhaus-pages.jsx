@@ -351,6 +351,17 @@ window.HomePage = function HomePage({ nav }) {
             </p>
           </div>
           <div style={{ display: 'grid', gap: 14 }}>
+            <a href="https://www.utexas.edu/" target="_blank" rel="noreferrer"
+               className="reveal"
+               aria-label="Hook 'em — UT Austin"
+               style={{
+                 display: 'block',
+                 border: '1px solid var(--rule)', background: 'var(--logo-frame)',
+                 padding: '18px 20px',
+               }}>
+              <img src="images/hookem.png" alt="Hook 'em — UT Austin"
+                   style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 110, objectFit: 'contain' }}/>
+            </a>
             <div className="reveal" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
             }}>
