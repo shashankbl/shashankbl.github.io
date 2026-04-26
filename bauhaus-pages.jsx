@@ -475,8 +475,6 @@ window.ProjectsPage = function ProjectsPage() {
 
       <ProjectGroup label="Engineering" kind="engineering"
                     items={PROJECTS.filter(p => p.kind === 'engineering')}/>
-      <ProjectGroup label="Art"         kind="art"
-                    items={PROJECTS.filter(p => p.kind === 'art')}/>
     </section>
   );
 };
