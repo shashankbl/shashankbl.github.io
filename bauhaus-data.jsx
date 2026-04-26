@@ -191,7 +191,7 @@ window.AFFILIATIONS = {
     { name: 'Bosch',                      short: 'Bosch',       file: 'images/logos/bosch.svg',   kind: 'employer', cc: 'IN' },
     { name: 'Boise State University',     short: 'Boise State',                                   kind: 'school',   cc: 'US' },
     { name: 'San Jose State University',  short: 'San Jose State',                                          kind: 'school',   cc: 'US' },
-    { name: 'Visvesvaraya Technological Univeristy',                  short: 'Visvesvaraya Tech Univ',                                           kind: 'school',   cc: 'IN' },
+    { name: 'Visvesvaraya Technological University',                  short: 'Visvesvaraya Tech Univ',                                           kind: 'school',   cc: 'IN' },
   ],
 };
 
