@@ -12,6 +12,33 @@ window.SectionLabel = function SectionLabel({ n, children }) {
   );
 };
 
+window.Pill = function Pill({ kind }) {
+  const map = {
+    engineering: { glyph: '■', label: 'Engineering' },
+    art:         { glyph: '●', label: 'Art' },
+    science:     { glyph: '▲', label: 'Science' },
+  };
+  const m = map[kind];
+  if (!m) return null;
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      padding: '3px 10px',
+      border: '1px solid var(--rule)',
+      borderRadius: 999,
+      background: 'var(--paper)',
+      font: '500 10px var(--mono)',
+      letterSpacing: '.14em',
+      textTransform: 'uppercase',
+      color: 'var(--ink)',
+      whiteSpace: 'nowrap',
+    }}>
+      <span style={{ color: 'var(--accent)', fontSize: 11, lineHeight: 1 }}>{m.glyph}</span>
+      {m.label}
+    </span>
+  );
+};
+
 window.Placeholder = function Placeholder({ label, h = 180 }) {
   return (
     <div style={{
@@ -245,9 +272,12 @@ window.HomePage = function HomePage({ nav }) {
                }}
                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-              <div className="lbl-mono" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div className="lbl-mono" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
                 <span><span className="num">{p.n}</span> · {p.tag}</span>
-                <span>{p.year}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <Pill kind={p.kind}/>
+                  <span>{p.year}</span>
+                </span>
               </div>
               <Placeholder label={`Figure / ${p.n}`} h={140}/>
               <div>
@@ -323,7 +353,10 @@ window.ProjectsPage = function ProjectsPage() {
           }}>
             <div className="lbl-mono"><span className="num">{p.n}</span></div>
             <div>
-              <div className="lbl-mono">{p.tag} · {p.year}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <span className="lbl-mono">{p.tag} · {p.year}</span>
+                <Pill kind={p.kind}/>
+              </div>
               <h3 className="display" style={{
                 font: '500 28px/1.15 var(--display)', margin: '8px 0 0',
               }}>{p.title}</h3>

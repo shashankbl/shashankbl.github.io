@@ -14,8 +14,9 @@ window.SITE = {
   },
 };
 
+// kind: 'engineering' (■) | 'art' (●) | 'science' (▲)
 window.PROJECTS = [
-  { id: 'details coming soon', n: '001', title: '...', tag: 'AI · SYSTEMS', year: '...',
+  { id: 'details coming soon', n: '001', kind: 'engineering', title: '...', tag: 'AI · SYSTEMS', year: '...',
     blurb: '...',
     stack: 'Python', loc: '~24k LOC' },
 ];
