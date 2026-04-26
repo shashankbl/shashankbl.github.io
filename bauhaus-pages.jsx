@@ -39,10 +39,18 @@ window.Pill = function Pill({ kind }) {
   );
 };
 
+window.flagEmoji = function flagEmoji(cc) {
+  if (!cc || cc.length !== 2) return '';
+  return cc.toUpperCase().split('').map(c =>
+    String.fromCodePoint(127397 + c.charCodeAt(0))
+  ).join('');
+};
+
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
   const kindGlyph = item.kind === 'school' ? '▲' : '■';
   const src = !failed && (item.file || (item.slug && `https://cdn.simpleicons.org/${item.slug}`));
+  const flag = flagEmoji(item.cc);
   return (
     <div title={item.name} style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
@@ -78,9 +86,16 @@ window.LogoTile = function LogoTile({ item }) {
       </div>
       <div className="lbl-mono" style={{
         textAlign: 'center', fontSize: 10, color: 'var(--muted)',
+        display: 'inline-flex', alignItems: 'center', gap: 6, justifyContent: 'center',
       }}>
-        <span style={{ color: 'var(--accent)', marginRight: 4 }}>{kindGlyph}</span>
-        {item.short}
+        <span style={{ color: 'var(--accent)' }}>{kindGlyph}</span>
+        <span>{item.short}</span>
+        {flag && (
+          <span aria-label={item.cc} title={item.cc}
+                style={{ fontSize: 13, lineHeight: 1, filter: 'saturate(.85)' }}>
+            {flag}
+          </span>
+        )}
       </div>
     </div>
   );

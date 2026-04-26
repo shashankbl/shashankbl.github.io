@@ -152,16 +152,16 @@ window.ACADEMIC = [
 // neither render as a typographic wordmark.
 window.AFFILIATIONS = {
   current: [
-    { name: 'Renesas Electronics', short: 'Renesas',  file: 'logos/renesas.svg', kind: 'employer' },
-    { name: 'UT Austin',           short: 'UT Austin',                            kind: 'school'   },
+    { name: 'Renesas Electronics', short: 'Renesas',   file: 'logos/renesas.svg', kind: 'employer', cc: 'US' },
+    { name: 'UT Austin',           short: 'UT Austin',                            kind: 'school',   cc: 'US' },
   ],
   past: [
-    { name: 'Micron Technology',          short: 'Micron',     file: 'logos/micron.png',  kind: 'employer' },
-    { name: 'SanDisk',                    short: 'SanDisk',    file: 'logos/sandisk.svg', kind: 'employer' },
-    { name: 'Bosch',                      short: 'Bosch',      file: 'logos/bosch.svg',   kind: 'employer' },
-    { name: 'Boise State University',     short: 'Boise State',                            kind: 'school'   },
-    { name: 'San Jose State University',  short: 'SJSU',                                   kind: 'school'   },
-    { name: 'VTU India',                  short: 'VTU',                                    kind: 'school'   },
+    { name: 'Micron Technology',          short: 'Micron',      file: 'logos/micron.png',  kind: 'employer', cc: 'US' },
+    { name: 'SanDisk',                    short: 'SanDisk',     file: 'logos/sandisk.svg', kind: 'employer', cc: 'US' },
+    { name: 'Bosch',                      short: 'Bosch',       file: 'logos/bosch.svg',   kind: 'employer', cc: 'IN' },
+    { name: 'Boise State University',     short: 'Boise State',                            kind: 'school',   cc: 'US' },
+    { name: 'San Jose State University',  short: 'SJSU',                                   kind: 'school',   cc: 'US' },
+    { name: 'VTU India',                  short: 'VTU',                                    kind: 'school',   cc: 'IN' },
   ],
 };
 
