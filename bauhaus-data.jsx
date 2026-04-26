@@ -171,7 +171,7 @@ window.AFFILIATIONS = {
 };
 
 window.NOW_LINES = [
-  'Leading ML and Agentic projects at Renesas — building RoX AI Studio for R-Car SoC customers.',
+  'Leading ML and Agentic solutions at Renesas — building RoX AI Studio for R-Car SoC customers.',
   'Pursuing M.S. in Artificial Intelligence at UT Austin.',
   'Researching LLM-aided design and efficient on-device ML.',
   'AI technical advisor at Folsom Lake College and industry evaluator at UC Davis.',
