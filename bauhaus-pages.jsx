@@ -187,8 +187,8 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/', 'index'],
     ['/projects', 'work'],
     ['/blog', 'writing'],
-    ['/resume', 'resume'],
     ['/talks', 'talks'],
+    ['/resume', 'resume'],
     ['/contact', 'contact'],
   ];
   const isDark = theme === 'dark';

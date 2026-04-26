@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/blog', '/resume', '/talks', '/contact'];
+const ROUTES = ['/', '/projects', '/blog', '/talks', '/resume', '/contact'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -92,7 +92,7 @@ function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
       }
       if (e.key === 'g') { lastKey.current = { k: 'g', t: now }; return; }
 
-      const numMap = { '1': '/projects', '2': '/blog', '3': '/resume', '4': '/talks', '5': '/contact' };
+      const numMap = { '1': '/projects', '2': '/blog', '3': '/talks', '4': '/resume', '5': '/contact' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
