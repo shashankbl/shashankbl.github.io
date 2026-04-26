@@ -261,7 +261,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
       }}>
         <a href="#/" onClick={(e)=>{e.preventDefault(); nav('/');}}
            style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--ink)' }}>
-          <span style={{ width: 14, height: 14, background: 'var(--accent)', borderRadius: '50%' }}/>
+          <span className="brand-icon" aria-hidden="true"/>
           <span style={{ font: '500 12px var(--mono)', letterSpacing: '.06em', textTransform: 'uppercase' }}>
             Shashank&nbsp;Bangalore&nbsp;Lakshman
           </span>
