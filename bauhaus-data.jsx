@@ -177,5 +177,3 @@ window.NOW_LINES = [
   'AI technical advisor at Folsom Lake College and industry evaluator at UC Davis.',
   'AI-assisted prototyping in robotics and autonomous AI agents.',
 ];
-
-window.NOW_DATE = '2026·04·26';

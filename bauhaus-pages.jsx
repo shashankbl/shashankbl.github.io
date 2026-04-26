@@ -430,7 +430,11 @@ window.HomePage = function HomePage({ nav }) {
             What I'm doing now.
           </h2>
           <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
-            Last updated · {NOW_DATE}
+            Last updated · {(() => {
+              const d = new Date();
+              const pad = n => String(n).padStart(2, '0');
+              return `${d.getFullYear()}·${pad(d.getMonth() + 1)}·${pad(d.getDate())}`;
+            })()}
           </div>
         </div>
         <div className="reveal" style={{
