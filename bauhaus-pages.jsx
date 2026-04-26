@@ -48,7 +48,7 @@ window.flagEmoji = function flagEmoji(cc) {
 
 window.SubstackAd = function SubstackAd() {
   const [failed, setFailed] = React.useState(false);
-  const href = (window.SITE && SITE.social && SITE.social.substack) || 'https://substack.com/@shashankbl';
+  const href = (window.SITE && SITE.social && SITE.social.substack) || 'https://shashankbl.substack.com/';
   return (
     <a href={href} target="_blank" rel="noreferrer"
        className="reveal focus-outline"

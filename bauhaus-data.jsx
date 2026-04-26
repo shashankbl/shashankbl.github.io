@@ -11,7 +11,7 @@ window.SITE = {
     github:   'https://github.com/shashankbl',
     linkedin: 'https://www.linkedin.com/in/shashankbl/',
     scholar:  'https://scholar.google.com/citations?user=_BI5HM8AAAAJ&hl=en',
-    substack: 'https://substack.com/@shashankbl',
+    substack: 'https://shashankbl.substack.com/',
   },
 };
 
