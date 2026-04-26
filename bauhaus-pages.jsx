@@ -241,8 +241,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/projects', 'work'],
     ['/research', 'research'],
     ['/open-source', 'open-source'],
-    ['/blog', 'writing'],
-    ['/talks', 'talks'],
+    ['/ideas', 'ideas'],
     ['/news', 'news'],
     ['/about-me', 'about me'],
   ];
@@ -337,7 +336,7 @@ window.Footer = function Footer() {
       }}>
         <div>
           <div className="lbl-mono" style={{ color: 'color-mix(in oklab, var(--bg) 55%, transparent)' }}>
-            ── <span style={{ color: 'var(--accent)' }}>08</span> / CONTACT
+            ── <span style={{ color: 'var(--accent)' }}>07</span> / CONTACT
           </div>
           <div className="display" style={{
             font: '500 30px/1.15 var(--display)', marginTop: 10, maxWidth: 540,
@@ -724,7 +723,7 @@ window.BlogGroup = function BlogGroup({ name, posts, nav }) {
   );
 };
 
-window.BlogPage = function BlogPage({ nav }) {
+window.IdeasPage = function IdeasPage({ nav }) {
   // Group POSTS by flair, preserving first-seen order.
   const order = [];
   const groups = {};
@@ -737,14 +736,15 @@ window.BlogPage = function BlogPage({ nav }) {
     groups[g].posts.push(p);
   });
   const grouped = order.map(g => groups[g]);
+  const talks = window.TALKS || [];
 
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="05">Writing</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="05">Ideas</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Long-form notes.
+        Writing &amp; talks.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
         On AI systems, agentic tooling, and engineering reflections.
@@ -758,15 +758,45 @@ window.BlogPage = function BlogPage({ nav }) {
         </a>{' '}on Substack.
       </p>
 
-      {grouped.length === 0 ? (
-        <div className="reveal lbl-mono" style={{ marginTop: 40, color: 'var(--muted)' }}>
-          ◇ More coming soon.
-        </div>
-      ) : (
-        grouped.map(g => (
-          <BlogGroup key={g.name} name={g.name} posts={g.posts} nav={nav}/>
-        ))
-      )}
+      <div style={{ marginTop: 48 }}>
+        <h2 className="display reveal" style={{
+          font: '500 24px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>Writing</h2>
+        <hr className="rule" style={{ marginTop: 12 }}/>
+        {grouped.length === 0 ? (
+          <EmptyNote/>
+        ) : (
+          grouped.map(g => (
+            <BlogGroup key={g.name} name={g.name} posts={g.posts} nav={nav}/>
+          ))
+        )}
+      </div>
+
+      <div style={{ marginTop: 56 }}>
+        <h2 className="display reveal" style={{
+          font: '500 24px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>Talks</h2>
+        <hr className="rule" style={{ marginTop: 12 }}/>
+        {talks.length === 0 ? (
+          <EmptyNote/>
+        ) : (
+          <div style={{ marginTop: 4 }}>
+            {talks.map((t, i) => (
+              <div key={i} className="reveal list-row" style={{
+                display: 'grid', gridTemplateColumns: '90px 200px 1fr 140px',
+                padding: '20px 0',
+                borderTop: i ? '1px solid var(--rule-soft)' : 'none',
+                alignItems: 'baseline', gap: 16,
+              }}>
+                <span className="lbl-mono">{t.date}</span>
+                <span className="lbl-mono" style={{ color: 'var(--accent)' }}>{t.venue}</span>
+                <span className="display" style={{ font: '500 18px/1.3 var(--display)' }}>{t.title}</span>
+                <span className="lbl-mono" style={{ textAlign: 'right' }}>{t.loc}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 };
@@ -829,7 +859,7 @@ window.PostPage = function PostPage({ slug, nav }) {
 window.AboutMePage = function AboutMePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="08">About me</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="07">About me</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -923,37 +953,10 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
   );
 };
 
-window.TalksPage = function TalksPage() {
-  return (
-    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="06">Talks</SectionLabel></div>
-      <h1 className="display reveal page-headline" style={{
-        font: '500 48px/1.05 var(--display)', margin: '14px 0 32px', letterSpacing: '-.025em',
-      }}>
-        Things I've said out loud.
-      </h1>
-      <div>
-        {TALKS.map((t, i) => (
-          <div key={i} className="reveal list-row" style={{
-            display: 'grid', gridTemplateColumns: '90px 180px 1fr 140px',
-            padding: '20px 0', borderTop: '1px solid var(--rule)',
-            alignItems: 'baseline', gap: 16,
-          }}>
-            <span className="lbl-mono">{t.date}</span>
-            <span className="lbl-mono" style={{ color: 'var(--accent)' }}>{t.venue}</span>
-            <span className="display" style={{ font: '500 18px/1.3 var(--display)' }}>{t.title}</span>
-            <span className="lbl-mono" style={{ textAlign: 'right' }}>{t.loc}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 window.NewsPage = function NewsPage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="07">News</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="06">News</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -1262,7 +1265,7 @@ window.OpenSourcePage = function OpenSourcePage() {
 window.HelpOverlay = function HelpOverlay({ open, onClose }) {
   if (!open) return null;
   const rows = [
-    ['1 — 8', 'jump to section'],
+    ['1 — 7', 'jump to section'],
     ['t',     'toggle theme'],
     ['?',     'this help'],
     ['esc',   'close'],

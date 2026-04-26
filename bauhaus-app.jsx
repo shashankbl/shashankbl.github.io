@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/research', '/open-source', '/blog', '/talks', '/news', '/about-me'];
+const ROUTES = ['/', '/projects', '/research', '/open-source', '/ideas', '/news', '/about-me'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -70,7 +70,7 @@ function useKeyboardNav(nav, toggleTheme) {
       if (e.key === 'Escape') { setHelp(false); return; }
       if (e.key === 't') { toggleTheme(); return; }
 
-      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/blog', '6': '/talks', '7': '/news', '8': '/about-me' };
+      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/ideas', '6': '/news', '7': '/about-me' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
@@ -108,10 +108,9 @@ function App() {
   else if (path === '/projects') page = <window.ProjectsPage/>;
   else if (path === '/research') page = <window.ResearchPage/>;
   else if (path === '/open-source') page = <window.OpenSourcePage/>;
-  else if (path === '/blog') page = <window.BlogPage nav={nav}/>;
+  else if (path === '/ideas' || path === '/blog' || path === '/talks') page = <window.IdeasPage nav={nav}/>;
   else if (path.startsWith('/blog/')) page = <window.PostPage slug={path.slice(6)} nav={nav}/>;
   else if (path === '/about-me' || path === '/experience' || path === '/contact') page = <window.AboutMePage/>;
-  else if (path === '/talks') page = <window.TalksPage/>;
   else if (path === '/news') page = <window.NewsPage/>;
   else page = <window.HomePage nav={nav}/>;
 
