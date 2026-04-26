@@ -747,7 +747,10 @@ window.BlogPage = function BlogPage({ nav }) {
         Long-form notes.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        On AI systems, agentic tooling, and engineering reflections. Read on{' '}
+        On AI systems, agentic tooling, and engineering reflections.
+      </p>
+      <p className="reveal" style={{ marginTop: 8, color: 'var(--muted)', fontSize: 14.5 }}>
+        Read on{' '}
         <a className="hover-line" href={SITE.social.substack || 'https://shashankbl.substack.com/'}
            target="_blank" rel="noreferrer"
            style={{ color: 'var(--accent)' }}>
