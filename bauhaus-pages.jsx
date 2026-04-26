@@ -39,6 +39,62 @@ window.Pill = function Pill({ kind }) {
   );
 };
 
+window.LogoTile = function LogoTile({ item }) {
+  const [failed, setFailed] = React.useState(false);
+  const kindGlyph = item.kind === 'school' ? '▲' : '■';
+  return (
+    <div title={item.name} style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+      padding: '16px 14px',
+      border: '1px solid var(--rule)', background: 'var(--paper)',
+      minWidth: 120, flex: '1 1 140px',
+      transition: 'border-color .2s ease, transform .2s ease',
+    }}
+    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+      <div style={{
+        height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '100%',
+      }}>
+        {failed ? (
+          <span className="display" style={{
+            font: '500 18px/1 var(--display)', color: 'var(--ink)',
+            letterSpacing: '-.01em', textAlign: 'center',
+          }}>{item.short}</span>
+        ) : (
+          <img
+            src={`https://logo.clearbit.com/${item.domain}`}
+            alt={item.name}
+            onError={() => setFailed(true)}
+            style={{
+              maxHeight: 40, maxWidth: '100%', objectFit: 'contain',
+              filter: 'grayscale(100%)', transition: 'filter .2s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0%)'; }}
+            onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(100%)'; }}
+          />
+        )}
+      </div>
+      <div className="lbl-mono" style={{
+        textAlign: 'center', fontSize: 10, color: 'var(--muted)',
+      }}>
+        <span style={{ color: 'var(--accent)', marginRight: 4 }}>{kindGlyph}</span>
+        {item.short}
+      </div>
+    </div>
+  );
+};
+
+window.LogoStrip = function LogoStrip({ items }) {
+  return (
+    <div className="reveal" style={{
+      display: 'flex', gap: 14, flexWrap: 'wrap',
+    }}>
+      {items.map(item => <LogoTile key={item.domain} item={item}/>)}
+    </div>
+  );
+};
+
 window.Placeholder = function Placeholder({ label, h = 180 }) {
   return (
     <div style={{
@@ -238,6 +294,36 @@ window.HomePage = function HomePage({ nav }) {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Affiliations */}
+      <section style={{
+        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
+        borderTop: '1px solid var(--rule)',
+      }}>
+        <div className="reveal">
+          <SectionLabel n="01·b">Affiliations</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            Where I've worked &amp; studied.
+          </h2>
+          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
+            Current and prior employers and academic institutions.
+          </p>
+        </div>
+
+        <div style={{ marginTop: 28 }}>
+          <div className="lbl-mono reveal" style={{ marginBottom: 14 }}>
+            ── <span className="num">CURRENT</span>
+          </div>
+          <LogoStrip items={AFFILIATIONS.current}/>
+        </div>
+
+        <div style={{ marginTop: 32 }}>
+          <div className="lbl-mono reveal" style={{ marginBottom: 14 }}>
+            ── <span className="num">PRIOR</span>
+          </div>
+          <LogoStrip items={AFFILIATIONS.past}/>
         </div>
       </section>
 

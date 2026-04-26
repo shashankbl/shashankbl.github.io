@@ -147,6 +147,23 @@ window.ACADEMIC = [
     ] },
 ];
 
+// Affiliations shown on the home page. `domain` feeds the Clearbit logo CDN
+// (https://logo.clearbit.com/{domain}); a text wordmark renders as fallback.
+window.AFFILIATIONS = {
+  current: [
+    { name: 'Renesas Electronics', short: 'Renesas',  domain: 'renesas.com', kind: 'employer' },
+    { name: 'UT Austin',           short: 'UT Austin', domain: 'utexas.edu',  kind: 'school'   },
+  ],
+  past: [
+    { name: 'Micron Technology',          short: 'Micron',     domain: 'micron.com',     kind: 'employer' },
+    { name: 'SanDisk',                    short: 'SanDisk',    domain: 'sandisk.com',    kind: 'employer' },
+    { name: 'Bosch',                      short: 'Bosch',      domain: 'bosch.com',      kind: 'employer' },
+    { name: 'Boise State University',     short: 'Boise State', domain: 'boisestate.edu', kind: 'school' },
+    { name: 'San Jose State University',  short: 'SJSU',       domain: 'sjsu.edu',       kind: 'school'   },
+    { name: 'VTU India',                  short: 'VTU',        domain: 'vtu.ac.in',      kind: 'school'   },
+  ],
+};
+
 window.NOW_LINES = [
   'Leading ML engineering at Renesas — building RoX AI Studio for R-Car SoC customers.',
   'Pursuing M.S. in Artificial Intelligence at UT Austin (Case Studies in ML, NLP, DL, Ethics in AI).',
