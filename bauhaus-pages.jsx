@@ -276,7 +276,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
                    borderBottom: active ? '1px solid var(--accent)' : '1px solid transparent',
                    paddingBottom: 2,
                  }}>
-                <span style={{ color: 'var(--accent)' }}>{String(i).padStart(2,'0')}/</span>{lbl}
+                <span style={{ color: 'var(--accent)' }}>{String(i+1).padStart(2,'0')}/</span>{lbl}
               </a>
             );
           })}
