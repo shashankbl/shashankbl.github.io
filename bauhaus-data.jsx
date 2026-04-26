@@ -171,11 +171,11 @@ window.AFFILIATIONS = {
 };
 
 window.NOW_LINES = [
-  'Leading ML engineering at Renesas — building RoX AI Studio for R-Car SoC customers.',
-  'Pursuing M.S. in Artificial Intelligence at UT Austin (Case Studies in ML, NLP, DL, Ethics in AI).',
+  'Leading ML and Agentic projects at Renesas — building RoX AI Studio for R-Car SoC customers.',
+  'Pursuing M.S. in Artificial Intelligence at UT Austin.',
   'Researching LLM-aided design and efficient on-device ML.',
-  'Volunteering as AI technical advisor at Folsom Lake College CS and industry evaluator at UC Davis.',
-  'Open to collaborations and talks on edge AI inference, AI/HW co-design, and MLOps for embedded systems.',
+  'AI technical advisor at Folsom Lake College and industry evaluator at UC Davis.',
+  'AI-assisted prototyping in robotics and autonomous AI agents.',
 ];
 
-window.NOW_DATE = '2026·04·25';
+window.NOW_DATE = '2026·04·26';
