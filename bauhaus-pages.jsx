@@ -536,7 +536,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
         <div style={{ display: 'grid', gap: 0 }}>
           {items.map((p) => (
             <article key={p.id} className="reveal proj-row" style={{
-              display: 'grid', gridTemplateColumns: '60px 1fr 200px',
+              display: 'grid', gridTemplateColumns: '60px 1fr 320px',
               gap: 28, padding: '32px 0',
               borderTop: '1px solid var(--rule-soft)',
             }}>
@@ -566,7 +566,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
               <div>
                 {p.image ? (
                   <div style={{
-                    height: 120, border: '1px solid var(--rule)',
+                    height: 200, border: '1px solid var(--rule)',
                     background: 'var(--paper)', overflow: 'hidden',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
@@ -574,7 +574,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}/>
                   </div>
                 ) : (
-                  <Placeholder label={`Figure / ${p.n}`} h={120}/>
+                  <Placeholder label={`Figure / ${p.n}`} h={200}/>
                 )}
               </div>
             </article>
