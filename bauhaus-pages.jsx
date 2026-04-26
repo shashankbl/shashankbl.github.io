@@ -834,36 +834,6 @@ window.AboutMePage = function AboutMePage() {
       </p>
       <ResumeGroup label="Professional experience" entries={PROFESSIONAL}/>
       <ResumeGroup label="Academic experience"     entries={ACADEMIC}/>
-
-      <div style={{ marginTop: 64 }}>
-        <h2 className="display reveal" style={{
-          font: '500 26px/1.2 var(--display)', margin: '0 0 4px', letterSpacing: '-.01em',
-        }}>
-          Get in touch
-        </h2>
-        <hr className="rule" style={{ marginTop: 12 }}/>
-        <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, marginTop: 18, fontSize: 15 }}>
-          Currently open to <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>collaborations</span> on AI systems research. Drop a line if you're working on AI systems,
-          on-device inference, or accelerator co-design — or just want to swap notes on the state of the art.
-        </p>
-        <div className="reveal contact-grid" style={{
-          marginTop: 24, display: 'grid', gridTemplateColumns: '120px 1fr',
-          gap: '14px 28px', font: '400 14px/1.6 var(--mono)',
-        }}>
-          <span style={{ color: 'var(--muted)' }}>GITHUB</span>
-          <a className="hover-line" href={SITE.social.github} target="_blank" rel="noreferrer">
-            github.com/shashankbl ↗
-          </a>
-          <span style={{ color: 'var(--muted)' }}>LINKEDIN</span>
-          <a className="hover-line" href={SITE.social.linkedin} target="_blank" rel="noreferrer">
-            linkedin.com/in/shashankbl ↗
-          </a>
-          <span style={{ color: 'var(--muted)' }}>SCHOLAR</span>
-          <a className="hover-line" href={SITE.social.scholar} target="_blank" rel="noreferrer">
-            scholar.google.com ↗
-          </a>
-        </div>
-      </div>
     </section>
   );
 };
