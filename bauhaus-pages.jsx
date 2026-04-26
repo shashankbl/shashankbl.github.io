@@ -564,7 +564,18 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 </div>
               </div>
               <div>
-                <Placeholder label={`Figure / ${p.n}`} h={120}/>
+                {p.image ? (
+                  <div style={{
+                    height: 120, border: '1px solid var(--rule)',
+                    background: 'var(--paper)', overflow: 'hidden',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <img src={p.image} alt={p.title}
+                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}/>
+                  </div>
+                ) : (
+                  <Placeholder label={`Figure / ${p.n}`} h={120}/>
+                )}
               </div>
             </article>
           ))}
