@@ -82,10 +82,12 @@ window.RESEARCH = {
     { date: '2025', kind: 'science', venue: 'IOVS 66(8)',
       title: 'High-Resolution Wireless EOG Sensor for Real-Time Characterization of Blink Kinematics',
       authors: 'H Govinde, SR Singh, SB Lakshman, P Padmanabhan, S Rachapalli, et al.',
+      url: 'https://iovs.arvojournals.org/article.aspx?articleid=2804475',
       loc: 'Journal · abstract' },
     { date: '2022', kind: 'engineering', venue: 'SERP4IoT',
       title: 'Software engineering approaches for TinyML based IoT embedded vision: A systematic literature review',
       authors: 'SB Lakshman, NU Eisty',
+      url: 'https://dl.acm.org/doi/10.1145/3528227.3528569',
       loc: 'Workshop · paper' },
   ],
   collaborators: [
