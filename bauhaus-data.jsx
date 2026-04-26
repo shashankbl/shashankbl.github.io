@@ -47,6 +47,12 @@ window.POSTS = [
     blurb: '...' },
 ];
 
+window.OSS = [
+  // { name: 'project-name', role: 'Author / Maintainer / Contributor',
+  //   year: '2025', desc: 'What I contributed.',
+  //   url: 'https://github.com/owner/repo', tag: 'AI · TOOLING' },
+];
+
 window.NEWS = [
   // { date: 'YYYY·MM', outlet: 'Outlet', title: 'Headline / segment',
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },

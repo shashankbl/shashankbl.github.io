@@ -186,6 +186,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
   const items = [
     ['/', 'index'],
     ['/projects', 'work'],
+    ['/open-source', 'open-source'],
     ['/blog', 'writing'],
     ['/talks', 'talks'],
     ['/news', 'news'],
@@ -783,10 +784,10 @@ window.NewsPage = function NewsPage() {
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        In the news.
+        News &amp; announcements.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
-        Articles, podcasts, and interviews.
+        Press coverage, personal updates, podcasts, and interviews.
       </p>
 
       {(!NEWS || NEWS.length === 0) ? (
@@ -811,6 +812,74 @@ window.NewsPage = function NewsPage() {
               <span className="display" style={{ font: '500 18px/1.3 var(--display)' }}>{m.title}</span>
               <span className="lbl-mono" style={{ textAlign: 'right' }}>{m.loc} ↗</span>
             </a>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
+
+window.OpenSourcePage = function OpenSourcePage() {
+  return (
+    <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
+      <div className="reveal"><SectionLabel n="02">Open-source</SectionLabel></div>
+      <h1 className="display reveal" style={{
+        font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
+      }}>
+        Open-source contributions.
+      </h1>
+      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
+        Tools, libraries, and patches I've authored or contributed to.
+      </p>
+
+      {(!OSS || OSS.length === 0) ? (
+        <div className="reveal lbl-mono" style={{
+          marginTop: 36, padding: '28px 0', borderTop: '1px solid var(--rule)',
+          color: 'var(--muted)',
+        }}>
+          ◇ More coming soon. Browse{' '}
+          <a className="hover-line" href={SITE.social.github} target="_blank" rel="noreferrer"
+             style={{ color: 'var(--ink)' }}>
+            github.com/shashankbl ↗
+          </a>{' '}in the meantime.
+        </div>
+      ) : (
+        <div style={{ marginTop: 32 }}>
+          {OSS.map((o, i) => (
+            <article key={i} className="reveal" style={{
+              display: 'grid', gridTemplateColumns: '90px 1fr 140px',
+              padding: '24px 0', borderTop: '1px solid var(--rule)',
+              gap: 20, alignItems: 'baseline',
+            }}>
+              <span className="lbl-mono">{o.year}</span>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
+                  <h3 className="display" style={{
+                    font: '500 22px/1.25 var(--display)', margin: 0,
+                  }}>
+                    {o.url ? (
+                      <a className="hover-line" href={o.url} target="_blank" rel="noreferrer"
+                         style={{ color: 'var(--ink)' }}>{o.name}</a>
+                    ) : o.name}
+                  </h3>
+                  {o.tag && <span className="lbl-mono">{o.tag}</span>}
+                </div>
+                <div className="lbl-mono" style={{ marginTop: 4, color: 'var(--accent)' }}>{o.role}</div>
+                {o.desc && (
+                  <p style={{ marginTop: 8, color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65 }}>
+                    {o.desc}
+                  </p>
+                )}
+              </div>
+              <div className="lbl-mono" style={{ textAlign: 'right' }}>
+                {o.url && (
+                  <a className="hover-line" href={o.url} target="_blank" rel="noreferrer"
+                     style={{ color: 'var(--accent)' }}>
+                    REPO ↗
+                  </a>
+                )}
+              </div>
+            </article>
           ))}
         </div>
       )}
@@ -861,12 +930,13 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['k  /  ↑', 'scroll up'],
     ['g h',     'home'],
     ['g p',     'projects'],
+    ['g o',     'open-source'],
     ['g w',     'writing / blog'],
     ['g r',     'resume'],
     ['g t',     'talks'],
     ['g n',     'news'],
     ['g c',     'contact'],
-    ['1 — 6',   'jump to section'],
+    ['1 — 7',   'jump to section'],
     ['t',       'toggle theme'],
     ['?',       'this help'],
     ['esc',     'close'],
