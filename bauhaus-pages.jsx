@@ -356,7 +356,7 @@ window.HomePage = function HomePage({ nav }) {
                aria-label="Hook 'em — UT Austin"
                style={{ display: 'block' }}>
               <img src="images/hookem.png" alt="Hook 'em — UT Austin"
-                   style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 110, objectFit: 'contain' }}/>
+                   style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 176, objectFit: 'contain' }}/>
             </a>
             <div className="reveal" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
