@@ -45,7 +45,7 @@ window.OSS = [
   { name: 'zumo-shield-arduino-rev4wifi-library', role: 'Author', year: '2026',
     tag: 'EMBEDDED · ROBOTICS',
     desc: 'Port of the Pololu Zumo Arduino library (v1.3) from Uno R3 (8-bit AVR) to Uno R4 WiFi (Renesas RA4M1, 32-bit ARM Cortex-M4). Existing AVR paths kept byte-identical behind compile-time guards — zero regression for R3 users. Built as a side quest with Claude Code pair-programming, then debugged on hardware.',
-    url: 'https://github.com/shashankbl/zumo-shield-arduino-rev4wifi-library' },
+    url: 'https://github.com/shashankbl/zumo-shield-arduino-rev4wifi-library/tree/feature/uno-r4-wifi-timers' },
 
   { name: 'LiveResume', role: 'Author · MIT licensed', year: '2026',
     tag: 'TOOLING · DEV',
