@@ -117,8 +117,10 @@ window.LogoTile = function LogoTile({ item }) {
     onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
     onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
       <div style={{
-        height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        width: '100%',
+        height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: '100%', padding: '6px 10px',
+        background: 'var(--logo-frame)',
+        border: '1px solid var(--rule-soft)',
       }}>
         {src ? (
           <img
@@ -267,25 +269,6 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
         </nav>
       </div>
     </header>
-  );
-};
-
-window.DevBanner = function DevBanner() {
-  return (
-    <div style={{
-      borderBottom: '1px solid var(--rule)',
-      background: 'color-mix(in oklab, var(--accent) 14%, var(--bg))',
-    }}>
-      <div style={{
-        maxWidth: 1180, margin: '0 auto', padding: '10px 32px',
-        display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
-        font: '400 11px var(--mono)', letterSpacing: '.12em',
-        textTransform: 'uppercase', color: 'var(--ink)',
-      }}>
-        <span style={{ color: 'var(--accent)' }}>◆ Under construction</span>
-        <span style={{ color: 'var(--muted)' }}>— content is placeholder. portfolio in progress.</span>
-      </div>
-    </div>
   );
 };
 
