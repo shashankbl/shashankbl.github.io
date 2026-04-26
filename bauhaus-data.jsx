@@ -56,6 +56,8 @@ window.POSTS = [
     title: 'Keeping Old Robots Cool With New Tricks', url: 'https://shashankbl.substack.com/p/keeping-old-robots-cool-with-new' },
   { date: '2026·04', flair: 'Career',
     title: 'Think Like a Game Theorist', url: 'https://shashankbl.substack.com/p/think-like-a-game-theorist' },
+  { date: '2026·04', flair: 'Career',
+    title: 'Bet hard on your human skills', url: 'https://shashankbl.substack.com/p/bet-hard-on-your-human-skills' },
 ];
 
 window.OSS = [
