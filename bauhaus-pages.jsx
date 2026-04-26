@@ -188,7 +188,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/projects', 'work'],
     ['/blog', 'writing'],
     ['/talks', 'talks'],
-    ['/media', 'media'],
+    ['/news', 'news'],
     ['/resume', 'resume'],
     ['/contact', 'contact'],
   ];
@@ -527,6 +527,12 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
                   <span>STACK · {p.stack}</span>
                   <span>SCALE · {p.loc}</span>
+                  {p.url && (
+                    <a className="hover-line" href={p.url} target="_blank" rel="noreferrer"
+                       style={{ color: 'var(--accent)' }}>
+                      DEMO ↗
+                    </a>
+                  )}
                 </div>
               </div>
               <div>
@@ -770,20 +776,20 @@ window.TalksPage = function TalksPage() {
   );
 };
 
-window.MediaPage = function MediaPage() {
+window.NewsPage = function NewsPage() {
   return (
     <section style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="06">Media</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="06">News</SectionLabel></div>
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Media coverage.
+        In the news.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
         Articles, podcasts, and interviews.
       </p>
 
-      {(!MEDIA || MEDIA.length === 0) ? (
+      {(!NEWS || NEWS.length === 0) ? (
         <div className="reveal lbl-mono" style={{
           marginTop: 36, padding: '28px 0', borderTop: '1px solid var(--rule)',
           color: 'var(--muted)',
@@ -792,7 +798,7 @@ window.MediaPage = function MediaPage() {
         </div>
       ) : (
         <div style={{ marginTop: 32 }}>
-          {MEDIA.map((m, i) => (
+          {NEWS.map((m, i) => (
             <a key={i} href={m.url} target="_blank" rel="noreferrer"
                className="reveal hover-line"
                style={{
@@ -858,7 +864,7 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['g w',     'writing / blog'],
     ['g r',     'resume'],
     ['g t',     'talks'],
-    ['g m',     'media'],
+    ['g n',     'news'],
     ['g c',     'contact'],
     ['1 — 6',   'jump to section'],
     ['t',       'toggle theme'],

@@ -33,6 +33,12 @@ window.PROJECTS = [
     title: 'CampML.org', tag: 'COMMUNITY · EDU', year: 'Ongoing',
     blurb: 'Founder and AI educator at CampML.org — a community-driven ML bootcamp. Also AI technical advisor at Folsom Lake College CS and industry evaluator at UC Davis.',
     stack: 'Curriculum · Mentorship', loc: 'Volunteer' },
+
+  { id: 'pixelsynth', n: '005', kind: 'art',
+    title: 'PixelSynth', tag: 'CREATIVE CODING · OSS', year: '2025',
+    blurb: 'A creative-coding tool that uses Python to procedurally compile and generate interactive p5.js sketches for live webcam manipulation — so indie artists can make fun music videos at zero budget. Vibe-coded, MIT licensed.',
+    stack: 'Python · p5.js · JavaScript', loc: 'MIT · github.com/shashankbl/pixelsynth',
+    url: 'https://shashankbl.github.io/pixelsynth/' },
 ];
 
 window.POSTS = [
@@ -41,7 +47,7 @@ window.POSTS = [
     blurb: '...' },
 ];
 
-window.MEDIA = [
+window.NEWS = [
   // { date: 'YYYY·MM', outlet: 'Outlet', title: 'Headline / segment',
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
 ];
