@@ -190,7 +190,6 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/blog', 'writing'],
     ['/resume', 'resume'],
     ['/talks', 'talks'],
-    ['/now', 'now'],
     ['/contact', 'contact'],
   ];
   const isDark = theme === 'dark';
@@ -413,60 +412,34 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
-      {/* Selected work */}
+      {/* Now */}
       <section style={{
         maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
         borderTop: '1px solid var(--rule)',
       }}>
-        <div style={{
-          display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 28,
-        }}>
-          <div className="reveal">
-            <SectionLabel n="02">Selected work</SectionLabel>
-            <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 0' }}>
-              Things I've shipped.
-            </h2>
+        <div className="reveal">
+          <SectionLabel n="02">Now</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            What I'm doing now.
+          </h2>
+          <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
+            Last updated · {NOW_DATE}
           </div>
-          <a href="#/projects" onClick={(e)=>{e.preventDefault(); nav('/projects');}}
-             className="hover-line lbl-mono" style={{ color: 'var(--ink)' }}>
-            All work →
-          </a>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
-          {PROJECTS.map(p => (
-            <a key={p.id} href={'#/projects'}
-               onClick={(e)=>{e.preventDefault(); nav('/projects');}}
-               className="reveal"
-               style={{
-                 border: '1px solid var(--rule)', background: 'var(--paper)', padding: 22,
-                 display: 'flex', flexDirection: 'column', gap: 14,
-                 color: 'var(--ink)', transition: 'border-color .2s ease, transform .2s ease',
-               }}
-               onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-              <div className="lbl-mono" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
-                <span><span className="num">{p.n}</span> · {p.tag}</span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <Pill kind={p.kind}/>
-                  <span>{p.year}</span>
-                </span>
-              </div>
-              <Placeholder label={`Figure / ${p.n}`} h={140}/>
-              <div>
-                <div className="display" style={{ font: '500 21px/1.2 var(--display)' }}>{p.title}</div>
-                <div style={{ marginTop: 6, color: 'var(--muted)', fontSize: 14, lineHeight: 1.55 }}>
-                  {p.blurb}
-                </div>
-              </div>
-              <div className="lbl-mono" style={{
-                marginTop: 'auto', paddingTop: 10,
-                borderTop: '1px dashed var(--rule)',
-                display: 'flex', justifyContent: 'space-between',
-              }}>
-                <span>{p.stack}</span>
-                <span style={{ color: 'var(--accent)' }}>READ →</span>
-              </div>
-            </a>
+        <div className="reveal" style={{
+          marginTop: 22, padding: '22px 24px',
+          background: 'var(--paper)',
+          border: '1px solid var(--rule)', borderLeft: '2px solid var(--accent)',
+          font: '400 15.5px/1.85 var(--sans)',
+          maxWidth: 760,
+        }}>
+          {NOW_LINES.map((line, i) => (
+            <div key={i} style={{ display: 'flex', gap: 12 }}>
+              <span style={{ color: 'var(--accent)', font: '500 12px var(--mono)', paddingTop: 5, minWidth: 18 }}>
+                {String(i+1).padStart(2,'0')}
+              </span>
+              <span>{line}</span>
+            </div>
           ))}
         </div>
       </section>
@@ -780,35 +753,6 @@ window.TalksPage = function TalksPage() {
   );
 };
 
-window.NowPage = function NowPage() {
-  return (
-    <section style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="06">Now</SectionLabel></div>
-      <h1 className="display reveal" style={{
-        font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
-      }}>
-        What I'm doing now.
-      </h1>
-      <div className="lbl-mono">Last updated · {NOW_DATE}</div>
-      <div className="reveal" style={{
-        marginTop: 28, padding: '22px 24px',
-        background: 'var(--paper)',
-        border: '1px solid var(--rule)', borderLeft: '2px solid var(--accent)',
-        font: '400 15.5px/1.85 var(--sans)',
-      }}>
-        {NOW_LINES.map((line, i) => (
-          <div key={i} style={{ display: 'flex', gap: 12 }}>
-            <span style={{ color: 'var(--accent)', font: '500 12px var(--mono)', paddingTop: 5, minWidth: 18 }}>
-              {String(i+1).padStart(2,'0')}
-            </span>
-            <span>{line}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 window.ContactPage = function ContactPage() {
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '64px 32px' }}>
@@ -855,9 +799,8 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['g w',     'writing / blog'],
     ['g r',     'resume'],
     ['g t',     'talks'],
-    ['g n',     'now'],
     ['g c',     'contact'],
-    ['1 — 6',   'jump to section'],
+    ['1 — 5',   'jump to section'],
     ['t',       'toggle theme'],
     ['?',       'this help'],
     ['esc',     'close'],
