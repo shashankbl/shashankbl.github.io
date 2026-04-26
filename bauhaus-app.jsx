@@ -58,9 +58,8 @@ function useReveal(key) {
   }, [key]);
 }
 
-function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
+function useKeyboardNav(nav, toggleTheme) {
   const [help, setHelp] = React.useState(false);
-  const lastKey = React.useRef({ k: '', t: 0 });
 
   React.useEffect(() => {
     const onKey = (e) => {
@@ -71,33 +70,12 @@ function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
       if (e.key === 'Escape') { setHelp(false); return; }
       if (e.key === 't') { toggleTheme(); return; }
 
-      if (e.key === 'j' || e.key === 'ArrowDown') { window.scrollBy({ top: 120, behavior: 'smooth' }); return; }
-      if (e.key === 'k' || e.key === 'ArrowUp')   { window.scrollBy({ top: -120, behavior: 'smooth' }); return; }
-
-      // Prev/next post
-      if ((e.key === '[' || e.key === ']') && currentPath.startsWith('/blog/')) {
-        const slug = currentPath.slice(6);
-        const idx = postsList.findIndex(p => p.slug === slug);
-        if (idx >= 0) {
-          const target = e.key === '[' ? postsList[idx-1] : postsList[idx+1];
-          if (target) nav('/blog/'+target.slug);
-        }
-        return;
-      }
-
-      const now = Date.now();
-      if (lastKey.current.k === 'g' && now - lastKey.current.t < 800) {
-        const map = { h: '/', p: '/projects', r: '/research', o: '/open-source', w: '/blog', t: '/talks', n: '/news', a: '/about-me' };
-        if (map[e.key]) { nav(map[e.key]); lastKey.current = { k: '', t: 0 }; return; }
-      }
-      if (e.key === 'g') { lastKey.current = { k: 'g', t: now }; return; }
-
       const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/blog', '6': '/talks', '7': '/news', '8': '/about-me' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [nav, toggleTheme, postsList, currentPath]);
+  }, [nav, toggleTheme]);
 
   return [help, setHelp];
 }
@@ -121,7 +99,7 @@ function App() {
   }, [t.showAscii, t.showDots]);
 
   const toggleTheme = () => setTweak('theme', t.theme === 'dark' ? 'light' : 'dark');
-  const [help, setHelp] = useKeyboardNav(nav, toggleTheme, window.POSTS, path);
+  const [help, setHelp] = useKeyboardNav(nav, toggleTheme);
 
   useReveal(path);
 

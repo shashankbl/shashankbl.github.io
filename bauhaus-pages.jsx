@@ -172,27 +172,35 @@ window.LogoTile = function LogoTile({ item }) {
 
 window.SkillList = function SkillList({ items }) {
   return (
-    <ul style={{
-      margin: 0, padding: 0, listStyle: 'none',
-      display: 'grid', gap: 6,
+    <div style={{
+      font: '400 12.5px/1.75 var(--mono)', color: 'var(--ink)',
     }}>
-      {items.map(s => (
-        <li key={s} style={{
-          display: 'grid', gridTemplateColumns: '14px 1fr', gap: 8,
-          font: '400 13px/1.45 var(--mono)', color: 'var(--ink)',
-        }}>
-          <span style={{ color: 'var(--accent)' }}>▸</span>
+      {items.map((s, i) => (
+        <React.Fragment key={s}>
+          {i > 0 && <span style={{ color: 'var(--accent)', margin: '0 7px' }}>·</span>}
           <span>{s}</span>
-        </li>
+        </React.Fragment>
       ))}
-    </ul>
+    </div>
+  );
+};
+
+window.SkillHeader = function SkillHeader({ label, accent = true }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+      <span className="lbl-mono" style={{
+        color: accent ? 'var(--accent)' : 'var(--ink)',
+        whiteSpace: 'nowrap',
+      }}>{label}</span>
+      <span style={{ flex: 1, height: 1, background: 'var(--rule)' }}/>
+    </div>
   );
 };
 
 window.SkillMatrix = function SkillMatrix({ groups }) {
   return (
     <div className="skills-grid" style={{
-      display: 'grid', gap: 28,
+      display: 'grid', gap: '22px 32px',
       gridTemplateColumns: 'repeat(2, 1fr)',
     }}>
       {groups.map(g => {
@@ -200,20 +208,15 @@ window.SkillMatrix = function SkillMatrix({ groups }) {
         return (
           <div key={g.group} className="reveal"
                style={isNested ? { gridColumn: '1 / -1' } : undefined}>
-            <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 10 }}>
-              {g.group}
-            </div>
-            <hr className="rule" style={{ marginBottom: 14 }}/>
+            <SkillHeader label={g.group}/>
             {isNested ? (
               <div className="skills-subgrid" style={{
-                display: 'grid', gap: 22,
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                display: 'grid', gap: '14px 28px', marginTop: 4,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
               }}>
                 {g.subgroups.map(sg => (
                   <div key={sg.label}>
-                    <div className="lbl-mono" style={{ color: 'var(--ink)', marginBottom: 8 }}>
-                      {sg.label}
-                    </div>
+                    <SkillHeader label={sg.label} accent={false}/>
                     <SkillList items={sg.items}/>
                   </div>
                 ))}
@@ -355,7 +358,7 @@ window.Footer = function Footer() {
         display: 'grid', gridTemplateColumns: '1fr auto', gap: 28, alignItems: 'baseline',
       }}>
         <div>
-          <div className="lbl-mono" style={{ color: 'rgba(244,241,236,.5)' }}>
+          <div className="lbl-mono" style={{ color: 'color-mix(in oklab, var(--bg) 55%, transparent)' }}>
             ── <span style={{ color: 'var(--accent)' }}>08</span> / CONTACT
           </div>
           <div className="display" style={{
@@ -365,7 +368,7 @@ window.Footer = function Footer() {
           </div>
         </div>
         <div style={{
-          font: '400 11px var(--mono)', color: 'rgba(244,241,236,.65)',
+          font: '400 11px var(--mono)', color: 'color-mix(in oklab, var(--bg) 70%, transparent)',
           letterSpacing: '.08em', textTransform: 'uppercase', textAlign: 'right',
         }}>
           <a className="hover-line" href={SITE.social.github} target="_blank" rel="noreferrer" style={{ color: 'inherit', display: 'block' }}>
@@ -382,13 +385,17 @@ window.Footer = function Footer() {
       </div>
       <div className="footer-bottom" style={{
         maxWidth: 1180, margin: '32px auto 0', paddingTop: 18,
-        borderTop: '1px solid rgba(244,241,236,.15)',
+        borderTop: '1px solid color-mix(in oklab, var(--bg) 18%, transparent)',
         display: 'flex', justifyContent: 'space-between',
-        font: '400 10.5px var(--mono)', color: 'rgba(244,241,236,.45)',
+        font: '400 10.5px var(--mono)', color: 'color-mix(in oklab, var(--bg) 50%, transparent)',
         letterSpacing: '.1em', textTransform: 'uppercase',
       }}>
         <span>© {SITE.name} · 2014 → {new Date().getFullYear()}</span>
-        <span>Press <kbd style={{ color: 'var(--bg)' }}>?</kbd> for keyboard nav</span>
+        <span>Press <kbd style={{
+          background: 'transparent',
+          border: '1px solid color-mix(in oklab, var(--bg) 30%, transparent)',
+          color: 'var(--bg)',
+        }}>?</kbd> for keyboard nav</span>
       </div>
     </footer>
   );
@@ -1098,20 +1105,10 @@ window.OpenSourcePage = function OpenSourcePage() {
 window.HelpOverlay = function HelpOverlay({ open, onClose }) {
   if (!open) return null;
   const rows = [
-    ['j  /  ↓', 'scroll down'],
-    ['k  /  ↑', 'scroll up'],
-    ['g h',     'home'],
-    ['g p',     'projects'],
-    ['g r',     'research'],
-    ['g o',     'open-source'],
-    ['g w',     'writing / blog'],
-    ['g t',     'talks'],
-    ['g n',     'news'],
-    ['g a',     'about me'],
-    ['1 — 8',   'jump to section'],
-    ['t',       'toggle theme'],
-    ['?',       'this help'],
-    ['esc',     'close'],
+    ['1 — 8', 'jump to section'],
+    ['t',     'toggle theme'],
+    ['?',     'this help'],
+    ['esc',   'close'],
   ];
   return (
     <div onClick={onClose} style={{
