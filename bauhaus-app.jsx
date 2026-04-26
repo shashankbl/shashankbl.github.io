@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/blog', '/talks', '/resume', '/contact'];
+const ROUTES = ['/', '/projects', '/blog', '/talks', '/media', '/resume', '/contact'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -87,12 +87,12 @@ function useKeyboardNav(nav, toggleTheme, postsList, currentPath) {
 
       const now = Date.now();
       if (lastKey.current.k === 'g' && now - lastKey.current.t < 800) {
-        const map = { h: '/', p: '/projects', w: '/blog', r: '/resume', t: '/talks', c: '/contact' };
+        const map = { h: '/', p: '/projects', w: '/blog', r: '/resume', t: '/talks', m: '/media', c: '/contact' };
         if (map[e.key]) { nav(map[e.key]); lastKey.current = { k: '', t: 0 }; return; }
       }
       if (e.key === 'g') { lastKey.current = { k: 'g', t: now }; return; }
 
-      const numMap = { '1': '/projects', '2': '/blog', '3': '/talks', '4': '/resume', '5': '/contact' };
+      const numMap = { '1': '/projects', '2': '/blog', '3': '/talks', '4': '/media', '5': '/resume', '6': '/contact' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
@@ -132,6 +132,7 @@ function App() {
   else if (path.startsWith('/blog/')) page = <window.PostPage slug={path.slice(6)} nav={nav}/>;
   else if (path === '/resume') page = <window.ResumePage/>;
   else if (path === '/talks') page = <window.TalksPage/>;
+  else if (path === '/media') page = <window.MediaPage/>;
   else if (path === '/contact') page = <window.ContactPage/>;
   else page = <window.HomePage nav={nav}/>;
 

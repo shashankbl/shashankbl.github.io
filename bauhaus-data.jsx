@@ -41,6 +41,11 @@ window.POSTS = [
     blurb: '...' },
 ];
 
+window.MEDIA = [
+  // { date: 'YYYY·MM', outlet: 'Outlet', title: 'Headline / segment',
+  //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
+];
+
 window.TALKS = [
   { date: '2025·04', venue: 'FLC Tech Summit 2025',
     title: 'Agentic BoD: Building my own LLM-powered personal board of directors',
