@@ -333,45 +333,40 @@ window.HomePage = function HomePage({ nav }) {
           <SectionLabel n="01">HELLO</SectionLabel>
         </div>
 
-        <div className="reveal" style={{
-          marginTop: 22,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(108px, 1fr))',
-          gap: 12,
-        }}>
-          {[
-            { icon: 'smart_toy',       label: 'Robotics' },
-            { icon: 'directions_car',  label: 'Automotive' },
-            { icon: 'memory',          label: 'Semiconductors' },
-            { icon: 'cloud',           label: 'Cloud' },
-            { icon: 'psychology',      label: 'Machine Learning' },
-            { icon: 'palette',         label: 'Art' },
-          ].map(d => (
-            <div key={d.label} title={d.label}
-                 style={{
-                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-                   padding: '14px 12px',
-                   border: '1px solid var(--rule)', background: 'var(--paper)',
-                   transition: 'border-color .2s ease',
-                 }}
-                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-              <span className="material-symbols-outlined" aria-hidden="true"
-                    style={{
-                      fontSize: 30, color: 'var(--accent)', lineHeight: 1,
-                      fontVariationSettings: '"opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0',
-                    }}>{d.icon}</span>
-              <span className="lbl-mono" style={{ fontSize: 10, textAlign: 'center' }}>
-                {d.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
         <div style={{
-          marginTop: 28, display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'end',
+          marginTop: 22, display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'end',
         }}>
           <div>
+            <div className="reveal" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: 12,
+              marginBottom: 22,
+            }}>
+              {[
+                { icon: 'smart_toy',       label: 'Robotics' },
+                { icon: 'directions_car',  label: 'Automotive' },
+                { icon: 'memory',          label: 'Semiconductors' },
+                { icon: 'cloud',           label: 'Cloud' },
+                { icon: 'psychology',      label: 'Machine Learning' },
+                { icon: 'palette',         label: 'Art' },
+              ].map(d => (
+                <div key={d.label} title={d.label}
+                     style={{
+                       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                       padding: '6px 4px',
+                     }}>
+                  <span className="material-symbols-outlined" aria-hidden="true"
+                        style={{
+                          fontSize: 28, color: 'var(--accent)', lineHeight: 1,
+                          fontVariationSettings: '"opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0',
+                        }}>{d.icon}</span>
+                  <span className="lbl-mono" style={{ fontSize: 9.5, textAlign: 'center' }}>
+                    {d.label}
+                  </span>
+                </div>
+              ))}
+            </div>
             <h1 className="reveal display" style={{
               font: '500 clamp(36px, 5vw, 56px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
