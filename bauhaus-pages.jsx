@@ -504,29 +504,58 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
       </h2>
       <hr className="rule" style={{ marginTop: 12 }}/>
       <div>
-        {entries.map((r, i) => (
+        {entries.map((emp, i) => (
           <div key={i} className="reveal" style={{
-            display: 'grid', gridTemplateColumns: '160px 1fr',
-            padding: '24px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none', gap: 24,
+            padding: '28px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none',
           }}>
-            <div className="lbl-mono">{r.y}</div>
-            <div>
-              <h3 className="display" style={{ font: '500 22px/1.25 var(--display)', margin: 0 }}>{r.role}</h3>
-              <div className="lbl-mono" style={{ marginTop: 4, color: 'var(--accent)' }}>{r.co}</div>
-              <ul style={{
-                marginTop: 12, marginBottom: 0, paddingLeft: 0, listStyle: 'none',
-                color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65,
-              }}>
-                {r.bullets.map((b, j) => (
-                  <li key={j} style={{
-                    display: 'grid', gridTemplateColumns: '14px 1fr', gap: 10,
-                    marginTop: j ? 8 : 0,
+            {/* Employer header */}
+            <div style={{
+              display: 'grid', gridTemplateColumns: '160px 1fr',
+              gap: 24, alignItems: 'baseline',
+            }}>
+              <div className="lbl-mono">{emp.span}</div>
+              <div>
+                <h3 className="display" style={{
+                  font: '500 24px/1.2 var(--display)', margin: 0, color: 'var(--accent)',
+                }}>
+                  {emp.co}
+                </h3>
+                {emp.loc && (
+                  <div className="lbl-mono" style={{ marginTop: 4 }}>{emp.loc}</div>
+                )}
+              </div>
+            </div>
+
+            {/* Roles under this employer */}
+            <div style={{ marginTop: 18, paddingLeft: 184, borderLeft: 'none' }}>
+              {emp.roles.map((r, j) => (
+                <div key={j} style={{
+                  marginTop: j ? 22 : 0,
+                  paddingTop: j ? 22 : 0,
+                  borderTop: j ? '1px dashed var(--rule-soft)' : 'none',
+                }}>
+                  <div className="lbl-mono" style={{ color: 'var(--muted)' }}>{r.y}</div>
+                  <h4 className="display" style={{
+                    font: '500 19px/1.3 var(--display)', margin: '4px 0 0',
                   }}>
-                    <span style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', lineHeight: 1.65 }}>▸</span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
+                    {r.role}
+                  </h4>
+                  <ul style={{
+                    marginTop: 10, marginBottom: 0, paddingLeft: 0, listStyle: 'none',
+                    color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65,
+                  }}>
+                    {r.bullets.map((b, k) => (
+                      <li key={k} style={{
+                        display: 'grid', gridTemplateColumns: '14px 1fr', gap: 10,
+                        marginTop: k ? 8 : 0,
+                      }}>
+                        <span style={{ color: 'var(--accent)', fontFamily: 'var(--mono)', lineHeight: 1.65 }}>▸</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         ))}

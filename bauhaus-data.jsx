@@ -58,68 +58,92 @@ window.TALKS = [
     loc: 'Online · India' },
 ];
 
+// Each employer/institution groups one or more roles. `span` is shown beside
+// the employer header; each `role` carries its own date range and bullets.
 window.PROFESSIONAL = [
-  { y: 'Jan 2024 → now', role: 'Engineering Lead and Manager · ML', co: 'Renesas Electronics America',
-    bullets: [
-      'Product owner for "RoX AI Studio" — a cloud-native MLOps platform for Renesas R-Car SoC customers; enables customers to evaluate HIL performance for BYO models via a custom Web UI. Featured at the Renesas CES demo pavilion.',
-      'Joined as founding Staff Engineer and developed the 0→1 product by leading software architecture and engineering. Promoted to Manager within one year, driving engineering execution and influencing the product roadmap with a strong understanding of customer requirements and competitor MLOps platforms.',
-      'Enabled real-time deployment of new AI SDK to cloud customers by reducing setup time from 6hrs to under 30 mins through CI/CD (Azure pipeline).',
-      'Demonstrated expertise in LLM-assisted product development — first-of-its-kind Web UI built using LLM assistance within 6 weeks. Three patent disclosures pertaining to novel MLOps in the filing process.',
-      'Scaled and managed a global team from 2 to 6 engineers, working closely with leadership (Sr Dir and VP). Led multiple product demos and customer engagements through cross-functional collaboration with FAE and Marketing teams. Technical authorship to evangelize the product (blog).',
+  { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
+    roles: [
+      { y: 'Jan 2024 → now', role: 'Engineering Lead and Manager · ML',
+        bullets: [
+          'Product owner for "RoX AI Studio" — a cloud-native MLOps platform for Renesas R-Car SoC customers; enables customers to evaluate HIL performance for BYO models via a custom Web UI. Featured at the Renesas CES demo pavilion.',
+          'Joined as founding Staff Engineer and developed the 0→1 product by leading software architecture and engineering. Promoted to Manager within one year, driving engineering execution and influencing the product roadmap with a strong understanding of customer requirements and competitor MLOps platforms.',
+          'Enabled real-time deployment of new AI SDK to cloud customers by reducing setup time from 6hrs to under 30 mins through CI/CD (Azure pipeline).',
+          'Demonstrated expertise in LLM-assisted product development — first-of-its-kind Web UI built using LLM assistance within 6 weeks. Three patent disclosures pertaining to novel MLOps in the filing process.',
+          'Scaled and managed a global team from 2 to 6 engineers, working closely with leadership (Sr Dir and VP). Led multiple product demos and customer engagements through cross-functional collaboration with FAE and Marketing teams. Technical authorship to evangelize the product (blog).',
+        ] },
     ] },
 
-  { y: 'Mar 2023 → Dec 2023', role: 'Senior Systems Architect · Automotive', co: 'Micron Technology · Folsom CA & Boise ID',
-    bullets: [
-      'Systems architect for US and Japan OEM/Tier-1 automotive engagements; analyzed and discussed memory & compute requirements for L3/L4 ADAS and mid/high-segment IVI.',
-      'Mapped trending automotive AI workloads to memory systems requirements to technically influence the automotive memory/storage product roadmap.',
-      'Evangelized memory products to OEM/Tier-1 customers through demos and workshops in the US and Japan.',
+  { co: 'Micron Technology, Inc.', loc: 'Folsom CA & Boise ID', span: 'Aug 2015 → Dec 2023',
+    roles: [
+      { y: 'Mar 2023 → Dec 2023', role: 'Senior Systems Architect · Automotive',
+        bullets: [
+          'Systems architect for US and Japan OEM/Tier-1 automotive engagements; analyzed and discussed memory & compute requirements for L3/L4 ADAS and mid/high-segment IVI.',
+          'Mapped trending automotive AI workloads to memory systems requirements to technically influence the automotive memory/storage product roadmap.',
+          'Evangelized memory products to OEM/Tier-1 customers through demos and workshops in the US and Japan.',
+        ] },
+      { y: 'Aug 2021 → Mar 2023', role: 'Senior Systems Architect · AI Solutions',
+        bullets: [
+          'Technical leader for the AI acceleration solution (Micron DLA) — delivered AI accelerator demos and the "MDLA CEBU" benchmarking suite.',
+          'Filed 20+ patent disclosures, demonstrating strong understanding of pathfinding and innovation in AI applications and hardware architectures.',
+          'Built a customer-centric AI lab at the Folsom site to accelerate AI solutions; led two Ph.D. interns.',
+          'Conducted competitor research on edge AI inference and PIM/PNM, influencing product strategy.',
+        ] },
+      { y: 'Aug 2015 → Aug 2021', role: 'Product Engineer II / III · Emerging Memories',
+        bullets: [
+          'Pathfinding for industry-first multi-Gb 3D NV-RAM through silicon electrical characterization of multi-tier, multi-Gb memory arrays (FeRAM and TFT).',
+          'Created a novel bit-level silicon characterization and analytics technique that unlocked deeper insights into process and reliability engineering. Filed 4 patent disclosures on FeRAM memory management.',
+        ] },
     ] },
 
-  { y: 'Aug 2021 → Mar 2023', role: 'Senior Systems Architect · AI Solutions', co: 'Micron Technology · Folsom CA & Boise ID',
-    bullets: [
-      'Technical leader for the AI acceleration solution (Micron DLA) — delivered AI accelerator demos and the "MDLA CEBU" benchmarking suite.',
-      'Filed 20+ patent disclosures, demonstrating strong understanding of pathfinding and innovation in AI applications and hardware architectures.',
-      'Built a customer-centric AI lab at the Folsom site to accelerate AI solutions; led two Ph.D. interns.',
-      'Conducted competitor research on edge AI inference and PIM/PNM, influencing product strategy.',
+  { co: 'SanDisk Corporation', loc: 'San Jose, CA', span: 'Jun 2014 → Jun 2015',
+    roles: [
+      { y: 'Jun 2014 → Jun 2015', role: 'Characterization Engineer II',
+        bullets: [
+          'Defined and executed product qualification for raw NAND for a leading consumer electronics OEM.',
+        ] },
     ] },
 
-  { y: 'Aug 2015 → Aug 2021', role: 'Product Engineer II / III · Emerging Memories', co: 'Micron Technology · Folsom CA & Boise ID',
-    bullets: [
-      'Pathfinding for industry-first multi-Gb 3D NV-RAM through silicon electrical characterization of multi-tier, multi-Gb memory arrays (FeRAM and TFT).',
-      'Created a novel bit-level silicon characterization and analytics technique that unlocked deeper insights into process and reliability engineering. Filed 4 patent disclosures on FeRAM memory management.',
-    ] },
-
-  { y: 'Jun 2014 → Jun 2015', role: 'Characterization Engineer II', co: 'SanDisk Corporation · San Jose, CA',
-    bullets: [
-      'Defined and executed product qualification for raw NAND for a leading consumer electronics OEM.',
-    ] },
-
-  { y: 'Sep 2010 → Jun 2012', role: 'Software Engineer · Powertrain Systems', co: 'Bosch · Bangalore, India',
-    bullets: [
-      'Developed and validated automotive embedded platform software for global OEM customers.',
+  { co: 'Bosch', loc: 'Bangalore, India', span: 'Sep 2010 → Jun 2012',
+    roles: [
+      { y: 'Sep 2010 → Jun 2012', role: 'Software Engineer · Powertrain Systems',
+        bullets: [
+          'Developed and validated automotive embedded platform software for global OEM customers.',
+        ] },
     ] },
 ];
 
 window.ACADEMIC = [
-  { y: 'Aug 2025 → now', role: 'M.S. in Artificial Intelligence', co: 'The University of Texas at Austin, TX',
-    bullets: [
-      'Coursework: Case Studies in ML, Natural Language Processing, Deep Learning, Ethics in AI.',
-      'Research interests: LLM-aided design, efficient on-device ML.',
+  { co: 'The University of Texas at Austin', loc: 'Austin, TX', span: 'Aug 2025 → now',
+    roles: [
+      { y: 'Aug 2025 → now', role: 'M.S. in Artificial Intelligence',
+        bullets: [
+          'Coursework: Case Studies in ML, Natural Language Processing, Deep Learning, Ethics in AI.',
+          'Research interests: LLM-aided design, efficient on-device ML.',
+        ] },
     ] },
 
-  { y: 'Jan 2020 → Jun 2022', role: 'Graduate Coursework in Machine Learning (non-degree)', co: 'Boise State University, ID',
-    bullets: [
-      'Machine Learning, Deep Learning, Natural Language Processing, Artificial Intelligence, Design and Analysis of Algorithms, Advanced Software Engineering.',
+  { co: 'Boise State University', loc: 'Boise, ID', span: 'Jan 2020 → Jun 2022',
+    roles: [
+      { y: 'Jan 2020 → Jun 2022', role: 'Graduate Coursework in Machine Learning (non-degree)',
+        bullets: [
+          'Machine Learning, Deep Learning, Natural Language Processing, Artificial Intelligence, Design and Analysis of Algorithms, Advanced Software Engineering.',
+        ] },
     ] },
 
-  { y: 'Aug 2012 → May 2014', role: 'M.S. in Electrical Engineering', co: 'San Jose State University, CA',
-    bullets: [
-      'Digital System Design and Synthesis, Advanced Computer Architectures, SoC Design and Verification with SystemVerilog, Digital Design for DSP (FPGA).',
+  { co: 'San Jose State University', loc: 'San Jose, CA', span: 'Aug 2012 → May 2014',
+    roles: [
+      { y: 'Aug 2012 → May 2014', role: 'M.S. in Electrical Engineering',
+        bullets: [
+          'Digital System Design and Synthesis, Advanced Computer Architectures, SoC Design and Verification with SystemVerilog, Digital Design for DSP (FPGA).',
+        ] },
     ] },
 
-  { y: 'Sep 2006 → Jun 2010', role: 'B.E. in Electrical and Electronics Engineering', co: 'VTU, India',
-    bullets: [
-      'C programming, Embedded Systems, Control Systems, Analog and Digital Electronics.',
+  { co: 'Visvesvaraya Technological University (VTU)', loc: 'India', span: 'Sep 2006 → Jun 2010',
+    roles: [
+      { y: 'Sep 2006 → Jun 2010', role: 'B.E. in Electrical and Electronics Engineering',
+        bullets: [
+          'C programming, Embedded Systems, Control Systems, Analog and Digital Electronics.',
+        ] },
     ] },
 ];
 
