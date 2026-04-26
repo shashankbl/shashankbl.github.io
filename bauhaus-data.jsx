@@ -81,6 +81,13 @@ window.NEWS = [
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
 ];
 
+window.ART = [
+  // { id: 'piece-id', title: 'Title', year: '2026',
+  //   medium: 'Acrylic on canvas',
+  //   image: 'images/art/piece.jpg', thumbnail: 'images/art/piece-thumb.jpg',
+  //   description: 'Optional notes about the piece.' },
+];
+
 window.RESEARCH = {
   active: [
     // { id: 'proj-id', year: '2026', title: 'Title', blurb: 'One-liner.',

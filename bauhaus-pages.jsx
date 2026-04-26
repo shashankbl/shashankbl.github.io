@@ -241,6 +241,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/projects', 'work'],
     ['/research', 'research'],
     ['/open-source', 'open-source'],
+    ['/gallery', 'gallery'],
     ['/ideas', 'ideas'],
     ['/news', 'news'],
     ['/about-me', 'about me'],
@@ -336,7 +337,7 @@ window.Footer = function Footer() {
       }}>
         <div>
           <div className="lbl-mono" style={{ color: 'color-mix(in oklab, var(--bg) 55%, transparent)' }}>
-            ── <span style={{ color: 'var(--accent)' }}>07</span> / CONTACT
+            ── <span style={{ color: 'var(--accent)' }}>08</span> / CONTACT
           </div>
           <div className="display" style={{
             font: '500 30px/1.15 var(--display)', marginTop: 10, maxWidth: 540,
@@ -740,7 +741,7 @@ window.IdeasPage = function IdeasPage({ nav }) {
 
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="05">Ideas</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="06">Ideas</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -758,8 +759,11 @@ window.IdeasPage = function IdeasPage({ nav }) {
         </a>{' '}on Substack.
       </p>
 
-      <div style={{ marginTop: 48 }}>
-        <h2 className="display reveal" style={{
+      <div className="reveal" style={{
+        marginTop: 40, padding: '24px 28px',
+        border: '1px solid var(--rule)', background: 'var(--paper)',
+      }}>
+        <h2 className="display" style={{
           font: '500 24px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
         }}>Writing</h2>
         <hr className="rule" style={{ marginTop: 12 }}/>
@@ -772,8 +776,11 @@ window.IdeasPage = function IdeasPage({ nav }) {
         )}
       </div>
 
-      <div style={{ marginTop: 56 }}>
-        <h2 className="display reveal" style={{
+      <div className="reveal" style={{
+        marginTop: 16, padding: '24px 28px',
+        border: '1px solid var(--rule)', background: 'var(--paper)',
+      }}>
+        <h2 className="display" style={{
           font: '500 24px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
         }}>Talks</h2>
         <hr className="rule" style={{ marginTop: 12 }}/>
@@ -782,7 +789,7 @@ window.IdeasPage = function IdeasPage({ nav }) {
         ) : (
           <div style={{ marginTop: 4 }}>
             {talks.map((t, i) => (
-              <div key={i} className="reveal list-row" style={{
+              <div key={i} className="list-row" style={{
                 display: 'grid', gridTemplateColumns: '90px 200px 1fr 140px',
                 padding: '20px 0',
                 borderTop: i ? '1px solid var(--rule-soft)' : 'none',
@@ -859,11 +866,11 @@ window.PostPage = function PostPage({ slug, nav }) {
 window.AboutMePage = function AboutMePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="07">About me</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="08">About me</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Thirteen years engineering and leadership across memory, compute, and AI.
+        Fifteen years in engineering and leadership across memory, compute, and AI.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
         From NVM silicon pathfinding to AI accelerator solutions and cloud-native MLOps — and 25+ U.S. patents along the way.
@@ -956,7 +963,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
 window.NewsPage = function NewsPage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
-      <div className="reveal"><SectionLabel n="06">News</SectionLabel></div>
+      <div className="reveal"><SectionLabel n="07">News</SectionLabel></div>
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
@@ -1185,6 +1192,110 @@ window.ResearchPage = function ResearchPage() {
   );
 };
 
+window.ArtModal = function ArtModal({ art, onClose }) {
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+  return (
+    <div onClick={onClose} role="dialog" aria-modal="true" aria-label={art.title} style={{
+      position: 'fixed', inset: 0, zIndex: 200,
+      background: 'rgba(0,0,0,.72)', backdropFilter: 'blur(8px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 24,
+    }}>
+      <div onClick={e => e.stopPropagation()} className="art-modal" style={{
+        background: 'var(--bg)', border: '1px solid var(--rule)',
+        maxWidth: 'min(1200px, 100%)', width: '100%', maxHeight: 'calc(100vh - 48px)',
+        display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px',
+        overflow: 'hidden', position: 'relative',
+      }}>
+        <div style={{
+          background: 'var(--paper)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
+          minHeight: 320,
+        }}>
+          <img src={art.image} alt={art.title}
+            style={{ maxWidth: '100%', maxHeight: 'calc(100vh - 48px)', objectFit: 'contain', display: 'block' }}/>
+        </div>
+        <div style={{
+          padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 12,
+          overflowY: 'auto', borderLeft: '1px solid var(--rule)',
+        }}>
+          {art.year && <div className="lbl-mono" style={{ color: 'var(--accent)' }}>{art.year}</div>}
+          <h2 className="display" style={{ font: '500 24px/1.2 var(--display)', margin: 0 }}>
+            {art.title}
+          </h2>
+          {art.medium && <div className="lbl-mono">{art.medium}</div>}
+          {art.description && (
+            <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.65, margin: 0 }}>
+              {art.description}
+            </p>
+          )}
+        </div>
+        <button onClick={onClose} aria-label="Close" style={{
+          position: 'absolute', top: 12, right: 12,
+          background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
+          width: 32, height: 32, borderRadius: 4, cursor: 'default',
+          font: '400 18px var(--mono)', lineHeight: '32px',
+        }}>×</button>
+      </div>
+    </div>
+  );
+};
+
+window.GalleryPage = function GalleryPage() {
+  const [active, setActive] = React.useState(null);
+  const items = window.ART || [];
+  return (
+    <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
+      <div className="reveal"><SectionLabel n="05">Gallery</SectionLabel></div>
+      <h1 className="display reveal page-headline" style={{
+        font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
+      }}>
+        Selected art.
+      </h1>
+      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
+        Visual experiments and personal pieces. Click any tile for the full image and notes.
+      </p>
+
+      {items.length === 0 ? (
+        <EmptyNote/>
+      ) : (
+        <div style={{
+          marginTop: 32, display: 'grid', gap: 14,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+        }}>
+          {items.map((art, i) => (
+            <button key={art.id || i} onClick={() => setActive(art)}
+                    aria-label={`Open ${art.title}`}
+                    className="reveal focus-outline"
+                    style={{
+                      display: 'block', padding: 0, border: '1px solid var(--rule)',
+                      background: 'var(--paper)', cursor: 'default',
+                      aspectRatio: '1 / 1', overflow: 'hidden',
+                      transition: 'border-color .2s ease, transform .2s ease',
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+              <img src={art.thumbnail || art.image} alt={art.title}
+                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {active && <ArtModal art={active} onClose={() => setActive(null)}/>}
+    </section>
+  );
+};
+
 window.OpenSourcePage = function OpenSourcePage() {
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
@@ -1265,7 +1376,7 @@ window.OpenSourcePage = function OpenSourcePage() {
 window.HelpOverlay = function HelpOverlay({ open, onClose }) {
   if (!open) return null;
   const rows = [
-    ['1 — 7', 'jump to section'],
+    ['1 — 8', 'jump to section'],
     ['t',     'toggle theme'],
     ['?',     'this help'],
     ['esc',   'close'],
