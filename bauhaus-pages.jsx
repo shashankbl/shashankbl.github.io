@@ -702,10 +702,6 @@ window.NowPage = function NowPage() {
           </div>
         ))}
       </div>
-      <p style={{ marginTop: 18, color: 'var(--muted)', fontSize: 13 }}>
-        Inspired by <a href="https://nownownow.com" target="_blank" rel="noreferrer"
-           className="hover-line" style={{ color: 'var(--ink)' }}>nownownow.com</a>.
-      </p>
     </section>
   );
 };
