@@ -41,7 +41,21 @@ window.POSTS = [
 ];
 
 window.TALKS = [
-  { date: '2026·04', venue: '...',  title: '...', loc: '...' },
+  { date: '2025·04', venue: 'FLC Tech Summit 2025',
+    title: 'Agentic BoD: Building my own LLM-powered personal board of directors',
+    loc: 'Folsom, CA' },
+  { date: '2025·01', venue: 'GITPRO World 2025',
+    title: 'Lowering the technology adoption barriers with low-code/no-code MLOps',
+    loc: 'SF Bay Area' },
+  { date: '2023·08', venue: 'CA Capital Airshow STEM Expo',
+    title: 'Panel · If You Can See It, You Can Be It.',
+    loc: 'Sacramento, CA' },
+  { date: '2020·08', venue: 'BNM Institute FDP',
+    title: 'Machine Learning Trends',
+    loc: 'Online · India' },
+  { date: '2020·08', venue: 'IC RTEETIMP-2020',
+    title: 'Computer Vision with Machine Learning',
+    loc: 'Online · India' },
 ];
 
 window.RESUME = [
