@@ -48,7 +48,6 @@ window.flagEmoji = function flagEmoji(cc) {
 
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
-  const kindGlyph = item.kind === 'school' ? '▲' : '■';
   const src = !failed && (item.file || (item.slug && `https://cdn.simpleicons.org/${item.slug}`));
   const flag = flagEmoji(item.cc);
   return (
@@ -88,7 +87,6 @@ window.LogoTile = function LogoTile({ item }) {
         textAlign: 'center', fontSize: 10, color: 'var(--muted)',
         display: 'inline-flex', alignItems: 'center', gap: 6, justifyContent: 'center',
       }}>
-        <span style={{ color: 'var(--accent)' }}>{kindGlyph}</span>
         <span>{item.short}</span>
         {flag && (
           <span aria-label={item.cc} title={item.cc}
