@@ -680,7 +680,64 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
   );
 };
 
+window.BlogGroup = function BlogGroup({ name, subgroup, posts, nav }) {
+  return (
+    <div style={{ marginTop: 40 }}>
+      <div className="reveal" style={{
+        display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 4, flexWrap: 'wrap',
+      }}>
+        <h2 className="display" style={{
+          font: '500 22px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>{name}</h2>
+        {subgroup && (
+          <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
+            {subgroup}
+          </span>
+        )}
+        <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+          {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+        </span>
+      </div>
+      <hr className="rule" style={{ marginTop: 8 }}/>
+      <div>
+        {posts.map((p, i) => {
+          const isExt = !!p.url;
+          const style = {
+            display: 'block', padding: '16px 0',
+            borderTop: i ? '1px solid var(--rule-soft)' : 'none',
+            color: 'var(--ink)',
+          };
+          const inner = (
+            <div className="display" style={{ font: '500 19px/1.35 var(--display)' }}>
+              {p.title}{isExt && ' ↗'}
+            </div>
+          );
+          return isExt
+            ? <a key={i} href={p.url} target="_blank" rel="noreferrer"
+                 className="reveal hover-line" style={style}>{inner}</a>
+            : <a key={p.slug || i} href={'#/blog/'+p.slug}
+                 onClick={(e)=>{e.preventDefault(); nav('/blog/'+p.slug);}}
+                 className="reveal hover-line" style={style}>{inner}</a>;
+        })}
+      </div>
+    </div>
+  );
+};
+
 window.BlogPage = function BlogPage({ nav }) {
+  // Group POSTS by group field, preserving first-seen order.
+  const order = [];
+  const groups = {};
+  (window.POSTS || []).forEach(p => {
+    const g = p.group || 'Posts';
+    if (!groups[g]) {
+      groups[g] = { name: g, subgroup: p.subgroup, posts: [] };
+      order.push(g);
+    }
+    groups[g].posts.push(p);
+  });
+  const grouped = order.map(g => groups[g]);
+
   return (
     <section className="pad-x section-block" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="05">Writing</SectionLabel></div>
@@ -690,37 +747,21 @@ window.BlogPage = function BlogPage({ nav }) {
         Long-form notes.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        On inference, accelerators, and the seam between the two.
+        On AI systems, agentic tooling, and engineering reflections.
       </p>
 
       <SubstackAd/>
 
-      <div style={{ marginTop: 32 }}>
-        {POSTS.map((p, i) => (
-          <a key={p.slug} href={'#/blog/'+p.slug}
-             onClick={(e)=>{e.preventDefault(); nav('/blog/'+p.slug);}}
-             className="reveal"
-             style={{
-               display: 'block', padding: '24px 0',
-               borderTop: '1px solid var(--rule)', color: 'var(--ink)',
-             }}>
-            <div className="post-row" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'baseline', flexWrap: 'wrap' }}>
-              <span style={{ font: '400 11px var(--mono)', color: 'var(--muted)', letterSpacing: '.06em', minWidth: 90 }}>
-                {p.date}
-              </span>
-              <h3 className="display" style={{
-                flex: 1, font: '500 22px/1.3 var(--display)', margin: 0,
-              }}>{p.title}</h3>
-              <span style={{ font: '400 11px var(--mono)', color: 'var(--muted)', minWidth: 60, textAlign: 'right' }}>
-                {p.read}
-              </span>
-            </div>
-            <p className="post-blurb" style={{ margin: '8px 0 0 106px', color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>
-              {p.blurb}
-            </p>
-          </a>
-        ))}
-      </div>
+      {grouped.length === 0 ? (
+        <div className="reveal lbl-mono" style={{ marginTop: 40, color: 'var(--muted)' }}>
+          ◇ More coming soon.
+        </div>
+      ) : (
+        grouped.map(g => (
+          <BlogGroup key={g.name} name={g.name} subgroup={g.subgroup}
+                     posts={g.posts} nav={nav}/>
+        ))
+      )}
     </section>
   );
 };
