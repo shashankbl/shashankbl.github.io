@@ -38,15 +38,15 @@ window.PROJECTS = [
 ];
 
 window.POSTS = [
-  { date: '2026·03', group: 'Learning from First Principles', subgroup: 'LLM Agents',
+  { date: '2026·03', flair: 'AI agents',
     title: 'MicroAgent', url: 'https://shashankbl.substack.com/p/microagent' },
-  { date: '2026·03', group: 'Learning from First Principles', subgroup: 'LLM Agents',
+  { date: '2026·03', flair: 'AI agents',
     title: 'MicroAgent — Part 2', url: 'https://shashankbl.substack.com/p/microagent-part-2' },
-  { date: '2026·03', group: 'Learning from First Principles', subgroup: 'LLM Agents',
+  { date: '2026·03', flair: 'AI agents',
     title: 'MicroAgent — Part 3', url: 'https://shashankbl.substack.com/p/microagent-part-3' },
-  { date: '2026·04', group: 'AI Assisted Engineering', subgroup: 'Cross-domain, large-context problem solving',
+  { date: '2026·04', flair: 'Robotics',
     title: 'Keeping Old Robots Cool With New Tricks', url: 'https://shashankbl.substack.com/p/keeping-old-robots-cool-with-new' },
-  { date: '2026·04', group: 'Philosophy and Reflections', subgroup: 'The world of AI',
+  { date: '2026·04', flair: 'Career',
     title: 'Think Like a Game Theorist', url: 'https://shashankbl.substack.com/p/think-like-a-game-theorist' },
 ];
 

@@ -680,7 +680,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
   );
 };
 
-window.BlogGroup = function BlogGroup({ name, subgroup, posts, nav }) {
+window.BlogGroup = function BlogGroup({ name, posts, nav }) {
   return (
     <div style={{ marginTop: 40 }}>
       <div className="reveal" style={{
@@ -689,11 +689,6 @@ window.BlogGroup = function BlogGroup({ name, subgroup, posts, nav }) {
         <h2 className="display" style={{
           font: '500 22px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
         }}>{name}</h2>
-        {subgroup && (
-          <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
-            {subgroup}
-          </span>
-        )}
         <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
           {posts.length} {posts.length === 1 ? 'post' : 'posts'}
         </span>
@@ -730,13 +725,13 @@ window.BlogGroup = function BlogGroup({ name, subgroup, posts, nav }) {
 };
 
 window.BlogPage = function BlogPage({ nav }) {
-  // Group POSTS by group field, preserving first-seen order.
+  // Group POSTS by flair, preserving first-seen order.
   const order = [];
   const groups = {};
   (window.POSTS || []).forEach(p => {
-    const g = p.group || 'Posts';
+    const g = p.flair || 'Posts';
     if (!groups[g]) {
-      groups[g] = { name: g, subgroup: p.subgroup, posts: [] };
+      groups[g] = { name: g, posts: [] };
       order.push(g);
     }
     groups[g].posts.push(p);
@@ -763,8 +758,7 @@ window.BlogPage = function BlogPage({ nav }) {
         </div>
       ) : (
         grouped.map(g => (
-          <BlogGroup key={g.name} name={g.name} subgroup={g.subgroup}
-                     posts={g.posts} nav={nav}/>
+          <BlogGroup key={g.name} name={g.name} posts={g.posts} nav={nav}/>
         ))
       )}
     </section>
