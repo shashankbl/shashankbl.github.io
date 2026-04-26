@@ -84,6 +84,25 @@ window.Header = function Header({ path, nav }) {
   );
 };
 
+window.DevBanner = function DevBanner() {
+  return (
+    <div style={{
+      borderBottom: '1px solid var(--rule)',
+      background: 'color-mix(in oklab, var(--accent) 14%, var(--bg))',
+    }}>
+      <div style={{
+        maxWidth: 1180, margin: '0 auto', padding: '10px 32px',
+        display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+        font: '400 11px var(--mono)', letterSpacing: '.12em',
+        textTransform: 'uppercase', color: 'var(--ink)',
+      }}>
+        <span style={{ color: 'var(--accent)' }}>◆ Under construction</span>
+        <span style={{ color: 'var(--muted)' }}>— content is placeholder. portfolio in progress.</span>
+      </div>
+    </div>
+  );
+};
+
 window.Footer = function Footer() {
   return (
     <footer style={{
