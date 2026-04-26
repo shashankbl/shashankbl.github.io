@@ -686,18 +686,32 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
             {/* Employer header */}
             <div style={{
               display: 'grid', gridTemplateColumns: '160px 1fr',
-              gap: 24, alignItems: 'baseline',
+              gap: 24, alignItems: 'center',
             }}>
               <div className="lbl-mono">{emp.span}</div>
-              <div>
-                <h3 className="display" style={{
-                  font: '500 24px/1.2 var(--display)', margin: 0, color: 'var(--accent)',
-                }}>
-                  {emp.co}
-                </h3>
-                {emp.loc && (
-                  <div className="lbl-mono" style={{ marginTop: 4 }}>{emp.loc}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+                {emp.logo && (
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    height: 36, padding: '4px 10px', minWidth: 56,
+                    background: 'var(--logo-frame)',
+                    border: '1px solid var(--rule-soft)',
+                    flex: '0 0 auto',
+                  }}>
+                    <img src={emp.logo} alt="" aria-hidden="true"
+                         style={{ maxHeight: 24, maxWidth: 96, objectFit: 'contain' }}/>
+                  </span>
                 )}
+                <div>
+                  <h3 className="display" style={{
+                    font: '500 24px/1.2 var(--display)', margin: 0, color: 'var(--accent)',
+                  }}>
+                    {emp.co}
+                  </h3>
+                  {emp.loc && (
+                    <div className="lbl-mono" style={{ marginTop: 4 }}>{emp.loc}</div>
+                  )}
+                </div>
               </div>
             </div>
 

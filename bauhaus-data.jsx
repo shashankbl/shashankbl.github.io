@@ -63,6 +63,7 @@ window.TALKS = [
 // the employer header; each `role` carries its own date range and bullets.
 window.PROFESSIONAL = [
   { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
+    logo: 'images/logos/renesas.svg',
     roles: [
       { y: 'Jan 2024 → now', role: 'Engineering Lead and Manager · ML',
         bullets: [
@@ -75,6 +76,7 @@ window.PROFESSIONAL = [
     ] },
 
   { co: 'Micron Technology, Inc.', loc: 'Folsom CA & Boise ID', span: 'Aug 2015 → Dec 2023',
+    logo: 'images/logos/micron.png',
     roles: [
       { y: 'Mar 2023 → Dec 2023', role: 'Senior Systems Architect · Automotive',
         bullets: [
@@ -97,6 +99,7 @@ window.PROFESSIONAL = [
     ] },
 
   { co: 'SanDisk Corporation', loc: 'San Jose, CA', span: 'Jun 2014 → Jun 2015',
+    logo: 'images/logos/sandisk.svg',
     roles: [
       { y: 'Jun 2014 → Jun 2015', role: 'Characterization Engineer II',
         bullets: [
@@ -105,6 +108,7 @@ window.PROFESSIONAL = [
     ] },
 
   { co: 'Bosch', loc: 'Bangalore, India', span: 'Sep 2010 → Jun 2012',
+    logo: 'images/logos/bosch.svg',
     roles: [
       { y: 'Sep 2010 → Jun 2012', role: 'Software Engineer · Powertrain Systems',
         bullets: [
