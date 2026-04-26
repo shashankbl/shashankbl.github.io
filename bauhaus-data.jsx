@@ -132,12 +132,18 @@ window.PROFESSIONAL = [
         ] },
     ] },
 
-  { co: 'SanDisk Corporation', loc: 'San Jose, CA', span: 'Jun 2014 → Jun 2015',
+  { co: 'SanDisk Corporation', loc: 'San Jose, CA', span: 'Jun 2013 → Jun 2015',
     logo: 'images/logos/sandisk.svg',
     roles: [
       { y: 'Jun 2014 → Jun 2015', role: 'Characterization Engineer II',
         bullets: [
           'Defined and executed product qualification for raw NAND for a leading consumer electronics OEM.',
+        ] },
+      { y: 'Jun 2013 → May 2014', role: 'ASIC Characterization',
+        note: 'Internship · 1 yr',
+        bullets: [
+          'Performed PVT characterization of NAND controller IP (TSMC 28nm analog node), with bench lab electrical measurement equipment (JTAG debugger, mixed-signal oscilloscope, function generator, electronic load, continuity tester, and temperature controller).',
+          'Hands-on experience in test development (Perl), automation (VBA), and statistical analysis techniques (Excel). Gained a good understanding of design spec requirements of NAND controller for eMMC solutions (mobile segment, iNAND).',
         ] },
     ] },
 
