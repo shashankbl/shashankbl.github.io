@@ -42,6 +42,7 @@ window.Pill = function Pill({ kind }) {
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
   const kindGlyph = item.kind === 'school' ? '▲' : '■';
+  const useImg = item.slug && !failed;
   return (
     <div title={item.name} style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
@@ -56,23 +57,23 @@ window.LogoTile = function LogoTile({ item }) {
         height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
         width: '100%',
       }}>
-        {failed ? (
-          <span className="display" style={{
-            font: '500 18px/1 var(--display)', color: 'var(--ink)',
-            letterSpacing: '-.01em', textAlign: 'center',
-          }}>{item.short}</span>
-        ) : (
+        {useImg ? (
           <img
-            src={`https://logo.clearbit.com/${item.domain}`}
+            src={`https://cdn.simpleicons.org/${item.slug}`}
             alt={item.name}
             onError={() => setFailed(true)}
             style={{
-              maxHeight: 40, maxWidth: '100%', objectFit: 'contain',
+              maxHeight: 36, maxWidth: '100%', objectFit: 'contain',
               filter: 'grayscale(100%)', transition: 'filter .2s ease',
             }}
             onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0%)'; }}
             onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(100%)'; }}
           />
+        ) : (
+          <span className="display" style={{
+            font: '500 18px/1 var(--display)', color: 'var(--ink)',
+            letterSpacing: '-.01em', textAlign: 'center',
+          }}>{item.short}</span>
         )}
       </div>
       <div className="lbl-mono" style={{
