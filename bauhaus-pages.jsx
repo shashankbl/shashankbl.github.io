@@ -449,7 +449,7 @@ window.ResumePage = function ResumePage() {
       <h1 className="display reveal" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Twelve years.
+        Fourteen years in engineering. Three years in leadership.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
         Compilers, accelerators, and the path that connected them.
