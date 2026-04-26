@@ -708,8 +708,13 @@ window.BlogGroup = function BlogGroup({ name, subgroup, posts, nav }) {
             color: 'var(--ink)',
           };
           const inner = (
-            <div className="display" style={{ font: '500 19px/1.35 var(--display)' }}>
-              {p.title}{isExt && ' ↗'}
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, flexWrap: 'wrap' }}>
+              {p.date && (
+                <span className="lbl-mono" style={{ minWidth: 70 }}>{p.date}</span>
+              )}
+              <span className="display" style={{ font: '500 19px/1.35 var(--display)', flex: 1 }}>
+                {p.title}{isExt && ' ↗'}
+              </span>
             </div>
           );
           return isExt
