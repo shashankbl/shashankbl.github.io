@@ -90,13 +90,17 @@ window.PROFESSIONAL = [
   { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
     logo: 'images/logos/renesas.svg',
     roles: [
-      { y: 'Jan 2024 → now', role: 'Engineering Lead and Manager · ML',
+      { y: 'Oct 2024 → now', role: 'Engineering Lead Manager · ML/MLOps',
         bullets: [
-          'Product owner for "RoX AI Studio" — a cloud-native MLOps platform for Renesas R-Car SoC customers; enables customers to evaluate HIL performance for BYO models via a custom Web UI. Featured at the Renesas CES demo pavilion.',
-          'Joined as founding Staff Engineer and developed the 0→1 product by leading software architecture and engineering. Promoted to Manager within one year, driving engineering execution and influencing the product roadmap with a strong understanding of customer requirements and competitor MLOps platforms.',
-          'Enabled real-time deployment of new AI SDK to cloud customers by reducing setup time from 6hrs to under 30 mins through CI/CD (Azure pipeline).',
-          'Demonstrated expertise in LLM-assisted product development — first-of-its-kind Web UI built using LLM assistance within 6 weeks. Three patent disclosures pertaining to novel MLOps in the filing process.',
-          'Scaled and managed a global team from 2 to 6 engineers, working closely with leadership (Sr Dir and VP). Led multiple product demos and customer engagements through cross-functional collaboration with FAE and Marketing teams. Technical authorship to evangelize the product (blog).',
+          'Experienced Engineer managing a team of engineers in the ML solutions team.',
+          'Building LLM tools: RAG and Agents for engineering workflows.',
+          'Deployed cloud-native workflows for AI model deployment and benchmarking on Renesas R-Car SoC.',
+          'Product owner for "RoX AI Studio" (https://aistudio.renesas.com).',
+        ] },
+      { y: 'Jan 2024 → Oct 2024', role: 'Staff Software Engineer · ML/MLOps',
+        bullets: [
+          'Founding engineer at ML team that developed 0→1 MLOps product for automotive customers of Renesas R-Car SoC.',
+          'Enabled workflows for AI model evaluation and benchmarking.',
         ] },
     ] },
 
