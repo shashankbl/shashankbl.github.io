@@ -170,6 +170,38 @@ window.LogoTile = function LogoTile({ item }) {
   );
 };
 
+window.SkillMatrix = function SkillMatrix({ groups }) {
+  return (
+    <div className="skills-grid" style={{
+      display: 'grid', gap: 28,
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    }}>
+      {groups.map(g => (
+        <div key={g.group} className="reveal">
+          <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 10 }}>
+            {g.group}
+          </div>
+          <hr className="rule" style={{ marginBottom: 12 }}/>
+          <ul style={{
+            margin: 0, padding: 0, listStyle: 'none',
+            display: 'grid', gap: 6,
+          }}>
+            {g.items.map(s => (
+              <li key={s} style={{
+                display: 'grid', gridTemplateColumns: '14px 1fr', gap: 8,
+                font: '400 13px/1.45 var(--mono)', color: 'var(--ink)',
+              }}>
+                <span style={{ color: 'var(--accent)' }}>▸</span>
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 window.LogoStrip = function LogoStrip({ items }) {
   return (
     <div className="reveal" style={{
@@ -463,13 +495,32 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
+      {/* Skills */}
+      <section className="pad-x section-block" style={{
+        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
+        borderTop: '1px solid var(--rule)',
+      }}>
+        <div className="reveal">
+          <SectionLabel n="01·c">Skills</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            Top twenty-five.
+          </h2>
+          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
+            Things I lean on day-to-day, grouped by category.
+          </p>
+        </div>
+        <div style={{ marginTop: 28 }}>
+          <SkillMatrix groups={SKILLS}/>
+        </div>
+      </section>
+
       {/* Now */}
       <section className="pad-x section-block" style={{
         maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
         borderTop: '1px solid var(--rule)',
       }}>
         <div className="reveal">
-          <SectionLabel n="01·c">Now</SectionLabel>
+          <SectionLabel n="01·d">Now</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
             What I'm doing now.
           </h2>

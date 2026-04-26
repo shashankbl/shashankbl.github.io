@@ -71,6 +71,18 @@ window.RESEARCH = [
   //   authors: 'Authors', url: 'https://...', loc: 'Type · paper · poster' },
 ];
 
+// 25 top skills, grouped into 4 categories.
+window.SKILLS = [
+  { group: 'AI · ML',
+    items: ['LLMs', 'RAG', 'Agents', 'MLOps', 'PyTorch', 'ONNX', 'Model evals'] },
+  { group: 'Software · Cloud',
+    items: ['Python', 'C / C++', 'JavaScript', 'Azure', 'CI/CD', 'MLflow', 'Airflow'] },
+  { group: 'Silicon · Systems',
+    items: ['SoC architecture', 'ASIC characterization', 'RTL · Verilog', 'Memory · NVM', 'Embedded SW', 'ADAS / R-Car'] },
+  { group: 'Leadership · Methods',
+    items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Patent disclosures', 'Technical writing'] },
+];
+
 window.TALKS = [
   { date: '2025·04', venue: 'FLC Tech Summit 2025',
     title: 'Agentic BoD: Building my own LLM-powered personal board of directors',
