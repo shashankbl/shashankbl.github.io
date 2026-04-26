@@ -184,7 +184,7 @@ window.HomePage = function HomePage({ nav }) {
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
               display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14,
             }}>
-              {[['12+','years'],['9','papers'],['4','patents']].map(([a,b]) => (
+              {[['14+','years'],['...','papers'],['...','patents']].map(([a,b]) => (
                 <div key={b}>
                   <div className="display" style={{ font: '500 30px/1 var(--display)' }}>{a}</div>
                   <div className="lbl-mono" style={{ marginTop: 4 }}>{b}</div>
