@@ -455,35 +455,6 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
-      {/* Writing teaser */}
-      <section style={{
-        maxWidth: 1180, margin: '0 auto', padding: '40px 32px 64px',
-        borderTop: '1px solid var(--rule)',
-      }}>
-        <div className="reveal">
-          <SectionLabel n="03">Writing</SectionLabel>
-        </div>
-        <div style={{ marginTop: 18 }}>
-          {POSTS.map((p, i) => (
-            <a key={p.slug} href={'#/blog/'+p.slug}
-               onClick={(e)=>{e.preventDefault(); nav('/blog/'+p.slug);}}
-               className="reveal"
-               style={{
-                 display: 'grid', gridTemplateColumns: '110px 1fr 80px',
-                 padding: '18px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none',
-                 alignItems: 'baseline', color: 'var(--ink)',
-               }}>
-              <span style={{ font: '400 11px var(--mono)', color: 'var(--muted)', letterSpacing: '.06em' }}>
-                {p.date}
-              </span>
-              <span className="display" style={{ font: '400 18px/1.3 var(--display)' }}>{p.title}</span>
-              <span style={{ font: '400 11px var(--mono)', color: 'var(--muted)', textAlign: 'right' }}>
-                {p.read}
-              </span>
-            </a>
-          ))}
-        </div>
-      </section>
     </>
   );
 };
