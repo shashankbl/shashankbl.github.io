@@ -650,12 +650,12 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
                   <span>STACK · {p.stack}</span>
                   <span>SCALE · {p.loc}</span>
-                  {p.url && (
-                    <a className="hover-line" href={p.url} target="_blank" rel="noreferrer"
+                  {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
+                    <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"
                        style={{ color: 'var(--accent)' }}>
-                      DEMO ↗
+                      {l.label} ↗
                     </a>
-                  )}
+                  ))}
                 </div>
               </div>
               <div>
@@ -747,10 +747,13 @@ window.BlogPage = function BlogPage({ nav }) {
         Long-form notes.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        On AI systems, agentic tooling, and engineering reflections.
+        On AI systems, agentic tooling, and engineering reflections. Read on{' '}
+        <a className="hover-line" href={SITE.social.substack || 'https://shashankbl.substack.com/'}
+           target="_blank" rel="noreferrer"
+           style={{ color: 'var(--accent)' }}>
+          HYPERSCALE ↗
+        </a>{' '}on Substack.
       </p>
-
-      <SubstackAd/>
 
       {grouped.length === 0 ? (
         <div className="reveal lbl-mono" style={{ marginTop: 40, color: 'var(--muted)' }}>
