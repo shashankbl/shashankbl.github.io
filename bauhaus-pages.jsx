@@ -895,19 +895,26 @@ window.parseRange = function parseRange(y) {
 window.GanttChart = function GanttChart({ professional, academic }) {
   const svgRef = React.useRef(null);
 
-  const items = [];
-  (professional || []).forEach(emp => (emp.roles || []).forEach(role => {
-    const r = parseRange(role.y);
-    if (r) items.push({ kind: 'work', co: emp.co, role: role.role, ...r });
-  }));
-  (academic || []).forEach(emp => (emp.roles || []).forEach(role => {
-    const r = parseRange(role.y);
-    if (r) items.push({ kind: 'school', co: emp.co, role: role.role, ...r });
-  }));
-  if (items.length === 0) return null;
-  items.sort((a, b) => a.start - b.start);
+  const buildEntries = (list, kind) => (list || []).map(emp => ({
+    co: emp.co, kind,
+    roles: (emp.roles || [])
+      .map(role => {
+        const r = parseRange(role.y);
+        return r ? { role: role.role, ...r } : null;
+      })
+      .filter(Boolean),
+  })).filter(e => e.roles.length > 0);
 
-  const allDates = items.flatMap(i => [i.start, i.end]);
+  const profEntries = buildEntries(professional, 'work');
+  const acadEntries = buildEntries(academic, 'school');
+  if (profEntries.length === 0 && acadEntries.length === 0) return null;
+
+  // Sort each employer's roles oldest first; sort employers by earliest role.
+  [...profEntries, ...acadEntries].forEach(e => e.roles.sort((a, b) => a.start - b.start));
+  profEntries.sort((a, b) => a.roles[0].start - b.roles[0].start);
+  acadEntries.sort((a, b) => a.roles[0].start - b.roles[0].start);
+
+  const allDates = [...profEntries, ...acadEntries].flatMap(e => e.roles.flatMap(r => [r.start, r.end]));
   const minYear = new Date(Math.min.apply(null, allDates)).getFullYear();
   const maxYear = new Date(Math.max.apply(null, allDates)).getFullYear() + 1;
   const minB = new Date(minYear, 0, 1);
@@ -915,30 +922,87 @@ window.GanttChart = function GanttChart({ professional, academic }) {
 
   // Layout
   const W = 1100;
-  const rowHeight = 26;
+  const rowHeight = 38;
+  const barHeight = 14;
   const yearAxisHeight = 28;
-  const labelWidth = 320;
+  const sectionHeaderHeight = 22;
+  const sectionGap = 10;
+  const labelWidth = 280;
   const chartLeft = labelWidth + 16;
   const chartRight = W - 24;
   const chartWidth = chartRight - chartLeft;
 
   const palette = ['#d4502a', '#3a8fa3', '#3f8a6a', '#c08e2c', '#7a5ec0', '#5a7a8c', '#8d5a3a', '#a64b69'];
   const companies = [];
-  items.forEach(i => { if (!companies.includes(i.co)) companies.push(i.co); });
+  [...profEntries, ...acadEntries].forEach(e => { if (!companies.includes(e.co)) companies.push(e.co); });
   const coColor = {};
   companies.forEach((c, i) => coColor[c] = palette[i % palette.length]);
-
-  // Legend layout: 2 columns, dynamic rows
-  const legendCols = 2;
-  const legendRowH = 16;
-  const legendRows = Math.ceil(companies.length / legendCols);
-  const legendHeight = 12 + legendRows * legendRowH + 12;
-
-  const H = yearAxisHeight + items.length * rowHeight + legendHeight + 8;
 
   const xScale = (date) => chartLeft + ((date - minB) / (maxB - minB)) * chartWidth;
   const yearTicks = [];
   for (let yr = minYear; yr <= maxYear; yr++) yearTicks.push(yr);
+
+  // Truncate role text to fit a given segment width.
+  const truncate = (text, maxW) => {
+    const charW = 5.0;
+    const maxChars = Math.max(1, Math.floor(maxW / charW));
+    return text.length > maxChars ? (maxChars > 1 ? text.slice(0, maxChars - 1) + '…' : '…') : text;
+  };
+
+  // Y bookkeeping: section header → rows.
+  let yCursor = yearAxisHeight;
+  const profHeaderY = yCursor;
+  yCursor += sectionHeaderHeight;
+  const profRowsStart = yCursor;
+  yCursor += profEntries.length * rowHeight;
+  if (acadEntries.length > 0) yCursor += sectionGap;
+  const eduHeaderY = yCursor;
+  if (acadEntries.length > 0) yCursor += sectionHeaderHeight;
+  const eduRowsStart = yCursor;
+  yCursor += acadEntries.length * rowHeight;
+  const H = yCursor + 14;
+
+  const renderRow = (e, y) => (
+    <g key={`${e.kind}-${e.co}`}>
+      <text x={labelWidth} y={y + barHeight - 3} textAnchor="end" fontSize="11"
+            fontFamily="ui-monospace, monospace" fontWeight="500" fill="#1a1814">
+        {e.co}
+      </text>
+      {e.roles.map((r, ri) => {
+        const x1 = xScale(r.start);
+        const x2 = xScale(r.end);
+        const w = Math.max(2, x2 - x1);
+        return (
+          <g key={ri}>
+            <title>{`${e.co} · ${r.role}`}</title>
+            <rect x={x1} y={y} width={w} height={barHeight}
+                  fill={coColor[e.co]} fillOpacity={e.kind === 'school' ? 0.5 : 0.9}/>
+            {ri > 0 && (
+              <line x1={x1} y1={y} x2={x1} y2={y + barHeight}
+                    stroke="#fbf9f5" strokeWidth="2"/>
+            )}
+            <text x={x1 + 4} y={y - 4} fontSize="9"
+                  fontFamily="ui-monospace, monospace" fill="rgba(26,24,20,.65)">
+              {truncate(r.role, w - 6)}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  );
+
+  const renderSectionHeader = (label, y) => (
+    <g>
+      <line x1={chartLeft} y1={y + sectionHeaderHeight - 6}
+            x2={chartRight} y2={y + sectionHeaderHeight - 6}
+            stroke="rgba(26,24,20,.18)"/>
+      <text x={labelWidth} y={y + sectionHeaderHeight - 9} textAnchor="end"
+            fontSize="10.5" letterSpacing="1.2" fontWeight="600"
+            fontFamily="ui-monospace, monospace" fill="rgba(26,24,20,.55)">
+        {label}
+      </text>
+    </g>
+  );
 
   const downloadPNG = () => {
     const svg = svgRef.current;
@@ -989,7 +1053,7 @@ window.GanttChart = function GanttChart({ professional, academic }) {
       </div>
       <div style={{ overflowX: 'auto', border: '1px solid var(--rule)' }}>
         <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg"
-             style={{ width: '100%', height: 'auto', display: 'block', minWidth: 700, background: '#fbf9f5' }}>
+             style={{ width: '100%', height: 'auto', display: 'block', minWidth: 800, background: '#fbf9f5' }}>
           <rect x="0" y="0" width={W} height={H} fill="#fbf9f5"/>
 
           {/* Year ticks */}
@@ -997,7 +1061,7 @@ window.GanttChart = function GanttChart({ professional, academic }) {
             const x = xScale(new Date(yr, 0, 1));
             return (
               <g key={yr}>
-                <line x1={x} y1={yearAxisHeight} x2={x} y2={yearAxisHeight + items.length * rowHeight}
+                <line x1={x} y1={yearAxisHeight} x2={x} y2={H - 14}
                       stroke="rgba(26,24,20,.08)" strokeDasharray="3 5"/>
                 <text x={x} y={20} textAnchor="middle" fontSize="10.5"
                       fontFamily="ui-monospace, monospace" fill="rgba(26,24,20,.55)">
@@ -1007,42 +1071,13 @@ window.GanttChart = function GanttChart({ professional, academic }) {
             );
           })}
 
-          {/* Bars and role labels */}
-          {items.map((it, i) => {
-            const y = yearAxisHeight + i * rowHeight + (rowHeight - 14) / 2;
-            const x1 = xScale(it.start);
-            const x2 = xScale(it.end);
-            const isSchool = it.kind === 'school';
-            return (
-              <g key={i}>
-                <title>{`${it.co} · ${it.role}`}</title>
-                <text x={labelWidth} y={y + 11} textAnchor="end" fontSize="10.5"
-                      fontFamily="ui-monospace, monospace" fill="#1a1814">
-                  {it.role}
-                </text>
-                <rect x={x1} y={y} width={Math.max(2, x2 - x1)} height={14}
-                      fill={coColor[it.co]} fillOpacity={isSchool ? 0.5 : 0.9}/>
-              </g>
-            );
-          })}
+          {/* Professional section */}
+          {profEntries.length > 0 && renderSectionHeader('── PROFESSIONAL', profHeaderY)}
+          {profEntries.map((e, i) => renderRow(e, profRowsStart + i * rowHeight + (rowHeight - barHeight) / 2 + 4))}
 
-          {/* Legend */}
-          <g transform={`translate(${chartLeft}, ${yearAxisHeight + items.length * rowHeight + 16})`}>
-            {companies.map((co, ci) => {
-              const col = ci % legendCols;
-              const row = Math.floor(ci / legendCols);
-              const cellW = chartWidth / legendCols;
-              return (
-                <g key={ci} transform={`translate(${col * cellW}, ${row * legendRowH})`}>
-                  <rect x="0" y="0" width="10" height="10" fill={coColor[co]}/>
-                  <text x="16" y="9" fontSize="10.5"
-                        fontFamily="ui-monospace, monospace" fill="#1a1814">
-                    {co}
-                  </text>
-                </g>
-              );
-            })}
-          </g>
+          {/* Education section */}
+          {acadEntries.length > 0 && renderSectionHeader('── EDUCATION', eduHeaderY)}
+          {acadEntries.map((e, i) => renderRow(e, eduRowsStart + i * rowHeight + (rowHeight - barHeight) / 2 + 4))}
         </svg>
       </div>
     </div>
