@@ -12,6 +12,20 @@ window.SectionLabel = function SectionLabel({ n, children }) {
   );
 };
 
+window.LiveDot = function LiveDot() {
+  return (
+    <span aria-label="active" title="Active" style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      marginLeft: 8, verticalAlign: 'middle',
+      font: '500 9px var(--mono)', letterSpacing: '.18em',
+      textTransform: 'uppercase', color: 'var(--accent)',
+    }}>
+      <span className="live-dot"/>
+      LIVE
+    </span>
+  );
+};
+
 window.Pill = function Pill({ kind }) {
   const map = {
     engineering: { glyph: '■', label: 'Engineering' },
@@ -788,7 +802,10 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
                   paddingTop: j ? 22 : 0,
                   borderTop: j ? '1px dashed var(--rule-soft)' : 'none',
                 }}>
-                  <div className="lbl-mono" style={{ color: 'var(--muted)' }}>{r.y}</div>
+                  <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
+                    {r.y}
+                    {/now\s*$/i.test(r.y) && <LiveDot/>}
+                  </div>
                   <h4 className="display" style={{
                     font: '500 19px/1.3 var(--display)', margin: '4px 0 0',
                   }}>

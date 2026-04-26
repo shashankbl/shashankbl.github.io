@@ -86,6 +86,22 @@
     transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
   .reveal.in { opacity: 1; transform: none; }
 
+  /* Live indicator */
+  .live-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: live-pulse 1.6s cubic-bezier(.2,.7,.3,1) infinite;
+  }
+  @keyframes live-pulse {
+    0%   { box-shadow: 0 0 0 0    color-mix(in oklab, var(--accent) 55%, transparent); }
+    70%  { box-shadow: 0 0 0 10px transparent; }
+    100% { box-shadow: 0 0 0 0    transparent; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot { animation: none; }
+  }
+
   kbd {
     background: var(--paper); border: 1px solid var(--rule);
     padding: 1px 6px; border-radius: 3px;
