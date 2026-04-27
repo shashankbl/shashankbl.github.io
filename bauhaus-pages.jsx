@@ -1075,11 +1075,11 @@ window.GanttChart = function GanttChart({ professional, academic }) {
             const x = xScale(today);
             return (
               <g>
-                <line x1={x} y1={6} x2={x} y2={H - 6}
+                <line x1={x} y1={6} x2={x} y2={H - 4}
                       stroke="#d4502a" strokeWidth="1.5"/>
-                <rect x={x - 22} y={2} width={44} height={14}
+                <rect x={x - 22} y={H - 16} width={44} height={14}
                       fill="#d4502a"/>
-                <text x={x} y={12} textAnchor="middle" fontSize="9"
+                <text x={x} y={H - 6} textAnchor="middle" fontSize="9"
                       fontFamily="ui-monospace, monospace" fontWeight="600"
                       letterSpacing="1.2" fill="#ffffff">
                   TODAY
