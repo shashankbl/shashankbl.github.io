@@ -1587,10 +1587,17 @@ window.OpenSourcePage = function OpenSourcePage() {
 window.HelpOverlay = function HelpOverlay({ open, onClose }) {
   if (!open) return null;
   const rows = [
-    ['1 — 8', 'jump to section'],
-    ['t',     'toggle theme'],
-    ['?',     'this help'],
-    ['esc',   'close'],
+    ['1',   'index'],
+    ['2',   'work'],
+    ['3',   'research'],
+    ['4',   'open-source'],
+    ['5',   'gallery'],
+    ['6',   'ideas'],
+    ['7',   'news'],
+    ['8',   'about me'],
+    ['t',   'toggle theme'],
+    ['?',   'this help'],
+    ['esc', 'close'],
   ];
   return (
     <div onClick={onClose} style={{
