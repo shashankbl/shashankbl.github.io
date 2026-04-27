@@ -1067,6 +1067,26 @@ window.GanttChart = function GanttChart({ professional, academic }) {
           {/* Education section */}
           {acadEntries.length > 0 && renderSectionHeader('── EDUCATION', eduHeaderY)}
           {acadEntries.map((e, i) => renderRow(e, eduRowsStart + i * rowHeight + (rowHeight - barHeight) / 2 + 4))}
+
+          {/* "Today" marker — vertical line spanning the chart at the current date */}
+          {(() => {
+            const today = new Date();
+            if (today < minB || today > maxB) return null;
+            const x = xScale(today);
+            return (
+              <g>
+                <line x1={x} y1={6} x2={x} y2={H - 6}
+                      stroke="#d4502a" strokeWidth="1.5"/>
+                <rect x={x - 22} y={2} width={44} height={14}
+                      fill="#d4502a"/>
+                <text x={x} y={12} textAnchor="middle" fontSize="9"
+                      fontFamily="ui-monospace, monospace" fontWeight="600"
+                      letterSpacing="1.2" fill="#ffffff">
+                  TODAY
+                </text>
+              </g>
+            );
+          })()}
         </svg>
       </div>
     </div>
