@@ -95,6 +95,10 @@ window.ART = [
     medium: 'Acrylic pour on canvas · 24″ × 18″',
     image: 'images/artwork/DanceOfTheHummingbirds_ONE.webp',
     description: "An artist's passion burns bright as the fire in earth's bosom, it only seeks the light that is timeless and eternal. This painting focuses on a passionate artist's struggle to find a righteous place for their sacred art. Visual art for Dance of the Hummingbirds by Vid. Jayanthi Raman (Portland, Oregon USA, 2017)." },
+  { id: 'unbound-expression-act-2', title: 'Unbound Expression · Act 2', year: '2017',
+    medium: 'Acrylic pour on canvas · 24″ × 18″',
+    image: 'images/artwork/DanceOfTheHummingbirds_TWO.webp',
+    description: "An artist's effort and journey never ends. They seek to grow as unbound as the great oceans. This painting focuses on the mind of an artist who has seen light, it is as calm as the depths and their expression as unbound as its roaring waves. Visual art for Dance of the Hummingbirds by Vid. Jayanthi Raman (Portland, Oregon USA, 2017)." },
 ];
 
 window.RESEARCH = {
