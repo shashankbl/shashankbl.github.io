@@ -1437,11 +1437,16 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
           minHeight: 320, position: 'relative',
         }}>
           <img src={art.image} alt={art.title}
+            draggable="false"
+            onContextMenu={(e) => e.preventDefault()}
+            onDragStart={(e) => e.preventDefault()}
             style={{
               maxWidth: 'calc(100% - 16px)', maxHeight: 'calc(100vh - 64px)',
               objectFit: 'contain', display: 'block',
               border: '8px solid #ffffff', background: '#ffffff',
               boxSizing: 'content-box',
+              userSelect: 'none', WebkitUserSelect: 'none',
+              WebkitUserDrag: 'none', WebkitTouchCallout: 'none',
             }}/>
           <div aria-hidden="true" style={{
             position: 'absolute', left: 16, bottom: 16,
@@ -1580,7 +1585,15 @@ window.GalleryPage = function GalleryPage() {
                         onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
                         onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
                   <img src={art.thumbnail || art.image} alt={art.title}
-                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
+                       draggable="false"
+                       onContextMenu={(e) => e.preventDefault()}
+                       onDragStart={(e) => e.preventDefault()}
+                       style={{
+                         width: '100%', height: '100%',
+                         objectFit: 'cover', display: 'block',
+                         userSelect: 'none', WebkitUserSelect: 'none',
+                         WebkitUserDrag: 'none', WebkitTouchCallout: 'none',
+                       }}/>
                 </button>
               ))}
             </div>
