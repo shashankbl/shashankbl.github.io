@@ -103,6 +103,11 @@ window.ART = [
     tags: ['acrylic', 'canvas', 'paintpour', 'abstractart'],
     image: 'images/artwork/DanceOfTheHummingbirds_TWO.webp',
     description: "An artist's effort and journey never ends. They seek to grow as unbound as the great oceans. This painting focuses on the mind of an artist who has seen light, it is as calm as the depths and their expression as unbound as its roaring waves. Visual art for Dance of the Hummingbirds by Vid. Jayanthi Raman (Portland, Oregon USA, 2017)." },
+  { id: 'grandcanyon', title: 'Grandcanyon',
+    medium: 'Pen on paper',
+    tags: ['sketch', 'landscape'],
+    image: 'images/artwork/grandcanyon.webp',
+    description: "Viewing the Grand Canyon brings a perspective like no other. It is a reminder of the deep significance of our soul and mind, and the deep insignificance of our (material) body." },
 ];
 
 window.RESEARCH = {
