@@ -151,13 +151,13 @@
 
   .focus-outline:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 
-  /* Play page — phone-frame chrome around the p5 canvas */
+  /* Play page — landscape phone-frame chrome around the p5 canvas */
   .play-phone {
-    width: 320px; max-width: 100%;
+    width: 560px; max-width: 100%;
     margin: 32px auto 0;
     background: #1a1814;
-    border-radius: 36px;
-    padding: 14px 12px 18px;
+    border-radius: 28px;
+    padding: 14px 18px 18px;
     box-shadow:
       0 0 0 1px rgba(26,24,20,.35),
       0 10px 30px rgba(26,24,20,.25),
@@ -168,24 +168,24 @@
     display: flex; justify-content: space-between; align-items: center;
     color: #ece6da;
     font: 500 10px var(--mono); letter-spacing: .14em; text-transform: uppercase;
-    padding: 2px 10px 6px;
+    padding: 2px 8px 6px;
   }
   .play-screen {
     position: relative;
     background: #e6d9b0;
     border-radius: 6px;
     overflow: hidden;
-    aspect-ratio: 9 / 14;
+    aspect-ratio: 16 / 9;
   }
   .play-screen canvas { display: block; width: 100% !important; height: 100% !important; }
   .play-controls {
     margin-top: 14px;
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
+    display: flex; justify-content: center;
   }
   .play-dpad {
     display: grid;
-    grid-template-columns: repeat(3, 36px);
-    grid-template-rows: repeat(3, 36px);
+    grid-template-columns: repeat(3, 38px);
+    grid-template-rows: repeat(3, 38px);
     gap: 4px;
   }
   .play-dpad button {
@@ -199,15 +199,6 @@
   .play-dpad .left  { grid-column: 1; grid-row: 2; }
   .play-dpad .down  { grid-column: 2; grid-row: 3; }
   .play-dpad .right { grid-column: 3; grid-row: 2; }
-  .play-actions { display: flex; flex-direction: column; gap: 8px; }
-  .play-actions button {
-    background: var(--accent); color: #1a1814;
-    border: none; border-radius: 999px;
-    padding: 8px 16px;
-    font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase;
-    cursor: pointer; user-select: none; touch-action: manipulation;
-  }
-  .play-actions button.secondary { background: #2a241d; color: #ece6da; }
 
   /* Mobile / tablet adjustments */
   @media (max-width: 880px) {
