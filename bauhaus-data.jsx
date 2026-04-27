@@ -91,6 +91,10 @@ window.ART = [
   { id: 'sea-of-blue', title: 'Sea of blue', year: '2025',
     tags: ['py5', 'computationalart'],
     image: 'images/artwork/generative-art-arrays.webp' },
+  { id: 'fired-by-passion-act-1', title: 'Fired by Passion · Act 1', year: '2017',
+    medium: 'Acrylic pour on canvas · 24″ × 18″',
+    image: 'images/artwork/DanceOfTheHummingbirds_ONE.webp',
+    description: "An artist's passion burns bright as the fire in earth's bosom, it only seeks the light that is timeless and eternal. This painting focuses on a passionate artist's struggle to find a righteous place for their sacred art. Visual art for Dance of the Hummingbirds by Vid. Jayanthi Raman (Portland, Oregon USA, 2017)." },
 ];
 
 window.RESEARCH = {
