@@ -1433,7 +1433,12 @@ window.ArtModal = function ArtModal({ art, onClose }) {
           minHeight: 320,
         }}>
           <img src={art.image} alt={art.title}
-            style={{ maxWidth: '100%', maxHeight: 'calc(100vh - 48px)', objectFit: 'contain', display: 'block' }}/>
+            style={{
+              maxWidth: 'calc(100% - 16px)', maxHeight: 'calc(100vh - 64px)',
+              objectFit: 'contain', display: 'block',
+              border: '8px solid #ffffff', background: '#ffffff',
+              boxSizing: 'content-box',
+            }}/>
         </div>
         <div style={{
           padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 12,
