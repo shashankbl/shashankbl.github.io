@@ -1444,6 +1444,16 @@ window.ArtModal = function ArtModal({ art, onClose }) {
             {art.title}
           </h2>
           {art.medium && <div className="lbl-mono">{art.medium}</div>}
+          {art.tags && art.tags.length > 0 && (
+            <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
+              {art.tags.map((t, i) => (
+                <React.Fragment key={t}>
+                  {i > 0 && <span style={{ color: 'var(--accent)', margin: '0 6px' }}>·</span>}
+                  <span>#{t}</span>
+                </React.Fragment>
+              ))}
+            </div>
+          )}
           {art.description && (
             <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.65, margin: 0 }}>
               {art.description}

@@ -85,9 +85,12 @@ window.NEWS = [
 
 window.ART = [
   // { id: 'piece-id', title: 'Title', year: '2026',
-  //   medium: 'Acrylic on canvas',
-  //   image: 'images/art/piece.jpg', thumbnail: 'images/art/piece-thumb.jpg',
+  //   medium: 'Acrylic on canvas', tags: ['tag1', 'tag2'],
+  //   image: 'images/artwork/piece.jpg', thumbnail: 'images/artwork/piece-thumb.jpg',
   //   description: 'Optional notes about the piece.' },
+  { id: 'sea-of-blue', title: 'Sea of blue', year: '2025',
+    tags: ['py5', 'computationalart'],
+    image: 'images/artwork/generative-art-arrays.webp' },
 ];
 
 window.RESEARCH = {
