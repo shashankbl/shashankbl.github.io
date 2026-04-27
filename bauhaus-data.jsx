@@ -89,6 +89,7 @@ window.ART = [
   //   image: 'images/artwork/piece.jpg', thumbnail: 'images/artwork/piece-thumb.jpg',
   //   description: 'Optional notes about the piece.' },
   { id: 'sea-of-blue', title: 'Sea of blue', year: '2025',
+    medium: 'Computation art · digital',
     tags: ['py5', 'computationalart'],
     image: 'images/artwork/generative-art-arrays.webp',
     description: "Human mind experiences a vast ocean within. Sometimes it shows blue and sometimes it shines like an emerald. Our life's quest is to discover our tiny piece of emerald in a vast sea of blue!" },
