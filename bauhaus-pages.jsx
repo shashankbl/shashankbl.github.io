@@ -1424,7 +1424,7 @@ window.ArtModal = function ArtModal({ art, onClose }) {
       <div onClick={e => e.stopPropagation()} className="art-modal" style={{
         background: 'var(--bg)', border: '1px solid var(--rule)',
         maxWidth: 'min(1200px, 100%)', width: '100%', maxHeight: 'calc(100vh - 48px)',
-        display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px',
+        display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 360px',
         overflow: 'hidden', position: 'relative',
       }}>
         <div style={{
@@ -1442,18 +1442,24 @@ window.ArtModal = function ArtModal({ art, onClose }) {
         </div>
         <div style={{
           padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 12,
-          overflowY: 'auto', borderLeft: '1px solid var(--rule)',
+          overflowY: 'auto', overflowX: 'hidden',
+          borderLeft: '1px solid var(--rule)',
+          wordBreak: 'break-word', overflowWrap: 'anywhere',
+          minWidth: 0,
         }}>
           {art.year && <div className="lbl-mono" style={{ color: 'var(--accent)' }}>{art.year}</div>}
-          <h2 className="display" style={{ font: '500 24px/1.2 var(--display)', margin: 0 }}>
+          <h2 className="display" style={{ font: '500 22px/1.25 var(--display)', margin: 0 }}>
             {art.title}
           </h2>
           {art.medium && <div className="lbl-mono">{art.medium}</div>}
           {art.tags && art.tags.length > 0 && (
-            <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
+            <div className="lbl-mono" style={{
+              color: 'var(--muted)',
+              display: 'flex', flexWrap: 'wrap', gap: '4px 8px',
+            }}>
               {art.tags.map((t, i) => (
                 <React.Fragment key={t}>
-                  {i > 0 && <span style={{ color: 'var(--accent)', margin: '0 6px' }}>·</span>}
+                  {i > 0 && <span style={{ color: 'var(--accent)' }}>·</span>}
                   <span>#{t}</span>
                 </React.Fragment>
               ))}
