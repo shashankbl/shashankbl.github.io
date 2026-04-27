@@ -1539,29 +1539,54 @@ window.GalleryPage = function GalleryPage() {
 
       {items.length === 0 ? (
         <EmptyNote/>
-      ) : (
-        <div style={{
-          marginTop: 32, display: 'grid', gap: 14,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-        }}>
-          {items.map((art, i) => (
-            <button key={art.id || i} onClick={() => setActiveIndex(i)}
-                    aria-label={`Open ${art.title}`}
-                    className="reveal focus-outline"
-                    style={{
-                      display: 'block', padding: 0, border: '1px solid var(--rule)',
-                      background: 'var(--paper)', cursor: 'default',
-                      aspectRatio: '1 / 1', overflow: 'hidden',
-                      transition: 'border-color .2s ease, transform .2s ease',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-              <img src={art.thumbnail || art.image} alt={art.title}
-                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
-            </button>
-          ))}
-        </div>
-      )}
+      ) : (() => {
+        // Group items by their normalized medium (first segment before " · "),
+        // preserving first-seen order and the original flat index for modal nav.
+        const groupOrder = [];
+        const groups = {};
+        items.forEach((art, idx) => {
+          const key = ((art.medium || 'Other').split(' · ')[0] || 'Other').trim();
+          if (!groups[key]) { groups[key] = []; groupOrder.push(key); }
+          groups[key].push({ art, index: idx });
+        });
+        return groupOrder.map(medium => (
+          <div key={medium} style={{ marginTop: 40 }}>
+            <div className="reveal" style={{
+              display: 'flex', alignItems: 'baseline', gap: 12,
+              marginBottom: 4, flexWrap: 'wrap',
+            }}>
+              <h2 className="display" style={{
+                font: '500 22px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+              }}>{medium}</h2>
+              <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+                {groups[medium].length} {groups[medium].length === 1 ? 'piece' : 'pieces'}
+              </span>
+            </div>
+            <hr className="rule" style={{ marginTop: 8 }}/>
+            <div style={{
+              marginTop: 18, display: 'grid', gap: 14,
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            }}>
+              {groups[medium].map(({ art, index }) => (
+                <button key={art.id || index} onClick={() => setActiveIndex(index)}
+                        aria-label={`Open ${art.title}`}
+                        className="reveal focus-outline"
+                        style={{
+                          display: 'block', padding: 0, border: '1px solid var(--rule)',
+                          background: 'var(--paper)', cursor: 'default',
+                          aspectRatio: '1 / 1', overflow: 'hidden',
+                          transition: 'border-color .2s ease, transform .2s ease',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+                  <img src={art.thumbnail || art.image} alt={art.title}
+                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
+                </button>
+              ))}
+            </div>
+          </div>
+        ));
+      })()}
 
       {activeIndex !== null && (
         <ArtModal art={items[activeIndex]} onClose={close}
