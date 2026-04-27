@@ -1508,7 +1508,7 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
           )}
         </div>
         <button onClick={onClose} aria-label="Close" style={{
-          position: 'absolute', top: 12, right: 12,
+          position: 'absolute', bottom: 12, right: 12,
           background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
           width: 32, height: 32, borderRadius: 4, cursor: 'default',
           font: '400 18px var(--mono)', lineHeight: '32px',
