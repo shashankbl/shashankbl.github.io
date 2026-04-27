@@ -1403,9 +1403,13 @@ window.ResearchPage = function ResearchPage() {
   );
 };
 
-window.ArtModal = function ArtModal({ art, onClose }) {
+window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
   React.useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      else if (hasNav && e.key === 'ArrowLeft' && onPrev) onPrev();
+      else if (hasNav && e.key === 'ArrowRight' && onNext) onNext();
+    };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKey);
@@ -1413,7 +1417,7 @@ window.ArtModal = function ArtModal({ art, onClose }) {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', onKey);
     };
-  }, [onClose]);
+  }, [onClose, onPrev, onNext, hasNav]);
   return (
     <div onClick={onClose} role="dialog" aria-modal="true" aria-label={art.title} style={{
       position: 'fixed', inset: 0, zIndex: 200,
@@ -1471,6 +1475,24 @@ window.ArtModal = function ArtModal({ art, onClose }) {
             </p>
           )}
         </div>
+        {hasNav && (
+          <>
+            <button onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }}
+                    aria-label="Previous" style={{
+              position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
+              width: 38, height: 38, borderRadius: 4, cursor: 'default',
+              font: '400 22px var(--mono)', lineHeight: '38px',
+            }}>‹</button>
+            <button onClick={(e) => { e.stopPropagation(); onNext && onNext(); }}
+                    aria-label="Next" style={{
+              position: 'absolute', right: 60, top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
+              width: 38, height: 38, borderRadius: 4, cursor: 'default',
+              font: '400 22px var(--mono)', lineHeight: '38px',
+            }}>›</button>
+          </>
+        )}
         <button onClick={onClose} aria-label="Close" style={{
           position: 'absolute', top: 12, right: 12,
           background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
@@ -1483,8 +1505,12 @@ window.ArtModal = function ArtModal({ art, onClose }) {
 };
 
 window.GalleryPage = function GalleryPage() {
-  const [active, setActive] = React.useState(null);
+  const [activeIndex, setActiveIndex] = React.useState(null);
   const items = window.ART || [];
+  const hasNav = items.length > 1;
+  const close = () => setActiveIndex(null);
+  const prev = () => setActiveIndex(i => (i === null ? null : (i - 1 + items.length) % items.length));
+  const next = () => setActiveIndex(i => (i === null ? null : (i + 1) % items.length));
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="05">Gallery</SectionLabel></div>
@@ -1505,7 +1531,7 @@ window.GalleryPage = function GalleryPage() {
           gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
         }}>
           {items.map((art, i) => (
-            <button key={art.id || i} onClick={() => setActive(art)}
+            <button key={art.id || i} onClick={() => setActiveIndex(i)}
                     aria-label={`Open ${art.title}`}
                     className="reveal focus-outline"
                     style={{
@@ -1523,7 +1549,10 @@ window.GalleryPage = function GalleryPage() {
         </div>
       )}
 
-      {active && <ArtModal art={active} onClose={() => setActive(null)}/>}
+      {activeIndex !== null && (
+        <ArtModal art={items[activeIndex]} onClose={close}
+                  onPrev={prev} onNext={next} hasNav={hasNav}/>
+      )}
     </section>
   );
 };
