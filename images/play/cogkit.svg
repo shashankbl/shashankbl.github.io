@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <!-- ears -->
+  <circle cx="18" cy="18" r="6" fill="#3a8fa3"/>
+  <circle cx="46" cy="18" r="6" fill="#3a8fa3"/>
+  <circle cx="18" cy="18" r="3" fill="#1a1814"/>
+  <circle cx="46" cy="18" r="3" fill="#1a1814"/>
+  <!-- head/body -->
+  <circle cx="32" cy="34" r="18" fill="#3a8fa3"/>
+  <!-- gear teeth around body suggesting cog -->
+  <rect x="30" y="14" width="4" height="3" fill="#3a8fa3"/>
+  <rect x="30" y="51" width="4" height="3" fill="#3a8fa3"/>
+  <rect x="14" y="32" width="3" height="4" fill="#3a8fa3"/>
+  <rect x="47" y="32" width="3" height="4" fill="#3a8fa3"/>
+  <!-- eyes -->
+  <circle cx="26" cy="32" r="3" fill="#fbf9f5"/>
+  <circle cx="38" cy="32" r="3" fill="#fbf9f5"/>
+  <circle cx="26" cy="32" r="1.5" fill="#1a1814"/>
+  <circle cx="38" cy="32" r="1.5" fill="#1a1814"/>
+  <!-- snout / mouth -->
+  <ellipse cx="32" cy="40" rx="5" ry="3" fill="#1a1814"/>
+  <circle cx="32" cy="38" r="1" fill="#fbf9f5"/>
+</svg>

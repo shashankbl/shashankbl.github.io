@@ -76,6 +76,7 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/ideas', 'ideas'],
     ['/news', 'news'],
     ['/about-me', 'about me'],
+    ['/play', 'play'],
   ];
   const isDark = theme === 'dark';
   return (
@@ -222,6 +223,7 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['6',   'ideas'],
     ['7',   'news'],
     ['8',   'about me'],
+    ['9',   'play'],
     ['t',   'toggle theme'],
     ['?',   'this help'],
     ['esc', 'close'],
