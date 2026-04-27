@@ -1434,7 +1434,7 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
         <div style={{
           background: 'var(--paper)', display: 'flex',
           alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
-          minHeight: 320,
+          minHeight: 320, position: 'relative',
         }}>
           <img src={art.image} alt={art.title}
             style={{
@@ -1443,6 +1443,16 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
               border: '8px solid #ffffff', background: '#ffffff',
               boxSizing: 'content-box',
             }}/>
+          <div aria-hidden="true" style={{
+            position: 'absolute', left: 16, bottom: 16,
+            padding: '6px 10px',
+            background: 'rgba(0,0,0,.42)', color: '#fff',
+            font: '500 10px var(--mono)',
+            letterSpacing: '.14em', textTransform: 'uppercase',
+            pointerEvents: 'none', userSelect: 'none',
+          }}>
+            Artist: Shashank Bangalore Lakshman
+          </div>
         </div>
         <div style={{
           padding: '28px 26px', display: 'flex', flexDirection: 'column', gap: 12,
