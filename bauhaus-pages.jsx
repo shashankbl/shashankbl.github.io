@@ -1569,8 +1569,8 @@ window.GalleryPage = function GalleryPage() {
             </div>
             <hr className="rule" style={{ marginTop: 8 }}/>
             <div style={{
-              marginTop: 18, display: 'grid', gap: 14,
-              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              marginTop: 18, display: 'grid', gap: 10,
+              gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
             }}>
               {groups[medium].map(({ art, index }) => (
                 <button key={art.id || index} onClick={() => setActiveIndex(index)}
