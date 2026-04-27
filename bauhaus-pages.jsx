@@ -1461,6 +1461,28 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
           wordBreak: 'break-word', overflowWrap: 'anywhere',
           minWidth: 0,
         }}>
+          {hasNav && (
+            <div style={{
+              display: 'flex', justifyContent: 'space-between', gap: 12,
+              paddingBottom: 12,
+              borderBottom: '1px solid var(--rule)',
+            }}>
+              <button onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }}
+                      aria-label="Previous" style={{
+                background: 'transparent', border: '1px solid var(--rule)',
+                padding: '4px 12px', cursor: 'default', color: 'var(--ink)',
+                font: '500 10px var(--mono)', letterSpacing: '.14em',
+                textTransform: 'uppercase',
+              }}>‹ Prev</button>
+              <button onClick={(e) => { e.stopPropagation(); onNext && onNext(); }}
+                      aria-label="Next" style={{
+                background: 'transparent', border: '1px solid var(--rule)',
+                padding: '4px 12px', cursor: 'default', color: 'var(--ink)',
+                font: '500 10px var(--mono)', letterSpacing: '.14em',
+                textTransform: 'uppercase',
+              }}>Next ›</button>
+            </div>
+          )}
           {art.year && <div className="lbl-mono" style={{ color: 'var(--accent)' }}>{art.year}</div>}
           <h2 className="display" style={{ font: '500 22px/1.25 var(--display)', margin: 0 }}>
             {art.title}
@@ -1485,24 +1507,6 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
             </p>
           )}
         </div>
-        {hasNav && (
-          <>
-            <button onClick={(e) => { e.stopPropagation(); onPrev && onPrev(); }}
-                    aria-label="Previous" style={{
-              position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
-              width: 38, height: 38, borderRadius: 4, cursor: 'default',
-              font: '400 22px var(--mono)', lineHeight: '38px',
-            }}>‹</button>
-            <button onClick={(e) => { e.stopPropagation(); onNext && onNext(); }}
-                    aria-label="Next" style={{
-              position: 'absolute', right: 60, top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
-              width: 38, height: 38, borderRadius: 4, cursor: 'default',
-              font: '400 22px var(--mono)', lineHeight: '38px',
-            }}>›</button>
-          </>
-        )}
         <button onClick={onClose} aria-label="Close" style={{
           position: 'absolute', top: 12, right: 12,
           background: 'rgba(0,0,0,.45)', border: 'none', color: '#fff',
