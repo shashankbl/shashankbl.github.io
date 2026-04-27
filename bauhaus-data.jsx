@@ -108,7 +108,7 @@ window.ART = [
     tags: ['sketch', 'landscape'],
     image: 'images/artwork/grandcanyon.webp',
     description: "Viewing the Grand Canyon brings a perspective like no other. It is a reminder of the deep significance of our soul and mind, and the deep insignificance of our (material) body." },
-  { id: 'hampi-stone-chariot', title: 'The stone chariot ruins at Hampi',
+  { id: 'hampi-stone-chariot', title: 'The stone chariot ruins at Hampi', year: '2019',
     medium: 'Watercolor on paper',
     tags: ['painting', 'watercolor', 'architecture'],
     image: 'images/artwork/Hampi_StoneChariot.webp',
