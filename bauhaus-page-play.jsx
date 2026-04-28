@@ -104,10 +104,15 @@ const SOUNDS = {
     tone(ctx, t + 0.06, 1320, 0.10, 0.06);
   },
   core: (ctx) => {
+    // Celebratory fanfare: rising C-major arpeggio + held triad.
     const t = ctx.currentTime;
-    tone(ctx, t,        659, 0.07, 0.07);
-    tone(ctx, t + 0.06, 988, 0.07, 0.07);
-    tone(ctx, t + 0.12, 1319, 0.12, 0.07);
+    tone(ctx, t,         523, 0.06, 0.06);  // C5
+    tone(ctx, t + 0.05,  659, 0.06, 0.06);  // E5
+    tone(ctx, t + 0.10,  784, 0.06, 0.06);  // G5
+    tone(ctx, t + 0.15, 1047, 0.06, 0.07);  // C6
+    tone(ctx, t + 0.20, 1319, 0.07, 0.07);  // E6
+    tone(ctx, t + 0.28, 1568, 0.30, 0.07);  // G6 (held)
+    tone(ctx, t + 0.28, 2093, 0.30, 0.05);  // C7 harmony
   },
   hit: (ctx) => {
     const t = ctx.currentTime;
