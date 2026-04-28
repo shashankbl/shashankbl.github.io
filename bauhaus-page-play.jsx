@@ -989,7 +989,7 @@ window.PlayPage = function PlayPage() {
            onContextMenu={(e) => e.preventDefault()}>
         <div className="play-statusbar">
           <span style={{ color: sprintActive ? 'var(--accent)' : '#ece6da' }}>
-            {sprintActive ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
+            {sprintActive ? '▶ BOOST' : '● PLAY'}
           </span>
           <span>
             <span style={{ color: '#f5c84a' }}>FUEL {progress.gems}/{progress.gemsTotal}</span>
