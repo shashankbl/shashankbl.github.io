@@ -126,7 +126,17 @@ const SOUNDS = {
     tone(ctx, t + 0.08,  220, 0.08, 0.10);
   },
   miss: (ctx) => tone(ctx, ctx.currentTime, 180, 0.06, 0.04),
+  launch: (ctx) => {
+    const t = ctx.currentTime;
+    tone(ctx, t,        330, 0.05, 0.06);
+    tone(ctx, t + 0.03, 660, 0.04, 0.05);
+    tone(ctx, t + 0.06, 990, 0.05, 0.05);
+  },
 };
+
+const ATTACK_RANGE = 4;
+const ROCKET_FRAMES = 36;
+const ROCKET_MEANDER_AMP = 30;
 
 const BOT_COUNT = 10;
 const BOT_STEP_FRAMES = 22;     // pause between steps
@@ -236,6 +246,8 @@ function makeSketch(api) {
     let move = null;                 // { fromCol, fromRow, toCol, toRow, t, speed }
     let bots = [];
     let bursts = [];
+    let rockets = [];
+    let explosions = [];
     let botFrames = 0;
     let lastHitAt = 0;
     let bobT = 0;
@@ -273,6 +285,8 @@ function makeSketch(api) {
       botFrames = 0;
       lastHitAt = 0;
       bursts = [];
+      rockets = [];
+      explosions = [];
       regenerate();
       updateCamera();
       notifyProgress();
@@ -289,23 +303,71 @@ function makeSketch(api) {
     };
 
     function tryAttack() {
-      const targets = bots.filter(b =>
-        Math.abs(b.col - player.col) <= 1 && Math.abs(b.row - player.row) <= 1
-      );
-      if (targets.length === 0) {
+      // Lock onto nearest bot within range.
+      let nearest = null;
+      let nearestDist = Infinity;
+      for (const b of bots) {
+        const cheb = Math.max(Math.abs(b.col - player.col), Math.abs(b.row - player.row));
+        if (cheb > ATTACK_RANGE) continue;
+        const dx = b.col - player.col, dy = b.row - player.row;
+        const dist = dx * dx + dy * dy;
+        if (dist < nearestDist) { nearest = b; nearestDist = dist; }
+      }
+      if (!nearest) {
         api.playSound && api.playSound('miss');
         return;
       }
-      for (const t of targets) {
-        bursts.push({
-          x: t.col * TILE + TILE / 2,
-          y: t.row * TILE + TILE / 2,
-          t: 0,
-        });
-        const i = bots.indexOf(t);
-        if (i !== -1) bots.splice(i, 1);
+      const pp = playerPixel();
+      rockets.push({
+        sx: pp.x + TILE / 2,
+        sy: pp.y + TILE / 2,
+        tx: nearest.col * TILE + TILE / 2,
+        ty: nearest.row * TILE + TILE / 2,
+        target: nearest,
+        t: 0,
+        trail: [],
+      });
+      api.playSound && api.playSound('launch');
+    }
+
+    function botPixel(bot) {
+      const ease = 1 - Math.pow(1 - bot.t, 2);
+      const bc = bot.fromCol + (bot.toCol - bot.fromCol) * ease;
+      const br = bot.fromRow + (bot.toRow - bot.fromRow) * ease;
+      return { x: bc * TILE + TILE / 2, y: br * TILE + TILE / 2 };
+    }
+
+    function rocketPosition(r) {
+      const lx = r.sx + (r.tx - r.sx) * r.t;
+      const ly = r.sy + (r.ty - r.sy) * r.t;
+      const dx = r.tx - r.sx, dy = r.ty - r.sy;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const nx = -dy / len, ny = dx / len;
+      // 4 oscillations, fading at endpoints
+      const wave = Math.sin(r.t * Math.PI * 4) * Math.sin(r.t * Math.PI) * ROCKET_MEANDER_AMP;
+      return { x: lx + nx * wave, y: ly + ny * wave };
+    }
+
+    function updateRockets() {
+      for (const r of rockets) {
+        // Home onto target's interpolated position if still alive.
+        if (r.target && bots.indexOf(r.target) !== -1) {
+          const tp = botPixel(r.target);
+          r.tx = tp.x; r.ty = tp.y;
+        }
+        r.t = Math.min(1, r.t + 1 / ROCKET_FRAMES);
+        const pos = rocketPosition(r);
+        r.trail.push(pos);
+        if (r.trail.length > 10) r.trail.shift();
+        if (r.t >= 1) {
+          r.done = true;
+          const i = r.target ? bots.indexOf(r.target) : -1;
+          if (i !== -1) bots.splice(i, 1);
+          explosions.push({ x: pos.x, y: pos.y, t: 0 });
+          api.playSound && api.playSound('zap');
+        }
       }
-      api.playSound && api.playSound('zap');
+      rockets = rockets.filter(r => !r.done);
     }
 
     function handleInput(action) {
@@ -381,10 +443,13 @@ function makeSketch(api) {
         if (move.t >= 1) finishMove();
       }
       updateBots();
+      updateRockets();
       checkBotCollision();
-      // age bursts
+      // age bursts and explosions
       for (const b of bursts) b.t += 1 / 30;
       bursts = bursts.filter(b => b.t < 1);
+      for (const e of explosions) e.t += 1 / 36;
+      explosions = explosions.filter(e => e.t < 1);
       updateCamera();
       drawWorld();
     };
@@ -462,8 +527,11 @@ function makeSketch(api) {
       }
       // bots
       drawBots();
-      // attack bursts
+      // rockets in flight
+      drawRockets();
+      // attack bursts (legacy melee) and rocket explosions
       drawBursts();
+      drawExplosions();
       // player
       const pp = playerPixel();
       const bob = move ? Math.sin(move.t * Math.PI) * 1.5 : Math.sin(bobT * 4) * 0.6;
@@ -590,6 +658,74 @@ function makeSketch(api) {
         p.stroke(255, 200, 120, alpha * 0.7);
         p.strokeWeight(1);
         p.ellipse(x, y, radius * 1.4);
+        p.pop();
+      }
+    }
+
+    function drawRockets() {
+      for (const r of rockets) {
+        // smoke trail (older = fainter, smaller)
+        p.noStroke();
+        for (let i = 0; i < r.trail.length; i++) {
+          const tp = r.trail[i];
+          const f = (i + 1) / r.trail.length;
+          const size = 2 + f * 4;
+          p.fill(180, 170, 160, f * 120);
+          p.ellipse(tp.x - camera.x, tp.y - camera.y, size, size);
+        }
+        // head — bright body + hot core
+        const pos = rocketPosition(r);
+        const hx = pos.x - camera.x, hy = pos.y - camera.y;
+        p.fill(255, 230, 160, 220);
+        p.ellipse(hx, hy, 8, 8);
+        p.fill(255, 130, 60, 240);
+        p.ellipse(hx, hy, 5, 5);
+        p.fill(255, 250, 230);
+        p.ellipse(hx, hy, 2.5, 2.5);
+      }
+    }
+
+    function drawExplosions() {
+      for (const e of explosions) {
+        const x = e.x - camera.x;
+        const y = e.y - camera.y;
+        const t = e.t;
+        const baseR = TILE * (0.4 + t * 1.6);
+
+        p.push();
+        p.noStroke();
+
+        // bright flash core (fades fastest)
+        if (t < 0.35) {
+          const fa = (1 - t / 0.35) * 240;
+          p.fill(255, 250, 230, fa);
+          p.ellipse(x, y, baseR * 1.2, baseR * 1.2);
+        }
+        // orange fireball
+        const oa = (1 - t) * 230;
+        p.fill(255, 140, 50, oa);
+        p.ellipse(x, y, baseR, baseR);
+        // dark smoke ring
+        p.fill(100, 60, 40, oa * 0.6);
+        p.ellipse(x, y, baseR * 0.7, baseR * 0.7);
+        // expanding shockwave
+        p.noFill();
+        p.stroke(255, 200, 120, (1 - t) * 200);
+        p.strokeWeight(2);
+        p.ellipse(x, y, baseR * 2.3, baseR * 2.3);
+
+        // radial shrapnel particles
+        p.noStroke();
+        const N = 8;
+        for (let i = 0; i < N; i++) {
+          const ang = (i / N) * Math.PI * 2;
+          const d = baseR * 0.9;
+          const px = x + Math.cos(ang) * d;
+          const py = y + Math.sin(ang) * d;
+          const sa = (1 - t) * 230;
+          p.fill(255, 180, 90, sa);
+          p.ellipse(px, py, 4, 4);
+        }
         p.pop();
       }
     }
@@ -787,8 +923,9 @@ window.PlayPage = function PlayPage() {
         A tiny robot adventure.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Wander the scrap fields. WASD to walk, hold Shift to sprint, Space to zap nearby bots,
-        R to reset, M to toggle minimap. Or use the on-screen pad on a phone.
+        Wander the scrap fields. WASD to walk, hold Shift to sprint, Space to launch a homing
+        rocket at the nearest rust bot in range, R to reset, M to toggle minimap. Or use the
+        on-screen pad on a phone.
       </p>
 
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
