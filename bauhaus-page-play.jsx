@@ -121,7 +121,7 @@ const SOUNDS = {
   },
 };
 
-const BOT_COUNT = 4;
+const BOT_COUNT = 10;
 const BOT_STEP_FRAMES = 22;     // pause between steps
 const BOT_MOVE_SPEED = 0.05;    // per frame; ~20 frames per tile (~330ms)
 const HIT_PENALTY = 5;
@@ -133,7 +133,7 @@ function placeBots(p, map, seed) {
   for (let r = 1; r < ROWS_W - 1; r++) {
     for (let c = 1; c < COLS_W - 1; c++) {
       if (Math.abs(r - SPAWN_R) <= 6 && Math.abs(c - SPAWN_C) <= 6) continue;
-      if (map[r][c] === T.PATH) candidates.push({ r, c });
+      if (passable(map[r][c])) candidates.push({ r, c });
     }
   }
   for (let i = candidates.length - 1; i > 0; i--) {
@@ -147,7 +147,7 @@ function placeBots(p, map, seed) {
   }));
 }
 
-const GEM_COUNT = 100;
+const GEM_COUNT = 30;
 const CORE_COUNT = 5;
 
 // Seeded placement of gems (yellow) and cores (cyan, scrap-rich tiles) on
@@ -253,6 +253,10 @@ function makeSketch(api) {
     };
 
     api.input = (action) => handleInput(action);
+    api.toggleMinimap = () => {
+      minimapVisible = !minimapVisible;
+      api.onMinimap && api.onMinimap(minimapVisible);
+    };
     api.reset = () => {
       player = { col: SPAWN_C, row: SPAWN_R, dir: 'down' };
       move = null;
@@ -271,7 +275,7 @@ function makeSketch(api) {
       else if (k === 's' || k === 'S') handleInput('down');
       else if (k === 'a' || k === 'A') handleInput('left');
       else if (k === 'd' || k === 'D') handleInput('right');
-      else if (k === 'm' || k === 'M') minimapVisible = !minimapVisible;
+      else if (k === 'm' || k === 'M') api.toggleMinimap();
     };
 
     function handleInput(action) {
@@ -374,7 +378,7 @@ function makeSketch(api) {
           const [dc, dr, dir] = opt;
           const nc = bot.col + dc, nr = bot.row + dr;
           if (nc < 1 || nc >= COLS_W - 1 || nr < 1 || nr >= ROWS_W - 1) continue;
-          if (map[nr][nc] !== T.PATH) continue;
+          if (!passable(map[nr][nc])) continue;
           bot.dir = dir;
           bot.fromCol = bot.col; bot.fromRow = bot.row;
           bot.toCol = nc; bot.toRow = nr;
@@ -602,8 +606,9 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
-  const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 100, cores: 0, coresTotal: 5 });
+  const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 30, cores: 0, coresTotal: 5 });
   const [seed, setSeed] = React.useState(null);
+  const [mapOn, setMapOn] = React.useState(false);
   const [muted, setMuted] = React.useState(() => {
     try {
       const v = localStorage.getItem('play-muted');
@@ -706,6 +711,7 @@ window.PlayPage = function PlayPage() {
       input: () => {},
       onProgress: (p) => setProgress(p),
       onSeed: (s) => setSeed(s),
+      onMinimap: (v) => setMapOn(v),
       playSound,
       onReady: null,
     };
@@ -768,6 +774,24 @@ window.PlayPage = function PlayPage() {
             <button className="down"  aria-label="Down"  onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
             <button className="right" aria-label="Right" onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
           </div>
+          <button
+            type="button"
+            onClick={() => apiRef.current.toggleMinimap && apiRef.current.toggleMinimap()}
+            aria-label={mapOn ? 'Hide minimap' : 'Show minimap'}
+            aria-pressed={mapOn}
+            style={{
+              alignSelf: 'center', marginLeft: 18,
+              padding: '10px 14px',
+              background: mapOn ? 'var(--accent)' : '#2a241d',
+              color: mapOn ? '#1a1814' : '#ece6da',
+              border: '1px solid #3a3128',
+              font: '500 11px var(--mono)',
+              letterSpacing: '.14em', textTransform: 'uppercase',
+              cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation',
+            }}
+          >
+            ⊞ Map
+          </button>
         </div>
       </div>
 
