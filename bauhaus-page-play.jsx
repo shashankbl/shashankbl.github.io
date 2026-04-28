@@ -857,6 +857,7 @@ window.PlayPage = function PlayPage() {
   });
   const [sprint, setSprint] = React.useState(false);
   const [sprintTouch, setSprintTouch] = React.useState(false);
+  const [helpOpen, setHelpOpen] = React.useState(false);
   const sprintTouchRef = useRef(false);
   React.useEffect(() => { sprintTouchRef.current = sprintTouch; }, [sprintTouch]);
   const sprintActive = sprint || sprintTouch;
@@ -891,6 +892,12 @@ window.PlayPage = function PlayPage() {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key === 'r' || e.key === 'R') handleReset();
+      else if (e.key === 'h' || e.key === 'H') setHelpOpen(o => !o);
+      else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+      else if (e.key === 'Escape') setHelpOpen(false);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -978,12 +985,6 @@ window.PlayPage = function PlayPage() {
       }}>
         A tiny robot adventure.
       </h1>
-      <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Wander the scrap fields. WASD to walk, hold Shift to sprint, Space to launch a homing
-        rocket at the nearest rust bot in range, R to reset, M to toggle minimap. Or use the
-        on-screen pad on a phone.
-      </p>
-
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game"
            onContextMenu={(e) => e.preventDefault()}>
         <div className="play-statusbar">
@@ -1019,10 +1020,11 @@ window.PlayPage = function PlayPage() {
         <div ref={screenRef} className="play-screen"/>
         <div className="play-controls">
           <div className="play-dpad">
-            <button className="up"     aria-label="Up"     onMouseDown={() => press('up')}    onTouchStart={(e) => { e.preventDefault(); press('up'); }}>▲</button>
-            <button className="left"   aria-label="Left"   onMouseDown={() => press('left')}  onTouchStart={(e) => { e.preventDefault(); press('left'); }}>◀</button>
-            <button className="right"  aria-label="Right"  onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
-            <button className="down"   aria-label="Down"   onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
+            <button className="up"    aria-label="Up"    onMouseDown={() => press('up')}    onTouchStart={(e) => { e.preventDefault(); press('up'); }}>▲</button>
+            <button className="left"  aria-label="Left"  onMouseDown={() => press('left')}  onTouchStart={(e) => { e.preventDefault(); press('left'); }}>◀</button>
+            <button className="help"  aria-label="Help"  onMouseDown={() => setHelpOpen(o => !o)} onTouchStart={(e) => { e.preventDefault(); setHelpOpen(o => !o); }}>?</button>
+            <button className="right" aria-label="Right" onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
+            <button className="down"  aria-label="Down"  onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
           </div>
           <div className="play-brand" aria-hidden="true">STARBOY</div>
           <div style={{ alignSelf: 'center', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -1096,8 +1098,67 @@ window.PlayPage = function PlayPage() {
         {' · '}
         Built with <a className="hover-line" href="https://p5js.org/" target="_blank" rel="noreferrer" style={{ color: 'var(--ink)' }}>p5.js</a>.
       </p>
+
+      {helpOpen && <PlayHelp onClose={() => setHelpOpen(false)}/>}
     </section>
   );
 };
+
+function PlayHelp({ onClose }) {
+  const controls = [
+    ['WASD',     'Walk (or D-pad)'],
+    ['Shift',    'Sprint (or hold Boost)'],
+    ['Space',    'Launch rocket (or Attack)'],
+    ['M',        'Toggle minimap (or Map)'],
+    ['R',        'Reset run'],
+    ['F',        'Toggle fullscreen'],
+    ['H',        'Show / hide this help'],
+    ['Esc',      'Close'],
+  ];
+  const rules = [
+    ['◆',  'Yellow gems are fuel. You start with 5 free; collect 30 to win.'],
+    ['◇',  'Cyan cores hide in scrap-heavy zones — bonus collectibles.'],
+    ['▲',  '15 rockets per run; about 1 in 5 misses.'],
+    ['×',  'Rust bots cost 5 gems on contact (900 ms cooldown).'],
+    ['…',  '−1 gem every 50 steps (fatigue).'],
+  ];
+  return (
+    <div onClick={onClose} style={{
+      position: 'fixed', inset: 0, zIndex: 100,
+      background: 'rgba(0,0,0,.5)', backdropFilter: 'blur(6px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20,
+    }}>
+      <div onClick={(e) => e.stopPropagation()} style={{
+        background: 'var(--bg)', border: '1px solid var(--rule)',
+        padding: 26, minWidth: 360, maxWidth: 460, width: '100%',
+        font: '400 13px/1.7 var(--mono)', position: 'relative',
+      }}>
+        <div className="lbl-mono">── Controls</div>
+        <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: '90px 1fr', rowGap: 6 }}>
+          {controls.map(([k, v]) => (
+            <React.Fragment key={k}>
+              <kbd style={{ justifySelf: 'start' }}>{k}</kbd>
+              <span style={{ color: 'var(--muted)' }}>{v}</span>
+            </React.Fragment>
+          ))}
+        </div>
+        <div className="lbl-mono" style={{ marginTop: 18 }}>── Rules</div>
+        <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: '20px 1fr', rowGap: 8 }}>
+          {rules.map(([s, v], i) => (
+            <React.Fragment key={i}>
+              <span style={{ color: 'var(--accent)' }}>{s}</span>
+              <span style={{ color: 'var(--muted)' }}>{v}</span>
+            </React.Fragment>
+          ))}
+        </div>
+        <button onClick={onClose} aria-label="close" style={{
+          position: 'absolute', top: 10, right: 10,
+          background: 'transparent', border: 'none', color: 'var(--muted)',
+          cursor: 'pointer', font: '400 18px var(--mono)',
+        }}>×</button>
+      </div>
+    </div>
+  );
+}
 
 })();
