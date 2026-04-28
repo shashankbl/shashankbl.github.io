@@ -98,6 +98,37 @@ function App() {
     if (dd) dd.style.display = t.showDots ? 'block' : 'none';
   }, [t.showAscii, t.showDots]);
 
+  React.useEffect(() => {
+    const BASE = 'Shashank Bangalore Lakshman';
+    const HOME_TITLE = `${BASE} — Engineer · AI & Semiconductors`;
+    const labels = {
+      '/': HOME_TITLE,
+      '/projects': 'Projects',
+      '/research': 'Research',
+      '/open-source': 'Open source',
+      '/gallery': 'Gallery',
+      '/ideas': 'Ideas', '/blog': 'Ideas', '/talks': 'Ideas',
+      '/news': 'News',
+      '/about-me': 'About me', '/experience': 'About me', '/contact': 'About me',
+      '/play': 'Play',
+    };
+    let title = labels[path];
+    if (!title && path.startsWith('/blog/')) {
+      const slug = path.slice(6);
+      const post = (window.POSTS || []).find(p => p.slug === slug);
+      title = post?.title || slug;
+    }
+    document.title = title === HOME_TITLE ? HOME_TITLE : (title ? `${title} · ${BASE}` : HOME_TITLE);
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_path: path,
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    }
+  }, [path]);
+
   const toggleTheme = () => setTweak('theme', t.theme === 'dark' ? 'light' : 'dark');
   const [help, setHelp] = useKeyboardNav(nav, toggleTheme);
 
