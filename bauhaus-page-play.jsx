@@ -1003,16 +1003,10 @@ window.PlayPage = function PlayPage() {
           </span>
           <button
             type="button"
+            className={'play-mute-btn' + (muted ? ' is-muted' : '')}
             onClick={() => setMuted(m => !m)}
             aria-label={muted ? 'Unmute sound' : 'Mute sound'}
             aria-pressed={!muted}
-            style={{
-              background: 'transparent', border: 0,
-              color: muted ? 'rgba(236,230,218,.45)' : '#ece6da',
-              font: '500 10px var(--mono)', letterSpacing: '.14em',
-              textTransform: 'uppercase', padding: '2px 4px',
-              cursor: 'pointer',
-            }}
           >
             ♪ {muted ? 'OFF' : 'ON'}
           </button>

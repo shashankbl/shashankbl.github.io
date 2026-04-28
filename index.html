@@ -204,6 +204,29 @@
     font: 500 10px var(--mono); letter-spacing: .14em; text-transform: uppercase;
     padding: 2px 8px 6px;
   }
+  .play-mute-btn {
+    background: linear-gradient(180deg, #3a3128 0%, #1f1a14 100%);
+    color: #ece6da;
+    border: 1px solid #4a3e30; border-radius: 4px;
+    font: 500 10px var(--mono); letter-spacing: .14em; text-transform: uppercase;
+    padding: 4px 10px; cursor: pointer; user-select: none; touch-action: manipulation;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 240, 210, .12),
+      inset 0 -2px 3px rgba(0, 0, 0, .35),
+      0 1px 0 #0c0a08,
+      0 2px 3px rgba(0, 0, 0, .4);
+    transition: transform 70ms ease-out, box-shadow 70ms ease-out, background 70ms ease-out, color 70ms ease-out;
+  }
+  .play-mute-btn.is-muted { color: rgba(236, 230, 218, .45); }
+  .play-mute-btn:active {
+    background: linear-gradient(180deg, var(--accent) 0%, color-mix(in oklab, var(--accent) 65%, #000) 100%);
+    color: #1a1814;
+    transform: translateY(2px);
+    box-shadow:
+      inset 0 2px 3px rgba(0, 0, 0, .45),
+      inset 0 -1px 0 rgba(255, 255, 255, .08),
+      0 0 1px rgba(0, 0, 0, .4);
+  }
   .play-screen {
     position: relative;
     background: #e6d9b0;
