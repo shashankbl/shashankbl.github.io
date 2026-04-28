@@ -8,6 +8,27 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
+  // Consent Mode v2 — deny storage by default for EEA + UK + Switzerland.
+  // GA4 falls back to cookieless modeled pings for those regions.
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    region: [
+      'AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU',
+      'IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK',
+      'IS','LI','NO','GB','CH'
+    ],
+  });
+  // Grant by default everywhere else.
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted',
+  });
+
   gtag('config', 'G-VTQGP1E07S', { send_page_view: false });
 </script>
 
