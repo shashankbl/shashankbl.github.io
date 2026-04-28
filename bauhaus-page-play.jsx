@@ -180,6 +180,7 @@ function placeBots(p, map, seed) {
 
 const GEM_COUNT = 30;
 const CORE_COUNT = 5;
+const GEM_START = 5;  // starting fuel
 
 // Seeded placement of gems (yellow) and cores (cyan, scrap-rich tiles) on
 // passable tiles, excluding the spawn clearing.
@@ -235,7 +236,7 @@ function makeSketch(api) {
     let cores = new Set();
     let gemsTotal = 0;
     let coresTotal = 0;
-    let gemsCollected = 0;
+    let gemsCollected = GEM_START;
     let coresCollected = 0;
     let sessionSeed = 0;
 
@@ -298,7 +299,7 @@ function makeSketch(api) {
     api.reset = () => {
       player = { col: SPAWN_C, row: SPAWN_R, dir: 'down' };
       move = null;
-      gemsCollected = 0;
+      gemsCollected = GEM_START;
       coresCollected = 0;
       rocketsLeft = ROCKET_MAX;
       stepCount = 0;
@@ -845,7 +846,7 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
-  const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 30, cores: 0, coresTotal: 5, rockets: 15, rocketsTotal: 15 });
+  const [progress, setProgress] = React.useState({ gems: GEM_START, gemsTotal: 30, cores: 0, coresTotal: 5, rockets: 15, rocketsTotal: 15 });
   const [seed, setSeed] = React.useState(null);
   const [mapOn, setMapOn] = React.useState(false);
   const [muted, setMuted] = React.useState(() => {
@@ -895,10 +896,10 @@ window.PlayPage = function PlayPage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [handleReset]);
 
-  // Auto-start the timer on first pickup; stop and update best when all gems collected.
+  // Auto-start the timer on the first earned pickup; stop and update best when all gems collected.
   React.useEffect(() => {
     const total = (progress.gems || 0) + (progress.cores || 0);
-    if (total > 0 && runStartedAt == null) {
+    if (total > GEM_START && runStartedAt == null) {
       setRunStartedAt(Date.now());
     }
     if (progress.gemsTotal > 0 && progress.gems >= progress.gemsTotal
@@ -1023,7 +1024,8 @@ window.PlayPage = function PlayPage() {
             <button className="right"  aria-label="Right"  onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
             <button className="down"   aria-label="Down"   onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
           </div>
-          <div style={{ alignSelf: 'center', marginLeft: 18, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <div className="play-brand" aria-hidden="true">STARBOY</div>
+          <div style={{ alignSelf: 'center', display: 'flex', flexDirection: 'column', gap: 6 }}>
             <button
               type="button"
               onMouseDown={() => apiRef.current.attack && apiRef.current.attack()}
