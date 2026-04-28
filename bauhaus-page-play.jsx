@@ -119,6 +119,13 @@ const SOUNDS = {
     tone(ctx, t,        110, 0.12, 0.10);
     tone(ctx, t + 0.05,  73, 0.18, 0.10);
   },
+  zap: (ctx) => {
+    const t = ctx.currentTime;
+    tone(ctx, t,        1320, 0.05, 0.08);
+    tone(ctx, t + 0.04,  660, 0.05, 0.08);
+    tone(ctx, t + 0.08,  220, 0.08, 0.10);
+  },
+  miss: (ctx) => tone(ctx, ctx.currentTime, 180, 0.06, 0.04),
 };
 
 const BOT_COUNT = 10;
@@ -228,6 +235,7 @@ function makeSketch(api) {
     let player = { col: SPAWN_C, row: SPAWN_R, dir: 'down' };
     let move = null;                 // { fromCol, fromRow, toCol, toRow, t, speed }
     let bots = [];
+    let bursts = [];
     let botFrames = 0;
     let lastHitAt = 0;
     let bobT = 0;
@@ -264,6 +272,7 @@ function makeSketch(api) {
       coresCollected = 0;
       botFrames = 0;
       lastHitAt = 0;
+      bursts = [];
       regenerate();
       updateCamera();
       notifyProgress();
@@ -276,7 +285,28 @@ function makeSketch(api) {
       else if (k === 'a' || k === 'A') handleInput('left');
       else if (k === 'd' || k === 'D') handleInput('right');
       else if (k === 'm' || k === 'M') api.toggleMinimap();
+      else if (p.keyCode === 32)       { tryAttack(); return false; }
     };
+
+    function tryAttack() {
+      const targets = bots.filter(b =>
+        Math.abs(b.col - player.col) <= 1 && Math.abs(b.row - player.row) <= 1
+      );
+      if (targets.length === 0) {
+        api.playSound && api.playSound('miss');
+        return;
+      }
+      for (const t of targets) {
+        bursts.push({
+          x: t.col * TILE + TILE / 2,
+          y: t.row * TILE + TILE / 2,
+          t: 0,
+        });
+        const i = bots.indexOf(t);
+        if (i !== -1) bots.splice(i, 1);
+      }
+      api.playSound && api.playSound('zap');
+    }
 
     function handleInput(action) {
       if (move) return;
@@ -352,6 +382,9 @@ function makeSketch(api) {
       }
       updateBots();
       checkBotCollision();
+      // age bursts
+      for (const b of bursts) b.t += 1 / 30;
+      bursts = bursts.filter(b => b.t < 1);
       updateCamera();
       drawWorld();
     };
@@ -429,6 +462,8 @@ function makeSketch(api) {
       }
       // bots
       drawBots();
+      // attack bursts
+      drawBursts();
       // player
       const pp = playerPixel();
       const bob = move ? Math.sin(move.t * Math.PI) * 1.5 : Math.sin(bobT * 4) * 0.6;
@@ -539,6 +574,24 @@ function makeSketch(api) {
       p.fill(255, 246, 210, 230);
       p.rect(-size * 0.2, -size * 0.2, size * 0.32, size * 0.32, 0.5);
       p.pop();
+    }
+
+    function drawBursts() {
+      for (const b of bursts) {
+        const x = b.x - camera.x;
+        const y = b.y - camera.y;
+        const radius = b.t * TILE * 1.4;
+        const alpha = (1 - b.t) * 220;
+        p.push();
+        p.noFill();
+        p.stroke(220, 80, 50, alpha);
+        p.strokeWeight(2);
+        p.ellipse(x, y, radius * 2);
+        p.stroke(255, 200, 120, alpha * 0.7);
+        p.strokeWeight(1);
+        p.ellipse(x, y, radius * 1.4);
+        p.pop();
+      }
     }
 
     function drawBots() {
@@ -734,8 +787,8 @@ window.PlayPage = function PlayPage() {
         A tiny robot adventure.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Wander the scrap fields. WASD to walk, hold Shift to sprint, R to reset, M to toggle minimap.
-        Or use the on-screen pad on a phone.
+        Wander the scrap fields. WASD to walk, hold Shift to sprint, Space to zap nearby bots,
+        R to reset, M to toggle minimap. Or use the on-screen pad on a phone.
       </p>
 
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
