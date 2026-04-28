@@ -983,7 +983,8 @@ window.PlayPage = function PlayPage() {
         on-screen pad on a phone.
       </p>
 
-      <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
+      <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game"
+           onContextMenu={(e) => e.preventDefault()}>
         <div className="play-statusbar">
           <span style={{ color: sprintActive ? 'var(--accent)' : '#ece6da' }}>
             {sprintActive ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
@@ -1019,11 +1020,27 @@ window.PlayPage = function PlayPage() {
           <div className="play-dpad">
             <button className="up"     aria-label="Up"     onMouseDown={() => press('up')}    onTouchStart={(e) => { e.preventDefault(); press('up'); }}>▲</button>
             <button className="left"   aria-label="Left"   onMouseDown={() => press('left')}  onTouchStart={(e) => { e.preventDefault(); press('left'); }}>◀</button>
-            <button className="attack" aria-label="Attack" onMouseDown={() => apiRef.current.attack && apiRef.current.attack()} onTouchStart={(e) => { e.preventDefault(); apiRef.current.attack && apiRef.current.attack(); }}>✦</button>
             <button className="right"  aria-label="Right"  onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
             <button className="down"   aria-label="Down"   onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
           </div>
           <div style={{ alignSelf: 'center', marginLeft: 18, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <button
+              type="button"
+              onMouseDown={() => apiRef.current.attack && apiRef.current.attack()}
+              onTouchStart={(e) => { e.preventDefault(); apiRef.current.attack && apiRef.current.attack(); }}
+              aria-label="Launch rocket attack"
+              style={{
+                padding: '10px 16px',
+                background: 'var(--accent)',
+                color: '#1a1814',
+                border: '1px solid #5a3a20',
+                font: '600 12px var(--mono)',
+                letterSpacing: '.14em', textTransform: 'uppercase',
+                cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation',
+              }}
+            >
+              ✦ Attack
+            </button>
             <button
               type="button"
               onMouseDown={() => setSprintTouch(true)}
