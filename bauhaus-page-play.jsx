@@ -155,7 +155,7 @@ const ROCKET_MISS_RATE = 0.20;
 const BOT_COUNT = 10;
 const BOT_STEP_FRAMES = 22;     // pause between steps
 const BOT_MOVE_SPEED = 0.05;    // per frame; ~20 frames per tile (~330ms)
-const HIT_PENALTY = 5;
+const HIT_PENALTY = 1;
 const HIT_COOLDOWN_MS = 900;
 
 function placeBots(p, map, seed) {
@@ -178,8 +178,8 @@ function placeBots(p, map, seed) {
   }));
 }
 
+const FUEL_COUNT = 15;
 const GEM_COUNT = 30;
-const CORE_COUNT = 5;
 const GEM_START = 5;  // starting fuel
 
 // Seeded placement of gems (yellow) and cores (cyan, scrap-rich tiles) on
@@ -200,7 +200,7 @@ function placeGems(p, map, seed) {
   // Cores prefer scrap-heavy neighborhoods (5x5 window with >= 10 scrap tiles).
   const cores = new Set();
   for (const { r, c } of candidates) {
-    if (cores.size >= CORE_COUNT) break;
+    if (cores.size >= GEM_COUNT) break;
     let scraps = 0;
     for (let dr = -2; dr <= 2; dr++) {
       for (let dc = -2; dc <= 2; dc++) {
@@ -214,7 +214,7 @@ function placeGems(p, map, seed) {
   // Gems from remaining candidates.
   const gems = new Set();
   for (const { r, c } of candidates) {
-    if (gems.size >= GEM_COUNT) break;
+    if (gems.size >= FUEL_COUNT) break;
     const key = r + '_' + c;
     if (cores.has(key)) continue;
     gems.add(key);
@@ -540,7 +540,7 @@ function makeSketch(api) {
       for (const bot of bots) {
         if (bot.col === player.col && bot.row === player.row) {
           lastHitAt = now;
-          gemsCollected = Math.max(0, gemsCollected - HIT_PENALTY);
+          coresCollected = Math.max(0, coresCollected - HIT_PENALTY);
           notifyProgress();
           api.playSound && api.playSound('hit');
           return;
@@ -846,7 +846,7 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
-  const [progress, setProgress] = React.useState({ gems: GEM_START, gemsTotal: 30, cores: 0, coresTotal: 5, rockets: 15, rocketsTotal: 15 });
+  const [progress, setProgress] = React.useState({ gems: GEM_START, gemsTotal: FUEL_COUNT, cores: 0, coresTotal: GEM_COUNT, rockets: 15, rocketsTotal: 15 });
   const [seed, setSeed] = React.useState(null);
   const [mapOn, setMapOn] = React.useState(false);
   const [muted, setMuted] = React.useState(() => {
@@ -992,10 +992,10 @@ window.PlayPage = function PlayPage() {
             {sprintActive ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
           </span>
           <span>
-            <span style={{ color: '#f5c84a' }}>◆ {progress.gems}/{progress.gemsTotal}</span>
-            <span style={{ marginLeft: 10, color: '#67d8e6' }}>◇ {progress.cores}/{progress.coresTotal}</span>
+            <span style={{ color: '#f5c84a' }}>FUEL {progress.gems}/{progress.gemsTotal}</span>
+            <span style={{ marginLeft: 10, color: '#67d8e6' }}>GEM {progress.cores}/{progress.coresTotal}</span>
             <span style={{ marginLeft: 10, color: progress.rockets === 0 ? 'rgba(236,230,218,.4)' : '#ff8a55' }}>
-              ▲ {progress.rockets}/{progress.rocketsTotal}
+              AMMO {progress.rockets}/{progress.rocketsTotal}
             </span>
           </span>
           <span style={{ color: runEndedAt != null ? '#f5c84a' : '#ece6da' }}>
@@ -1089,8 +1089,6 @@ window.PlayPage = function PlayPage() {
       </div>
 
       <p style={{ marginTop: 18, color: 'var(--muted)', fontSize: 12, textAlign: 'center' }}>
-        Best run: {fmtTime(best)}
-        {' · '}
         <button onClick={handleReset} className="hover-line"
                 style={{ background: 'transparent', border: 0, padding: 0, font: 'inherit', color: 'var(--ink)', cursor: 'pointer' }}>
           ↻ Reset
@@ -1116,11 +1114,11 @@ function PlayHelp({ onClose }) {
     ['Esc',      'Close'],
   ];
   const rules = [
-    ['◆',  'Yellow gems are fuel. You start with 5 free; collect 30 to win.'],
-    ['◇',  'Cyan cores hide in scrap-heavy zones — bonus collectibles.'],
-    ['▲',  '15 rockets per run; about 1 in 5 misses.'],
-    ['×',  'Rust bots cost 5 gems on contact (900 ms cooldown).'],
-    ['…',  '−1 gem every 50 steps (fatigue).'],
+    ['FUEL',  'Yellow fuel keeps you running. Start with 5; collect 15 to win.'],
+    ['GEM',   'Cyan gems hide in scrap-heavy zones — 30 to find.'],
+    ['AMMO',  '15 rockets per run; about 1 in 5 misses.'],
+    ['BOTS',  'Rust bots cost 1 gem on contact (900 ms cooldown).'],
+    ['STEPS', '−1 fuel every 50 steps (fatigue).'],
   ];
   return (
     <div onClick={onClose} style={{
@@ -1143,10 +1141,10 @@ function PlayHelp({ onClose }) {
           ))}
         </div>
         <div className="lbl-mono" style={{ marginTop: 18 }}>── Rules</div>
-        <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: '20px 1fr', rowGap: 8 }}>
+        <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: '70px 1fr', rowGap: 8 }}>
           {rules.map(([s, v], i) => (
             <React.Fragment key={i}>
-              <span style={{ color: 'var(--accent)' }}>{s}</span>
+              <span style={{ color: 'var(--accent)', letterSpacing: '.1em' }}>{s}</span>
               <span style={{ color: 'var(--muted)' }}>{v}</span>
             </React.Fragment>
           ))}
