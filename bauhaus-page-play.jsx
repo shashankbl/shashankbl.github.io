@@ -23,11 +23,12 @@ const SPAWN_C = 50;
 const SPAWN_R = 30;
 const SPAWN_CLEAR_RADIUS = 3;
 
-// Procedural-but-deterministic terrain via p5's Perlin noise. Border is scrap;
-// horizontal + vertical "main roads" cut through the spawn for a sense of
-// place; a 7×7 clearing around the spawn guarantees the robot can always move.
-function buildMap(p) {
-  p.noiseSeed(1337);
+// Procedural terrain via p5's Perlin noise, parameterised by a seed so each
+// session yields a different layout. Border is scrap; horizontal + vertical
+// "main roads" cut through spawn; a 7×7 clearing around spawn guarantees the
+// robot can always move.
+function buildMap(p, seed) {
+  p.noiseSeed(seed);
   const grid = [];
   for (let r = 0; r < ROWS_W; r++) {
     const row = [];
@@ -121,8 +122,8 @@ const BOT_MOVE_SPEED = 0.05;    // per frame; ~20 frames per tile (~330ms)
 const HIT_PENALTY = 5;
 const HIT_COOLDOWN_MS = 900;
 
-function placeBots(p, map) {
-  p.randomSeed(9001);
+function placeBots(p, map, seed) {
+  p.randomSeed(seed);
   const candidates = [];
   for (let r = 1; r < ROWS_W - 1; r++) {
     for (let c = 1; c < COLS_W - 1; c++) {
@@ -144,10 +145,10 @@ function placeBots(p, map) {
 const GEM_COUNT = 100;
 const CORE_COUNT = 5;
 
-// Deterministic placement of gems (yellow) and cores (cyan, scrap-rich tiles)
-// on passable tiles, excluding the spawn clearing.
-function placeGems(p, map) {
-  p.randomSeed(7341);
+// Seeded placement of gems (yellow) and cores (cyan, scrap-rich tiles) on
+// passable tiles, excluding the spawn clearing.
+function placeGems(p, map, seed) {
+  p.randomSeed(seed);
   const candidates = [];
   for (let r = 1; r < ROWS_W - 1; r++) {
     for (let c = 1; c < COLS_W - 1; c++) {
@@ -196,13 +197,26 @@ function makeSketch(api) {
     let map = null;
     let gems = new Set();
     let cores = new Set();
+    let gemsTotal = 0;
+    let coresTotal = 0;
     let gemsCollected = 0;
     let coresCollected = 0;
+    let sessionSeed = 0;
+
+    function regenerate() {
+      sessionSeed = 1000 + Math.floor(Math.random() * 9000);
+      map = buildMap(p, sessionSeed);
+      ({ gems, cores } = placeGems(p, map, sessionSeed * 7 + 1));
+      bots = placeBots(p, map, sessionSeed * 13 + 3);
+      gemsTotal = gems.size;
+      coresTotal = cores.size;
+      api.onSeed && api.onSeed(sessionSeed);
+    }
 
     function notifyProgress() {
       api.onProgress && api.onProgress({
-        gems: gemsCollected, gemsTotal: GEM_COUNT,
-        cores: coresCollected, coresTotal: CORE_COUNT,
+        gems: gemsCollected, gemsTotal,
+        cores: coresCollected, coresTotal,
       });
     }
 
@@ -227,9 +241,7 @@ function makeSketch(api) {
       p.createCanvas(W, H);
       p.frameRate(60);
       p.textFont('IBM Plex Mono, ui-monospace, monospace');
-      map = buildMap(p);
-      ({ gems, cores } = placeGems(p, map));
-      bots = placeBots(p, map);
+      regenerate();
       updateCamera();
       notifyProgress();
       api.onReady && api.onReady();
@@ -241,10 +253,9 @@ function makeSketch(api) {
       move = null;
       gemsCollected = 0;
       coresCollected = 0;
-      ({ gems, cores } = placeGems(p, map));
-      bots = placeBots(p, map);
       botFrames = 0;
       lastHitAt = 0;
+      regenerate();
       updateCamera();
       notifyProgress();
     };
@@ -587,6 +598,7 @@ window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
   const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 100, cores: 0, coresTotal: 5 });
+  const [seed, setSeed] = React.useState(null);
   const [muted, setMuted] = React.useState(() => {
     try {
       const v = localStorage.getItem('play-muted');
@@ -688,6 +700,7 @@ window.PlayPage = function PlayPage() {
     const api = {
       input: () => {},
       onProgress: (p) => setProgress(p),
+      onSeed: (s) => setSeed(s),
       playSound,
       onReady: null,
     };
@@ -717,7 +730,7 @@ window.PlayPage = function PlayPage() {
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
         <div className="play-statusbar">
           <span style={{ color: sprint ? 'var(--accent)' : '#ece6da' }}>
-            {sprint ? '▶ BOOST' : '● PLAY · v1'}
+            {sprint ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
           </span>
           <span>
             <span style={{ color: '#f5c84a' }}>◆ {progress.gems}/{progress.gemsTotal}</span>
