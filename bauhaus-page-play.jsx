@@ -15,8 +15,8 @@ const T = {
 };
 
 // World is 100 × 60 tiles; viewport (visible window) is 16 × 9 tiles.
-const COLS_W = 100;
-const ROWS_W = 60;
+const COLS_W = 60;
+const ROWS_W = 40;
 const COLS_V = 16;
 const ROWS_V = 9;
 const SPAWN_C = 50;
