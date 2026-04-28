@@ -290,6 +290,7 @@ function makeSketch(api) {
     };
 
     api.input = (action) => handleInput(action);
+    api.attack = () => tryAttack();
     api.toggleMinimap = () => {
       minimapVisible = !minimapVisible;
       api.onMinimap && api.onMinimap(minimapVisible);
@@ -428,7 +429,7 @@ function makeSketch(api) {
         api.playSound && api.playSound('bump');
         return;
       }
-      const sprinting = p.keyIsDown(p.SHIFT);
+      const sprinting = p.keyIsDown(p.SHIFT) || (api.isSprintingTouch && api.isSprintingTouch());
       move = {
         fromCol: player.col, fromRow: player.row,
         toCol: nc, toRow: nr, t: 0,
@@ -854,6 +855,10 @@ window.PlayPage = function PlayPage() {
     } catch { return true; }
   });
   const [sprint, setSprint] = React.useState(false);
+  const [sprintTouch, setSprintTouch] = React.useState(false);
+  const sprintTouchRef = useRef(false);
+  React.useEffect(() => { sprintTouchRef.current = sprintTouch; }, [sprintTouch]);
+  const sprintActive = sprint || sprintTouch;
   const [runStartedAt, setRunStartedAt] = React.useState(null);
   const [runEndedAt, setRunEndedAt] = React.useState(null);
   const [tick, setTick] = React.useState(0);
@@ -950,6 +955,7 @@ window.PlayPage = function PlayPage() {
       onProgress: (p) => setProgress(p),
       onSeed: (s) => setSeed(s),
       onMinimap: (v) => setMapOn(v),
+      isSprintingTouch: () => sprintTouchRef.current,
       playSound,
       onReady: null,
     };
@@ -979,8 +985,8 @@ window.PlayPage = function PlayPage() {
 
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
         <div className="play-statusbar">
-          <span style={{ color: sprint ? 'var(--accent)' : '#ece6da' }}>
-            {sprint ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
+          <span style={{ color: sprintActive ? 'var(--accent)' : '#ece6da' }}>
+            {sprintActive ? '▶ BOOST' : (seed != null ? `● PLAY #${seed}` : '● PLAY')}
           </span>
           <span>
             <span style={{ color: '#f5c84a' }}>◆ {progress.gems}/{progress.gemsTotal}</span>
@@ -1011,29 +1017,53 @@ window.PlayPage = function PlayPage() {
         <div ref={screenRef} className="play-screen"/>
         <div className="play-controls">
           <div className="play-dpad">
-            <button className="up"    aria-label="Up"    onMouseDown={() => press('up')}    onTouchStart={(e) => { e.preventDefault(); press('up'); }}>▲</button>
-            <button className="left"  aria-label="Left"  onMouseDown={() => press('left')}  onTouchStart={(e) => { e.preventDefault(); press('left'); }}>◀</button>
-            <button className="down"  aria-label="Down"  onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
-            <button className="right" aria-label="Right" onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
+            <button className="up"     aria-label="Up"     onMouseDown={() => press('up')}    onTouchStart={(e) => { e.preventDefault(); press('up'); }}>▲</button>
+            <button className="left"   aria-label="Left"   onMouseDown={() => press('left')}  onTouchStart={(e) => { e.preventDefault(); press('left'); }}>◀</button>
+            <button className="attack" aria-label="Attack" onMouseDown={() => apiRef.current.attack && apiRef.current.attack()} onTouchStart={(e) => { e.preventDefault(); apiRef.current.attack && apiRef.current.attack(); }}>✦</button>
+            <button className="right"  aria-label="Right"  onMouseDown={() => press('right')} onTouchStart={(e) => { e.preventDefault(); press('right'); }}>▶</button>
+            <button className="down"   aria-label="Down"   onMouseDown={() => press('down')}  onTouchStart={(e) => { e.preventDefault(); press('down'); }}>▼</button>
           </div>
-          <button
-            type="button"
-            onClick={() => apiRef.current.toggleMinimap && apiRef.current.toggleMinimap()}
-            aria-label={mapOn ? 'Hide minimap' : 'Show minimap'}
-            aria-pressed={mapOn}
-            style={{
-              alignSelf: 'center', marginLeft: 18,
-              padding: '10px 14px',
-              background: mapOn ? 'var(--accent)' : '#2a241d',
-              color: mapOn ? '#1a1814' : '#ece6da',
-              border: '1px solid #3a3128',
-              font: '500 11px var(--mono)',
-              letterSpacing: '.14em', textTransform: 'uppercase',
-              cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation',
-            }}
-          >
-            ⊞ Map
-          </button>
+          <div style={{ alignSelf: 'center', marginLeft: 18, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <button
+              type="button"
+              onMouseDown={() => setSprintTouch(true)}
+              onMouseUp={() => setSprintTouch(false)}
+              onMouseLeave={() => setSprintTouch(false)}
+              onTouchStart={(e) => { e.preventDefault(); setSprintTouch(true); }}
+              onTouchEnd={(e) => { e.preventDefault(); setSprintTouch(false); }}
+              onTouchCancel={() => setSprintTouch(false)}
+              aria-label="Hold to sprint"
+              aria-pressed={sprintTouch}
+              style={{
+                padding: '8px 14px',
+                background: sprintTouch ? 'var(--accent)' : '#2a241d',
+                color: sprintTouch ? '#1a1814' : '#ece6da',
+                border: '1px solid #3a3128',
+                font: '500 11px var(--mono)',
+                letterSpacing: '.14em', textTransform: 'uppercase',
+                cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation',
+              }}
+            >
+              ▶ Boost
+            </button>
+            <button
+              type="button"
+              onClick={() => apiRef.current.toggleMinimap && apiRef.current.toggleMinimap()}
+              aria-label={mapOn ? 'Hide minimap' : 'Show minimap'}
+              aria-pressed={mapOn}
+              style={{
+                padding: '8px 14px',
+                background: mapOn ? 'var(--accent)' : '#2a241d',
+                color: mapOn ? '#1a1814' : '#ece6da',
+                border: '1px solid #3a3128',
+                font: '500 11px var(--mono)',
+                letterSpacing: '.14em', textTransform: 'uppercase',
+                cursor: 'pointer', userSelect: 'none', touchAction: 'manipulation',
+              }}
+            >
+              ⊞ Map
+            </button>
+          </div>
         </div>
       </div>
 

@@ -226,10 +226,14 @@
     cursor: pointer; user-select: none; touch-action: manipulation;
   }
   .play-dpad button:active { background: var(--accent); color: #1a1814; }
-  .play-dpad .up    { grid-column: 2; grid-row: 1; }
-  .play-dpad .left  { grid-column: 1; grid-row: 2; }
-  .play-dpad .down  { grid-column: 2; grid-row: 3; }
-  .play-dpad .right { grid-column: 3; grid-row: 2; }
+  .play-dpad .up     { grid-column: 2; grid-row: 1; }
+  .play-dpad .left   { grid-column: 1; grid-row: 2; }
+  .play-dpad .attack { grid-column: 2; grid-row: 2;
+                       background: var(--accent); color: #1a1814;
+                       border-color: #5a3a20; font-size: 16px; }
+  .play-dpad .attack:active { background: #ffd54a; color: #1a1814; }
+  .play-dpad .down   { grid-column: 2; grid-row: 3; }
+  .play-dpad .right  { grid-column: 3; grid-row: 2; }
 
   /* Mobile / tablet adjustments */
   @media (max-width: 880px) {
