@@ -100,10 +100,10 @@ function makeSketch(api) {
 
     p.keyPressed = () => {
       const k = p.key;
-      if (p.keyCode === p.UP_ARROW    || k === 'w' || k === 'W') handleInput('up');
-      else if (p.keyCode === p.DOWN_ARROW  || k === 's' || k === 'S') handleInput('down');
-      else if (p.keyCode === p.LEFT_ARROW  || k === 'a' || k === 'A') handleInput('left');
-      else if (p.keyCode === p.RIGHT_ARROW || k === 'd' || k === 'D') handleInput('right');
+      if      (k === 'w' || k === 'W') handleInput('up');
+      else if (k === 's' || k === 'S') handleInput('down');
+      else if (k === 'a' || k === 'A') handleInput('left');
+      else if (k === 'd' || k === 'D') handleInput('right');
     };
 
     function handleInput(action) {
@@ -215,7 +215,7 @@ window.PlayPage = function PlayPage() {
         A tiny robot adventure.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
-        Wander the scrap fields. Arrow keys / WASD to walk on a desktop, or use the on-screen
+        Wander the scrap fields. WASD to walk on a desktop, or use the on-screen
         pad below.
       </p>
 
