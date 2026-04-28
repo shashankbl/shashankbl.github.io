@@ -63,6 +63,33 @@ function passable(tile) {
   return tile === T.SAND || tile === T.PATH || tile === T.JUNK;
 }
 
+// Robot sprite faces "down" (south) by default. Map travel direction → radians.
+const DIR_ANGLE = {
+  down:  0,
+  left:  Math.PI / 2,
+  up:    Math.PI,
+  right: -Math.PI / 2,
+};
+
+const GEM_COUNT = 100;
+
+// Deterministic gem placement on passable tiles, excluding the spawn clearing.
+function placeGems(p, map) {
+  p.randomSeed(7341);
+  const candidates = [];
+  for (let r = 1; r < ROWS_W - 1; r++) {
+    for (let c = 1; c < COLS_W - 1; c++) {
+      if (Math.abs(r - SPAWN_R) <= 1 && Math.abs(c - SPAWN_C) <= 1) continue;
+      if (passable(map[r][c])) candidates.push(r + '_' + c);
+    }
+  }
+  for (let i = candidates.length - 1; i > 0; i--) {
+    const j = Math.floor(p.random() * (i + 1));
+    [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+  }
+  return new Set(candidates.slice(0, GEM_COUNT));
+}
+
 // ─── p5 sketch factory ──────────────────────────────────────────────────────
 
 function makeSketch(api) {
@@ -73,6 +100,8 @@ function makeSketch(api) {
 
     const sprites = {};
     let map = null;
+    let gems = new Set();
+    let gemsCollected = 0;
 
     let player = { col: SPAWN_C, row: SPAWN_R, dir: 'down' };
     let move = null;                 // { fromCol, fromRow, toCol, toRow, t }
@@ -92,7 +121,9 @@ function makeSketch(api) {
       p.frameRate(60);
       p.textFont('IBM Plex Mono, ui-monospace, monospace');
       map = buildMap(p);
+      gems = placeGems(p, map);
       updateCamera();
+      api.onGem && api.onGem(0, GEM_COUNT);
       api.onReady && api.onReady();
     };
 
@@ -127,6 +158,12 @@ function makeSketch(api) {
       player.col = move.toCol;
       player.row = move.toRow;
       move = null;
+      const key = player.row + '_' + player.col;
+      if (gems.has(key)) {
+        gems.delete(key);
+        gemsCollected++;
+        api.onGem && api.onGem(gemsCollected, GEM_COUNT);
+      }
     }
 
     function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -175,10 +212,45 @@ function makeSketch(api) {
           if (img) p.image(img, c * TILE - camera.x, r * TILE - camera.y, TILE, TILE);
         }
       }
+      // gems
+      for (let r = startR; r < endR; r++) {
+        for (let c = startC; c < endC; c++) {
+          if (!gems.has(r + '_' + c)) continue;
+          drawGem(c * TILE - camera.x, r * TILE - camera.y);
+        }
+      }
       // player
       const pp = playerPixel();
       const bob = move ? Math.sin(move.t * Math.PI) * 1.5 : Math.sin(bobT * 4) * 0.6;
-      if (sprites.robot) p.image(sprites.robot, pp.x - camera.x, pp.y - camera.y - bob, TILE, TILE);
+      if (sprites.robot) {
+        const angle = DIR_ANGLE[player.dir] || 0;
+        p.push();
+        p.imageMode(p.CENTER);
+        p.translate(pp.x - camera.x + TILE / 2, pp.y - camera.y - bob + TILE / 2);
+        p.rotate(angle);
+        p.image(sprites.robot, 0, 0, TILE, TILE);
+        p.pop();
+      }
+    }
+
+    function drawGem(x, y) {
+      const pulse = 0.85 + Math.sin(bobT * 5 + (x + y) * 0.02) * 0.15;
+      const size = TILE * 0.34 * pulse;
+      p.push();
+      p.translate(x + TILE / 2, y + TILE / 2);
+      p.rotate(Math.PI / 4);
+      p.rectMode(p.CENTER);
+      p.noStroke();
+      // soft halo
+      p.fill(245, 200, 74, 70);
+      p.rect(0, 0, size * 1.9, size * 1.9, 2);
+      // body
+      p.fill(245, 200, 74, 240);
+      p.rect(0, 0, size, size, 1.5);
+      // bright corner highlight
+      p.fill(255, 246, 210, 230);
+      p.rect(-size * 0.2, -size * 0.2, size * 0.32, size * 0.32, 0.5);
+      p.pop();
     }
   };
 }
@@ -188,6 +260,7 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
+  const [gems, setGems] = React.useState({ collected: 0, total: 100 });
 
   useEffect(() => {
     if (!screenRef.current) return;
@@ -195,7 +268,11 @@ window.PlayPage = function PlayPage() {
       console.warn('p5.js not loaded yet');
       return;
     }
-    const api = { input: () => {}, onReady: null };
+    const api = {
+      input: () => {},
+      onGem: (collected, total) => setGems({ collected, total }),
+      onReady: null,
+    };
     apiRef.current = api;
 
     const sketch = makeSketch(api);
@@ -222,7 +299,7 @@ window.PlayPage = function PlayPage() {
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game">
         <div className="play-statusbar">
           <span>● PLAY · v1</span>
-          <span style={{ color: 'var(--accent)' }}>FREE ROAM</span>
+          <span style={{ color: '#f5c84a' }}>◆ {gems.collected} / {gems.total}</span>
           <span>100 × 60</span>
         </div>
         <div ref={screenRef} className="play-screen"/>
