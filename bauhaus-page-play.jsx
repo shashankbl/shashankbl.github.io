@@ -132,11 +132,25 @@ const SOUNDS = {
     tone(ctx, t + 0.03, 660, 0.04, 0.05);
     tone(ctx, t + 0.06, 990, 0.05, 0.05);
   },
+  empty: (ctx) => {
+    const t = ctx.currentTime;
+    tone(ctx, t,        130, 0.05, 0.05);
+    tone(ctx, t + 0.04,  98, 0.07, 0.05);
+  },
+  fatigue: (ctx) => {
+    const t = ctx.currentTime;
+    tone(ctx, t,        220, 0.05, 0.04);
+    tone(ctx, t + 0.04, 165, 0.07, 0.04);
+  },
 };
+
+const STEP_PENALTY_INTERVAL = 50;
 
 const ATTACK_RANGE = 4;
 const ROCKET_FRAMES = 36;
 const ROCKET_MEANDER_AMP = 30;
+const ROCKET_MAX = 15;
+const ROCKET_MISS_RATE = 0.20;
 
 const BOT_COUNT = 10;
 const BOT_STEP_FRAMES = 22;     // pause between steps
@@ -239,6 +253,7 @@ function makeSketch(api) {
       api.onProgress && api.onProgress({
         gems: gemsCollected, gemsTotal,
         cores: coresCollected, coresTotal,
+        rockets: rocketsLeft, rocketsTotal: ROCKET_MAX,
       });
     }
 
@@ -248,6 +263,8 @@ function makeSketch(api) {
     let bursts = [];
     let rockets = [];
     let explosions = [];
+    let rocketsLeft = ROCKET_MAX;
+    let stepCount = 0;
     let botFrames = 0;
     let lastHitAt = 0;
     let bobT = 0;
@@ -282,6 +299,8 @@ function makeSketch(api) {
       move = null;
       gemsCollected = 0;
       coresCollected = 0;
+      rocketsLeft = ROCKET_MAX;
+      stepCount = 0;
       botFrames = 0;
       lastHitAt = 0;
       bursts = [];
@@ -303,6 +322,10 @@ function makeSketch(api) {
     };
 
     function tryAttack() {
+      if (rocketsLeft <= 0) {
+        api.playSound && api.playSound('empty');
+        return;
+      }
       // Lock onto nearest bot within range.
       let nearest = null;
       let nearestDist = Infinity;
@@ -317,15 +340,28 @@ function makeSketch(api) {
         api.playSound && api.playSound('miss');
         return;
       }
+      rocketsLeft--;
+      notifyProgress();
+
+      const willMiss = Math.random() < ROCKET_MISS_RATE;
       const pp = playerPixel();
+      let tx = nearest.col * TILE + TILE / 2;
+      let ty = nearest.row * TILE + TILE / 2;
+      if (willMiss) {
+        // Veer 1-2 tiles off-target in a random direction.
+        const ang = Math.random() * Math.PI * 2;
+        const r = TILE * (1 + Math.random());
+        tx += Math.cos(ang) * r;
+        ty += Math.sin(ang) * r;
+      }
       rockets.push({
         sx: pp.x + TILE / 2,
         sy: pp.y + TILE / 2,
-        tx: nearest.col * TILE + TILE / 2,
-        ty: nearest.row * TILE + TILE / 2,
+        tx, ty,
         target: nearest,
         t: 0,
         trail: [],
+        willMiss,
       });
       api.playSound && api.playSound('launch');
     }
@@ -350,8 +386,8 @@ function makeSketch(api) {
 
     function updateRockets() {
       for (const r of rockets) {
-        // Home onto target's interpolated position if still alive.
-        if (r.target && bots.indexOf(r.target) !== -1) {
+        // Home onto target's interpolated position if it'll connect.
+        if (!r.willMiss && r.target && bots.indexOf(r.target) !== -1) {
           const tp = botPixel(r.target);
           r.tx = tp.x; r.ty = tp.y;
         }
@@ -361,8 +397,10 @@ function makeSketch(api) {
         if (r.trail.length > 10) r.trail.shift();
         if (r.t >= 1) {
           r.done = true;
-          const i = r.target ? bots.indexOf(r.target) : -1;
-          if (i !== -1) bots.splice(i, 1);
+          if (!r.willMiss) {
+            const i = r.target ? bots.indexOf(r.target) : -1;
+            if (i !== -1) bots.splice(i, 1);
+          }
           explosions.push({ x: pos.x, y: pos.y, t: 0 });
           api.playSound && api.playSound('zap');
         }
@@ -396,6 +434,14 @@ function makeSketch(api) {
         toCol: nc, toRow: nr, t: 0,
         speed: sprinting ? 1 / 6 : 1 / 11,
       };
+      stepCount++;
+      if (stepCount % STEP_PENALTY_INTERVAL === 0) {
+        if (gemsCollected > 0) {
+          gemsCollected--;
+          notifyProgress();
+        }
+        api.playSound && api.playSound('fatigue');
+      }
       api.playSound && api.playSound('step');
     }
 
@@ -615,11 +661,14 @@ function makeSketch(api) {
       p.strokeWeight(1);
       p.rect(MM_X + (camera.x / TILE) * sx, MM_Y + (camera.y / TILE) * sy, COLS_V * sx, ROWS_V * sy);
 
-      // player position
-      p.noStroke();
-      p.fill(212, 80, 42);
+      // player position — yellow circle with dark outline so it pops
       const pmm = playerPixel();
-      p.rect(MM_X + (pmm.x / TILE) * sx - 1, MM_Y + (pmm.y / TILE) * sy - 1, 3, 3);
+      const px = MM_X + (pmm.x / TILE) * sx;
+      const py = MM_Y + (pmm.y / TILE) * sy;
+      p.stroke(20, 18, 14, 220);
+      p.strokeWeight(1);
+      p.fill(255, 220, 80);
+      p.ellipse(px, py, 6, 6);
 
       p.pop();
     }
@@ -795,7 +844,7 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
-  const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 30, cores: 0, coresTotal: 5 });
+  const [progress, setProgress] = React.useState({ gems: 0, gemsTotal: 30, cores: 0, coresTotal: 5, rockets: 15, rocketsTotal: 15 });
   const [seed, setSeed] = React.useState(null);
   const [mapOn, setMapOn] = React.useState(false);
   const [muted, setMuted] = React.useState(() => {
@@ -936,6 +985,9 @@ window.PlayPage = function PlayPage() {
           <span>
             <span style={{ color: '#f5c84a' }}>◆ {progress.gems}/{progress.gemsTotal}</span>
             <span style={{ marginLeft: 10, color: '#67d8e6' }}>◇ {progress.cores}/{progress.coresTotal}</span>
+            <span style={{ marginLeft: 10, color: progress.rockets === 0 ? 'rgba(236,230,218,.4)' : '#ff8a55' }}>
+              ▲ {progress.rockets}/{progress.rocketsTotal}
+            </span>
           </span>
           <span style={{ color: runEndedAt != null ? '#f5c84a' : '#ece6da' }}>
             {fmtTime(elapsedSec)}
