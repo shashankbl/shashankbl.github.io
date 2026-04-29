@@ -57,9 +57,8 @@ window.Pill = function Pill({ kind }) {
 window.NewsFlash = function NewsFlash({ items, nav }) {
   if (!items || items.length === 0) return null;
 
-  const TYPE_MS  = 95;     // ms per word while streaming forward
-  const ERASE_MS = 45;     // ms per word while erasing
-  const HOLD_MS  = 3200;   // pause once fully typed before erasing
+  const TYPE_MS = 95;      // ms per word while streaming
+  const HOLD_MS = 3200;    // pause once fully typed before shifting
 
   const reduceMotion = React.useMemo(() => (
     typeof matchMedia !== 'undefined' &&
@@ -71,41 +70,40 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
     [items]
   );
 
-  const [idx, setIdx] = React.useState(0);
-  const [count, setCount] = React.useState(0);     // words currently shown
-  const [phase, setPhase] = React.useState('typing'); // typing | erasing
+  const [idx, setIdx]         = React.useState(0);
+  const [count, setCount]     = React.useState(0);
+  const [phase, setPhase]     = React.useState('typing'); // typing | shifting
+  const [history, setHistory] = React.useState([]);       // newest-first, max 2
 
   React.useEffect(() => {
-    const item = items[idx];
+    const item  = items[idx];
     const words = wordLists[idx];
     if (!item || !words) return;
     let t;
     if (reduceMotion) {
-      // No streaming — just rotate the headline every few seconds.
       setCount(words.length);
-      t = setTimeout(() => { setIdx((idx + 1) % items.length); setCount(0); }, 5000);
+      t = setTimeout(() => {
+        setHistory(h => [item, ...h].slice(0, 2));
+        setIdx((idx + 1) % items.length);
+        setCount(0);
+      }, 4500);
       return () => clearTimeout(t);
     }
     if (phase === 'typing') {
       if (count < words.length) {
-        t = setTimeout(() => setCount(count + 1), TYPE_MS);
+        t = setTimeout(() => setCount(c => c + 1), TYPE_MS);
       } else {
-        t = setTimeout(() => setPhase('erasing'), HOLD_MS);
+        t = setTimeout(() => setPhase('shifting'), HOLD_MS);
       }
     } else {
-      if (count > 0) {
-        t = setTimeout(() => setCount(count - 1), ERASE_MS);
-      } else {
-        setIdx((idx + 1) % items.length);
-        setPhase('typing');
-      }
+      setHistory(h => [item, ...h].slice(0, 2));
+      setIdx((idx + 1) % items.length);
+      setCount(0);
+      setPhase('typing');
     }
     return () => clearTimeout(t);
   }, [count, phase, idx, items, wordLists, reduceMotion]);
 
-  const shown = (wordLists[idx] || []).slice(0, count).join(' ');
-
-  const item = items[idx];
   const onItemClick = (e, url) => {
     if (!url) return;
     if (url.startsWith('#/')) {
@@ -113,25 +111,47 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
       nav && nav(url.slice(1));
     }
   };
-  const linkProps = item.url
-    ? {
-        href: item.url,
-        target: item.url.startsWith('http') ? '_blank' : undefined,
-        rel:    item.url.startsWith('http') ? 'noreferrer' : undefined,
-        onClick: (e) => onItemClick(e, item.url),
-      }
-    : null;
+  const linkPropsFor = (url) => url ? {
+    href: url,
+    target: url.startsWith('http') ? '_blank' : undefined,
+    rel:    url.startsWith('http') ? 'noreferrer' : undefined,
+    onClick: (e) => onItemClick(e, url),
+  } : null;
+
+  const current = items[idx];
+  const shown   = (wordLists[idx] || []).slice(0, count).join(' ');
+
+  const renderRow = (it, text, isCurrent, slotKey) => {
+    if (!it) {
+      return <div className={'news-flash-row is-empty ' + slotKey} key={slotKey}/>;
+    }
+    const lp = linkPropsFor(it.url);
+    return (
+      <div className={'news-flash-row ' + (isCurrent ? 'is-current' : 'is-history ' + slotKey)}
+           key={slotKey}>
+        <span className="news-flash-prompt" aria-hidden="true">{isCurrent ? '$' : '›'}</span>
+        <span className="news-flash-kind">{it.tag}</span>
+        <span className="news-flash-stream"
+              aria-live={isCurrent ? 'polite' : undefined}>
+          {lp ? <a {...lp}>{text}</a> : <span>{text}</span>}
+          {isCurrent && <span className="news-flash-caret" aria-hidden="true">▍</span>}
+        </span>
+      </div>
+    );
+  };
 
   return (
-    <div className="news-flash" role="region" aria-label="Latest updates">
-      <div className="news-flash-inner">
-        <span className="news-flash-kind">{item.tag}</span>
-        <span className="news-flash-stream" aria-live="polite">
-          {linkProps
-            ? <a {...linkProps}>{shown}</a>
-            : <span>{shown}</span>}
-          <span className="news-flash-caret" aria-hidden="true">▍</span>
-        </span>
+    <div className="news-flash news-flash-card reveal" role="region" aria-label="Latest updates">
+      <div className="news-flash-titlebar" aria-hidden="true">
+        <span className="tl-dot tl-red"/>
+        <span className="tl-dot tl-yel"/>
+        <span className="tl-dot tl-grn"/>
+        <span className="news-flash-title">flash.log — tail -f</span>
+      </div>
+      <div className="news-flash-body">
+        {renderRow(current,    shown,                  true,  'slot-1')}
+        {renderRow(history[0], history[0]?.text || '', false, 'slot-2')}
+        {renderRow(history[1], history[1]?.text || '', false, 'slot-3')}
       </div>
     </div>
   );
@@ -280,9 +300,6 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
           })}
         </nav>
       </div>
-
-      {/* News flash — scrolling ticker of recent activity */}
-      <NewsFlash items={typeof FLASH !== 'undefined' ? FLASH : []} nav={nav}/>
     </header>
   );
 };

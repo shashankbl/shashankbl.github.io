@@ -224,6 +224,7 @@ window.HomePage = function HomePage({ nav }) {
             }}>
               {SITE.blurb}
             </p>
+            <NewsFlash items={typeof FLASH !== 'undefined' ? FLASH : []} nav={nav}/>
           </div>
           <div style={{ display: 'grid', gap: 14 }}>
             <a href="https://www.utexas.edu/" target="_blank" rel="noreferrer"
