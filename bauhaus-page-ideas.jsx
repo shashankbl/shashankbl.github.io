@@ -59,6 +59,7 @@ window.IdeasPage = function IdeasPage({ nav }) {
   });
   const grouped = order.map(g => groups[g]);
   const talks = window.TALKS || [];
+  const reading = window.READING || [];
 
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
@@ -66,7 +67,7 @@ window.IdeasPage = function IdeasPage({ nav }) {
       <h1 className="display reveal page-headline" style={{
         font: '500 48px/1.05 var(--display)', margin: '14px 0 8px', letterSpacing: '-.025em',
       }}>
-        Writing &amp; talks.
+        Reading, writing &amp; talks.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 540, fontSize: 14.5 }}>
         On AI systems, agentic tooling, and engineering reflections.
@@ -82,6 +83,72 @@ window.IdeasPage = function IdeasPage({ nav }) {
 
       <div className="reveal" style={{
         marginTop: 40, padding: '24px 28px',
+        border: '1px solid var(--rule)', background: 'var(--paper)',
+      }}>
+        <h2 className="display" style={{
+          font: '500 24px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>Reading</h2>
+        <hr className="rule" style={{ marginTop: 12 }}/>
+        {reading.length === 0 ? (
+          <EmptyNote>◇ Bookmark in progress.</EmptyNote>
+        ) : (
+          <div style={{ marginTop: 4 }}>
+            {reading.map((it, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: 12,
+                padding: '18px 0',
+                borderTop: i ? '1px solid var(--rule-soft)' : 'none',
+              }}>
+                <span className="lbl-mono" style={{
+                  color: 'var(--accent)', paddingTop: 4, minWidth: 56, whiteSpace: 'nowrap',
+                }}>
+                  {it.kind || '◇'}
+                </span>
+                <span className="display" style={{
+                  font: '500 18px/1.3 var(--display)', flex: 1, minWidth: 0,
+                }}>
+                  {it.url ? (
+                    <a className="hover-line" href={it.url} target="_blank" rel="noreferrer"
+                       style={{ color: 'var(--ink)' }}>{it.title}</a>
+                  ) : (
+                    it.title
+                  )}
+                  {it.by && (
+                    <span className="lbl-mono" style={{ color: 'var(--muted)', marginLeft: 10 }}>
+                      by {it.by}
+                    </span>
+                  )}
+                </span>
+                {typeof it.progress === 'number' && (
+                  <span title={it.progress + '% complete'}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 8,
+                          whiteSpace: 'nowrap',
+                        }}>
+                    <span role="img" aria-label={it.progress + '% complete'}
+                          style={{ display: 'inline-flex', gap: 2 }}>
+                      {Array.from({ length: 10 }).map((_, n) => (
+                        <span key={n} style={{
+                          width: 8, height: 8,
+                          background: n < Math.floor(it.progress / 10)
+                            ? 'var(--accent)' : 'var(--rule)',
+                          borderRadius: 1,
+                        }}/>
+                      ))}
+                    </span>
+                    <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
+                      {it.progress}%
+                    </span>
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="reveal" style={{
+        marginTop: 16, padding: '24px 28px',
         border: '1px solid var(--rule)', background: 'var(--paper)',
       }}>
         <h2 className="display" style={{
