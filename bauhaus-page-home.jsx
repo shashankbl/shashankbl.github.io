@@ -214,9 +214,10 @@ window.HomePage = function HomePage({ nav }) {
               font: '500 clamp(22px, 3vw, 34px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
             }}>
-              Engineering Leader at the<br/>
-              intersection of <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>AI</span><br/>
-              and <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Silicon</span>.
+              Engineering Leader at the intersection of{' '}
+              <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>AI</span>{' '}
+              and{' '}
+              <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Silicon</span>.
             </h1>
             <p className="reveal" style={{
               marginTop: 26, font: '400 14.5px/1.7 var(--mono)',
