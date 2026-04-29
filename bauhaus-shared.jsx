@@ -68,10 +68,6 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
   return (
     <div className="news-flash" role="region" aria-label="Latest updates">
       <div className="news-flash-inner">
-        <span className="news-flash-tag" aria-hidden="true">
-          <span className="live-dot"/>
-          Flash
-        </span>
         <div className="news-flash-track-wrap">
           <div className="news-flash-track">
             {loop.map((it, i) => (
