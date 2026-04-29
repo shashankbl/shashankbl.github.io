@@ -53,11 +53,28 @@ window.PatentTable = function PatentTable({ items }) {
         </h2>
         <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
           {items.length} filings · {leads} as primary inventor · {granted} granted
-          {' · '}
-          <a className="hover-line"
-             href="https://credentials.micron.com/4ef384bc-e26a-4727-a03b-8941cb61458e#acc.HKzuJxY7"
+          {' '}
+          <a href="https://credentials.micron.com/4ef384bc-e26a-4727-a03b-8941cb61458e#acc.HKzuJxY7"
              target="_blank" rel="noreferrer"
-             style={{ color: 'var(--accent)' }}>
+             style={{
+               display: 'inline-flex', alignItems: 'center', gap: 6,
+               padding: '3px 10px', marginLeft: 6,
+               border: '1px solid var(--accent)', borderRadius: 999,
+               background: 'transparent',
+               font: '500 10px var(--mono)',
+               letterSpacing: '.14em', textTransform: 'uppercase',
+               color: 'var(--accent)', whiteSpace: 'nowrap',
+               transition: 'background .2s ease, color .2s ease',
+             }}
+             onMouseEnter={e => {
+               e.currentTarget.style.background = 'var(--accent)';
+               e.currentTarget.style.color = 'var(--bg)';
+             }}
+             onMouseLeave={e => {
+               e.currentTarget.style.background = 'transparent';
+               e.currentTarget.style.color = 'var(--accent)';
+             }}>
+            <span style={{ fontSize: 11, lineHeight: 1 }}>✓</span>
             Verified by Micron ↗
           </a>
         </span>
