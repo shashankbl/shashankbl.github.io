@@ -988,9 +988,6 @@ window.PlayPage = function PlayPage() {
       <div className="play-phone reveal" role="application" aria-label="Robot adventure mini-game"
            onContextMenu={(e) => e.preventDefault()}>
         <div className="play-statusbar">
-          <span style={{ color: sprintActive ? 'var(--accent)' : '#ece6da' }}>
-            {sprintActive ? '▶ BOOST' : '● PLAY'}
-          </span>
           <span>
             <span style={{ color: '#f5c84a' }}>FUEL {progress.gems}/{progress.gemsTotal}</span>
             <span style={{ marginLeft: 10, color: '#67d8e6' }}>GEM {progress.cores}/{progress.coresTotal}</span>
