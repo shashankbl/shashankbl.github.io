@@ -115,6 +115,26 @@ window.NEWS = [
   //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
 ];
 
+// Short headlines for the marquee ticker below the nav. Curated from real site
+// activity; keep ≤ ~80 chars per text so they read at a glance.
+window.FLASH = [
+  { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·05·15" },
+  { tag: 'Patents',  text: '24 filings at Micron · 4 granted in the imprint nanolithography family',
+    url: '#/projects' },
+  { tag: 'Shipped',  text: 'STARBOY — a tiny arcade game lives on /play',
+    url: '#/play' },
+  { tag: 'Paper',    text: 'High-resolution wireless EOG sensor for blink kinematics — IOVS 2025',
+    url: 'https://iovs.arvojournals.org/article.aspx?articleid=2804475' },
+  { tag: 'Credential', text: 'Verified Micron Inventor credential now linked from the Patents table',
+    url: 'https://credentials.micron.com/4ef384bc-e26a-4727-a03b-8941cb61458e#acc.HKzuJxY7' },
+  { tag: 'Paper',    text: 'Software engineering for TinyML embedded vision — SERP4IoT 2022',
+    url: 'https://dl.acm.org/doi/10.1145/3528227.3528569' },
+  { tag: 'Open-src', text: 'PixelSynth — an in-browser synth with an analog feel',
+    url: 'https://shashankbl.github.io/pixelsynth/' },
+  { tag: 'Status',   text: 'Open to collaborations and talks · based in California',
+    url: '#/about-me' },
+];
+
 window.ART = [
   // { id: 'piece-id', title: 'Title', year: '2026',
   //   medium: 'Acrylic on canvas', tags: ['tag1', 'tag2'],

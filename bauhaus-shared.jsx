@@ -54,6 +54,50 @@ window.Pill = function Pill({ kind }) {
   );
 };
 
+window.NewsFlash = function NewsFlash({ items, nav }) {
+  if (!items || items.length === 0) return null;
+  // Duplicate the run so the -50% translate loops seamlessly.
+  const loop = items.concat(items);
+  const onItemClick = (e, url) => {
+    if (!url) return;
+    if (url.startsWith('#/')) {
+      e.preventDefault();
+      nav && nav(url.slice(1));
+    }
+  };
+  return (
+    <div className="news-flash" role="region" aria-label="Latest updates">
+      <div className="news-flash-inner">
+        <span className="news-flash-tag" aria-hidden="true">
+          <span className="live-dot"/>
+          Flash
+        </span>
+        <div className="news-flash-track-wrap">
+          <div className="news-flash-track">
+            {loop.map((it, i) => (
+              <span className="news-flash-item" key={i}
+                    aria-hidden={i >= items.length ? 'true' : 'false'}>
+                <span className="news-flash-kind">{it.tag}</span>
+                {it.url ? (
+                  <a href={it.url}
+                     target={it.url.startsWith('http') ? '_blank' : undefined}
+                     rel={it.url.startsWith('http') ? 'noreferrer' : undefined}
+                     onClick={(e) => onItemClick(e, it.url)}>
+                    {it.text}
+                  </a>
+                ) : (
+                  <span>{it.text}</span>
+                )}
+                <span className="sep" aria-hidden="true">◆</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 window.EmptyNote = function EmptyNote({ children }) {
   return (
     <div className="reveal lbl-mono" style={{
@@ -153,6 +197,9 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
           })}
         </nav>
       </div>
+
+      {/* News flash — scrolling ticker of recent activity */}
+      <NewsFlash items={typeof FLASH !== 'undefined' ? FLASH : []} nav={nav}/>
     </header>
   );
 };
