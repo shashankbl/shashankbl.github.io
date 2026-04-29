@@ -57,8 +57,8 @@ window.Pill = function Pill({ kind }) {
 window.NewsFlash = function NewsFlash({ items, nav }) {
   if (!items || items.length === 0) return null;
 
-  const TYPE_MS  = 26;     // ms per character while typing forward
-  const ERASE_MS = 12;     // ms per character while erasing
+  const TYPE_MS  = 95;     // ms per word while streaming forward
+  const ERASE_MS = 45;     // ms per word while erasing
   const HOLD_MS  = 3200;   // pause once fully typed before erasing
 
   const reduceMotion = React.useMemo(() => (
@@ -66,36 +66,44 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
     matchMedia('(prefers-reduced-motion: reduce)').matches
   ), []);
 
+  const wordLists = React.useMemo(
+    () => items.map(it => (it.text || '').split(/\s+/).filter(Boolean)),
+    [items]
+  );
+
   const [idx, setIdx] = React.useState(0);
-  const [shown, setShown] = React.useState('');
+  const [count, setCount] = React.useState(0);     // words currently shown
   const [phase, setPhase] = React.useState('typing'); // typing | erasing
 
   React.useEffect(() => {
     const item = items[idx];
-    if (!item) return;
+    const words = wordLists[idx];
+    if (!item || !words) return;
     let t;
     if (reduceMotion) {
-      // No typewriter — just rotate the headline every few seconds.
-      setShown(item.text);
-      t = setTimeout(() => setIdx((idx + 1) % items.length), 5000);
+      // No streaming — just rotate the headline every few seconds.
+      setCount(words.length);
+      t = setTimeout(() => { setIdx((idx + 1) % items.length); setCount(0); }, 5000);
       return () => clearTimeout(t);
     }
     if (phase === 'typing') {
-      if (shown.length < item.text.length) {
-        t = setTimeout(() => setShown(item.text.slice(0, shown.length + 1)), TYPE_MS);
+      if (count < words.length) {
+        t = setTimeout(() => setCount(count + 1), TYPE_MS);
       } else {
         t = setTimeout(() => setPhase('erasing'), HOLD_MS);
       }
     } else {
-      if (shown.length > 0) {
-        t = setTimeout(() => setShown(item.text.slice(0, shown.length - 1)), ERASE_MS);
+      if (count > 0) {
+        t = setTimeout(() => setCount(count - 1), ERASE_MS);
       } else {
         setIdx((idx + 1) % items.length);
         setPhase('typing');
       }
     }
     return () => clearTimeout(t);
-  }, [shown, phase, idx, items, reduceMotion]);
+  }, [count, phase, idx, items, wordLists, reduceMotion]);
+
+  const shown = (wordLists[idx] || []).slice(0, count).join(' ');
 
   const item = items[idx];
   const onItemClick = (e, url) => {
