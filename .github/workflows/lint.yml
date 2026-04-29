@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  jsx-syntax:
+    name: Validate JSX syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install @babel/parser
+        run: npm install --no-save --no-package-lock --silent @babel/parser@^7
+      - name: Parse every .jsx file
+        run: |
+          node -e "
+            const fs = require('fs');
+            const parser = require('@babel/parser');
+            const files = fs.readdirSync('.').filter(f => f.endsWith('.jsx'));
+            let failed = 0;
+            for (const f of files) {
+              try {
+                parser.parse(fs.readFileSync(f, 'utf8'), {
+                  sourceType: 'script',
+                  plugins: ['jsx'],
+                });
+                console.log('OK   ' + f);
+              } catch (e) {
+                console.error('FAIL ' + f + ' — ' + e.message);
+                failed++;
+              }
+            }
+            if (failed) {
+              console.error('\n' + failed + ' file(s) failed JSX parse.');
+              process.exit(1);
+            }
+            console.log('\n' + files.length + ' file(s) parsed cleanly.');
+          "
