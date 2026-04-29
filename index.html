@@ -192,7 +192,6 @@
   .news-flash-row {
     display: flex; align-items: baseline; gap: 8px;
     min-height: 18px;
-    white-space: nowrap;
     font: 400 11.5px/1.5 var(--mono);
   }
   .news-flash-row.is-empty { visibility: hidden; }
@@ -210,12 +209,15 @@
     font: 500 9.5px var(--mono);
     letter-spacing: .12em; text-transform: uppercase;
     color: var(--accent);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .news-flash-stream {
     flex: 1 1 auto; min-width: 0;
     color: #ece6da;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
   }
   .news-flash-stream a {
     color: #ece6da; text-decoration: none;
