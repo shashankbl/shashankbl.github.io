@@ -183,33 +183,6 @@ window.HomePage = function HomePage({ nav }) {
           marginTop: 22, display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'end',
         }}>
           <div>
-            <div className="reveal icon-row" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: 12,
-              marginBottom: 22,
-            }}>
-              {[
-                { icon: 'smart_toy',       label: 'Robotics' },
-                { icon: 'directions_car',  label: 'Automotive' },
-                { icon: 'memory',          label: 'Semiconductors' },
-                { icon: 'cloud',           label: 'Cloud' },
-                { icon: 'psychology',      label: 'Machine Learning' },
-                { icon: 'palette',         label: 'Art' },
-              ].map(d => (
-                <div key={d.label} title={d.label}
-                     style={{
-                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                       padding: '6px 4px',
-                     }}>
-                  <span className="material-symbols-outlined" aria-label={d.label}
-                        style={{
-                          fontSize: 28, color: 'var(--accent)', lineHeight: 1,
-                          fontVariationSettings: '"opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0',
-                        }}>{d.icon}</span>
-                </div>
-              ))}
-            </div>
             <h1 className="reveal display hero-headline" style={{
               font: '500 clamp(26px, 3.6vw, 41px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
