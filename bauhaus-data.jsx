@@ -110,11 +110,6 @@ window.OSS = [
     demo: 'https://shashankbl.github.io/pixelsynth/' },
 ];
 
-window.NEWS = [
-  // { date: 'YYYY·MM', outlet: 'Outlet', title: 'Headline / segment',
-  //   url: 'https://example.com/article', loc: 'Article · podcast · video' },
-];
-
 // Short headlines for the marquee ticker below the nav. Curated from real site
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [

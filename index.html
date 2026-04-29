@@ -188,10 +188,10 @@
   .news-flash-body {
     padding: 10px 12px 12px;
     box-sizing: border-box;
-    /* Always reserve 3 lines of vertical space; prompt anchors at bottom. */
+    /* Always reserve 3 lines of vertical space; content prints top-down. */
     height: 74px;
     display: flex; flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     overflow: hidden;
   }
   .news-flash-row {
@@ -571,7 +571,6 @@
 <script type="text/babel" src="bauhaus-page-open-source.jsx"></script>
 <script type="text/babel" src="bauhaus-page-gallery.jsx"></script>
 <script type="text/babel" src="bauhaus-page-ideas.jsx"></script>
-<script type="text/babel" src="bauhaus-page-news.jsx"></script>
 <script type="text/babel" src="bauhaus-page-about-me.jsx"></script>
 <script type="text/babel" src="bauhaus-page-play.jsx"></script>
 <script type="text/babel" src="bauhaus-app.jsx"></script>

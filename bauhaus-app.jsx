@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/research', '/open-source', '/gallery', '/ideas', '/news', '/about-me', '/play'];
+const ROUTES = ['/', '/projects', '/research', '/open-source', '/gallery', '/ideas', '/about-me', '/play'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -70,7 +70,7 @@ function useKeyboardNav(nav, toggleTheme) {
       if (e.key === 'Escape') { setHelp(false); return; }
       if (e.key === 't') { toggleTheme(); return; }
 
-      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/gallery', '6': '/ideas', '7': '/news', '8': '/about-me', '9': '/play' };
+      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/gallery', '6': '/ideas', '7': '/about-me', '8': '/play' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
@@ -108,7 +108,6 @@ function App() {
       '/open-source': 'Open source',
       '/gallery': 'Gallery',
       '/ideas': 'Ideas', '/blog': 'Ideas', '/talks': 'Ideas',
-      '/news': 'News',
       '/about-me': 'About me', '/experience': 'About me', '/contact': 'About me',
       '/play': 'Play',
     };
@@ -143,7 +142,6 @@ function App() {
   else if (path === '/ideas' || path === '/blog' || path === '/talks') page = <window.IdeasPage nav={nav}/>;
   else if (path.startsWith('/blog/')) page = <window.PostPage slug={path.slice(6)} nav={nav}/>;
   else if (path === '/about-me' || path === '/experience' || path === '/contact') page = <window.AboutMePage/>;
-  else if (path === '/news') page = <window.NewsPage/>;
   else if (path === '/play') page = <window.PlayPage/>;
   else page = <window.HomePage nav={nav}/>;
 
