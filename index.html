@@ -188,6 +188,11 @@
   .news-flash-body {
     padding: 10px 12px 12px;
     box-sizing: border-box;
+    /* Always reserve 3 lines of vertical space; prompt anchors at bottom. */
+    height: 74px;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
   }
   .news-flash-row {
     display: flex; align-items: baseline; gap: 8px;
@@ -233,7 +238,7 @@
   @media (max-width: 640px) {
     .news-flash-row { font-size: 10.5px; }
     .news-flash-kind { width: 70px; font-size: 9px; }
-    .news-flash-body { padding: 8px 10px 10px; }
+    .news-flash-body { padding: 8px 10px 10px; height: 66px; }
   }
 
   kbd {
