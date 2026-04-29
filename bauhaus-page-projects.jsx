@@ -39,7 +39,8 @@ window.ProjectsPage = function ProjectsPage() {
 };
 
 window.PatentTable = function PatentTable({ items }) {
-  const leads = items.filter(p => p.lead).length;
+  const leads   = items.filter(p => p.lead).length;
+  const granted = items.filter(p => /B\d*$/.test(p.pub)).length;
   return (
     <div style={{ marginTop: 56 }}>
       <div className="reveal" style={{
@@ -51,46 +52,46 @@ window.PatentTable = function PatentTable({ items }) {
           Patents
         </h2>
         <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
-          {items.length} filings · {leads} as lead inventor
+          {items.length} filings · {leads} as primary inventor · {granted} granted
         </span>
       </div>
       <hr className="rule" style={{ marginTop: 8 }}/>
 
       <div className="patent-table reveal" style={{
         marginTop: 18, display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr) 64px 56px',
+        gridTemplateColumns: 'minmax(0, 1fr) 64px 130px 80px',
         columnGap: 18, rowGap: 0,
         font: '400 13px var(--mono)',
       }}>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Title</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Year</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Role</div>
-        {items.map(p => (
-          <React.Fragment key={p.pub}>
-            <a href={'https://patents.google.com/patent/' + p.pub + '/en'}
-               target="_blank" rel="noreferrer"
-               title={p.pub}
-               className="hover-line" style={{
-                 color: 'var(--ink)', padding: '10px 0',
-                 borderTop: '1px solid var(--rule-soft)',
-                 lineHeight: 1.45,
-               }}>
-              {p.title}
-            </a>
-            <span style={{
-              padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
-              color: 'var(--muted)',
-            }}>
-              {p.year}
-            </span>
-            <span style={{
-              padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
-              color: p.lead ? 'var(--accent)' : 'var(--muted)',
-            }}>
-              {p.lead ? 'lead' : 'co'}
-            </span>
-          </React.Fragment>
-        ))}
+        <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Status</div>
+        {items.map(p => {
+          const isGranted = /B\d*$/.test(p.pub);
+          const cell = {
+            padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
+          };
+          return (
+            <React.Fragment key={p.pub}>
+              <a href={'https://patents.google.com/patent/' + p.pub + '/en'}
+                 target="_blank" rel="noreferrer"
+                 title={p.pub}
+                 className="hover-line" style={{
+                   ...cell, color: 'var(--ink)', lineHeight: 1.45,
+                 }}>
+                {p.title}
+              </a>
+              <span style={{ ...cell, color: 'var(--muted)' }}>{p.year}</span>
+              <span style={{ ...cell, color: p.lead ? 'var(--accent)' : 'var(--muted)' }}>
+                {p.lead ? 'Primary inventor' : 'Co-inventor'}
+              </span>
+              <span style={{ ...cell, color: isGranted ? 'var(--accent)' : 'var(--muted)' }}>
+                {isGranted ? 'Granted' : 'Published'}
+              </span>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );
