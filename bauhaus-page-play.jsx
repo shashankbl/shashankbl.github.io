@@ -163,6 +163,21 @@ const SOUNDS = {
     tone(ctx, t,        220, 0.05, 0.04);
     tone(ctx, t + 0.04, 165, 0.07, 0.04);
   },
+  gameover: (ctx) => {
+    // Mocking "wah-wah-wah-waaaah" — descending chromatic fail tune (~3s).
+    const t0 = ctx.currentTime;
+    const beats = [
+      [0.00, 440, 0.20, 0.07], // A4   wah
+      [0.30, 392, 0.20, 0.07], // G4   wah
+      [0.60, 349, 0.20, 0.07], // F4   wah
+      [0.90, 311, 0.85, 0.08], // Eb4  whaaaah
+      [1.85, 277, 0.40, 0.05], // C#4  trailing slide
+      [2.30, 247, 0.65, 0.04], // B3   sigh
+    ];
+    for (const [time, freq, dur, vol] of beats) {
+      tone(ctx, t0 + time, freq, dur, vol);
+    }
+  },
   victory: (ctx) => {
     // ~10s celebratory chiptune — rising arpeggio, riffs, final triad sustain.
     const t0 = ctx.currentTime;
@@ -204,7 +219,7 @@ const STEP_PENALTY_INTERVAL = 50;
 const ATTACK_RANGE = 4;
 const ROCKET_FRAMES = 36;
 const ROCKET_MEANDER_AMP = 30;
-const ROCKET_MAX = 15;
+const ROCKET_MAX = 20;
 const ROCKET_MISS_RATE = 0.20;
 
 const BOT_COUNT = 10;
@@ -329,12 +344,20 @@ function makeSketch(api) {
     let botFrames = 0;
     let lastHitAt = 0;
     let won = false;
+    let lost = false;
 
     function checkWin() {
-      if (won) return;
+      if (won || lost) return;
       if (gems.size === 0 && cores.size === 0 && bots.length === 0) {
         won = true;
         api.onWin && api.onWin();
+      }
+    }
+    function checkLose() {
+      if (won || lost) return;
+      if (rocketsLeft <= 0 && bots.length > 0) {
+        lost = true;
+        api.onLose && api.onLose();
       }
     }
     let bobT = 0;
@@ -378,6 +401,7 @@ function makeSketch(api) {
       rockets = [];
       explosions = [];
       won = false;
+      lost = false;
       regenerate();
       updateCamera();
       notifyProgress();
@@ -476,6 +500,7 @@ function makeSketch(api) {
           explosions.push({ x: pos.x, y: pos.y, t: 0 });
           api.playSound && api.playSound('zap');
           checkWin();
+          checkLose();
         }
       }
       rockets = rockets.filter(r => !r.done);
@@ -919,7 +944,7 @@ function makeSketch(api) {
 window.PlayPage = function PlayPage() {
   const screenRef = useRef(null);
   const apiRef = useRef({ input: () => {} });
-  const [progress, setProgress] = React.useState({ gems: GEM_START, gemsTotal: FUEL_COUNT, cores: 0, coresTotal: GEM_COUNT, rockets: 15, rocketsTotal: 15 });
+  const [progress, setProgress] = React.useState({ gems: GEM_START, gemsTotal: FUEL_COUNT, cores: 0, coresTotal: GEM_COUNT, rockets: 20, rocketsTotal: 20 });
   const [seed, setSeed] = React.useState(null);
   const [mapOn, setMapOn] = React.useState(false);
   const [muted, setMuted] = React.useState(() => {
@@ -932,7 +957,9 @@ window.PlayPage = function PlayPage() {
   const [sprintTouch, setSprintTouch] = React.useState(false);
   const [helpOpen, setHelpOpen] = React.useState(false);
   const [wonBanner, setWonBanner] = React.useState(false);
+  const [lostBanner, setLostBanner] = React.useState(false);
   const winTimerRef = useRef(null);
+  const loseTimerRef = useRef(null);
   const sprintTouchRef = useRef(false);
   React.useEffect(() => { sprintTouchRef.current = sprintTouch; }, [sprintTouch]);
   const sprintActive = sprint || sprintTouch;
@@ -1047,6 +1074,20 @@ window.PlayPage = function PlayPage() {
     }, 10000);
   }, [playSound]);
 
+  const handleLose = React.useCallback(() => {
+    setLostBanner(true);
+    playSound('gameover');
+    if (loseTimerRef.current) clearTimeout(loseTimerRef.current);
+    loseTimerRef.current = setTimeout(() => {
+      loseTimerRef.current = null;
+      setLostBanner(false);
+      apiRef.current.reset && apiRef.current.reset();
+      setRunStartedAt(null);
+      setRunEndedAt(null);
+      setTick(0);
+    }, 8000);
+  }, [playSound]);
+
   useEffect(() => {
     if (!screenRef.current) return;
     if (typeof window.p5 === 'undefined') {
@@ -1059,6 +1100,7 @@ window.PlayPage = function PlayPage() {
       onSeed: (s) => setSeed(s),
       onMinimap: (v) => setMapOn(v),
       onWin: handleWin,
+      onLose: handleLose,
       isSprintingTouch: () => sprintTouchRef.current,
       playSound,
       onReady: null,
@@ -1069,7 +1111,7 @@ window.PlayPage = function PlayPage() {
     const instance = new window.p5(sketch, screenRef.current);
 
     return () => instance.remove();
-  }, [playSound]);
+  }, [playSound, handleWin, handleLose]);
 
   const press = (action) => apiRef.current.input(action);
 
@@ -1213,6 +1255,38 @@ window.PlayPage = function PlayPage() {
             </div>
             <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
               ── auto-reset in 10s
+            </div>
+          </div>
+        </div>
+      )}
+      {lostBanner && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 200,
+          background: 'rgba(0, 0, 0, .55)', backdropFilter: 'blur(8px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: 20, animation: 'reveal-in .5s ease-out',
+        }}>
+          <div style={{
+            background: 'var(--bg)',
+            border: '2px solid var(--accent)',
+            padding: '44px 56px',
+            textAlign: 'center',
+            maxWidth: 480, width: '100%',
+            boxShadow: '0 30px 60px rgba(0,0,0,.45)',
+          }}>
+            <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 14 }}>
+              ── GAME OVER
+            </div>
+            <div className="display" style={{
+              font: "500 34px/1.15 var(--display)", marginBottom: 10,
+            }}>
+              Out of ammo.
+            </div>
+            <div style={{ color: 'var(--muted)', fontSize: 16 }}>
+              The rust bots are still standing. Wah-wah-waaaah.
+            </div>
+            <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
+              ── auto-reset in 8s
             </div>
           </div>
         </div>
