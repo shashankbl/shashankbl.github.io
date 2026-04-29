@@ -255,6 +255,7 @@ window.HomePage = function HomePage({ nav }) {
                   <a className="hover-line" href={SITE.social.scholar}  target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Scholar ↗</a>
                   <a className="hover-line" href={SITE.social.substack} target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Substack ↗</a>
                 </span>
+              </div>
             </div>
             <div className="reveal stats-card" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
