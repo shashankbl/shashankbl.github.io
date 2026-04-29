@@ -353,6 +353,21 @@ window.AFFILIATIONS = {
   ],
 };
 
+// Currently-reading list. Shape: { kind, title, by, progress?, url? }.
+//   kind     — 'Book' | 'Paper' | 'Essay' | 'Series' (free-text label)
+//   title    — display title
+//   by       — author / source
+//   progress — optional 0-100 (% finished)
+//   url      — optional link the title becomes
+window.READING = [
+  { kind: 'Book', title: 'Efficient Processing of Deep Neural Networks',
+    by: 'Sze et al.', progress: 55 },
+  { kind: 'Book', title: 'Start with Why',
+    by: 'Simon Sinek', progress: 40 },
+  { kind: 'Book', title: 'Build a Large Language Model (From Scratch)',
+    by: 'Sebastian Raschka', progress: 30 },
+];
+
 window.NOW_LINES = [
   'Leading ML and Agentic solutions at Renesas — building RoX AI Studio for R-Car SoC customers.',
   'Pursuing M.S. in Artificial Intelligence at UT Austin.',

@@ -345,6 +345,64 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
+      {/* Reading */}
+      <section className="pad-x section-block" style={{
+        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
+        borderTop: '1px solid var(--rule)',
+      }}>
+        <div className="reveal">
+          <SectionLabel n="01·f">Reading</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            What am I reading now.
+          </h2>
+        </div>
+        <div className="reveal" style={{
+          marginTop: 22, padding: '22px 24px',
+          background: 'var(--paper)',
+          border: '1px solid var(--rule)', borderLeft: '2px solid var(--accent)',
+          font: '400 15.5px/1.85 var(--sans)',
+          maxWidth: 760,
+        }}>
+          {(!window.READING || READING.length === 0) ? (
+            <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
+              ◇ Bookmark in progress.
+            </div>
+          ) : (
+            READING.map((it, i) => (
+              <div key={i} style={{
+                display: 'flex', gap: 12, alignItems: 'baseline', flexWrap: 'wrap',
+              }}>
+                <span className="lbl-mono" style={{
+                  color: 'var(--accent)', paddingTop: 4, minWidth: 56, whiteSpace: 'nowrap',
+                }}>
+                  {it.kind || '◇'}
+                </span>
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  {it.url ? (
+                    <a className="hover-line" href={it.url} target="_blank" rel="noreferrer"
+                       style={{ color: 'var(--ink)' }}>{it.title}</a>
+                  ) : (
+                    it.title
+                  )}
+                  {it.by && (
+                    <span style={{ color: 'var(--muted)' }}> · by {it.by}</span>
+                  )}
+                </span>
+                {typeof it.progress === 'number' && (
+                  <span className="lbl-mono" title={it.progress + '% complete'}
+                        style={{
+                          color: 'var(--accent)', whiteSpace: 'nowrap',
+                          paddingTop: 4,
+                        }}>
+                    {it.progress}%
+                  </span>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
     </>
   );
 };
