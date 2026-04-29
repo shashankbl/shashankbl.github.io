@@ -201,6 +201,7 @@ window.Footer = function Footer() {
         letterSpacing: '.1em', textTransform: 'uppercase',
       }}>
         <span>© {SITE.name} · {new Date().getFullYear()}</span>
+        <span>Built with Claude Code and Claude Design</span>
         <span>Press <kbd style={{
           background: 'transparent',
           border: '1px solid color-mix(in oklab, var(--bg) 30%, transparent)',
