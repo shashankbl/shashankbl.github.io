@@ -32,7 +32,67 @@ window.ProjectsPage = function ProjectsPage() {
 
       <ProjectGroup label="Engineering" kind="engineering"
                     items={PROJECTS.filter(p => p.kind === 'engineering')}/>
+
+      <PatentTable items={PATENTS}/>
     </section>
+  );
+};
+
+window.PatentTable = function PatentTable({ items }) {
+  const leads = items.filter(p => p.lead).length;
+  return (
+    <div style={{ marginTop: 56 }}>
+      <div className="reveal" style={{
+        display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 4,
+      }}>
+        <h2 className="display" style={{
+          font: '500 26px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>
+          Patents
+        </h2>
+        <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+          {items.length} filings · {leads} as lead inventor
+        </span>
+      </div>
+      <hr className="rule" style={{ marginTop: 8 }}/>
+
+      <div className="patent-table reveal" style={{
+        marginTop: 18, display: 'grid',
+        gridTemplateColumns: 'minmax(0, 1fr) 64px 56px',
+        columnGap: 18, rowGap: 0,
+        font: '400 13px var(--mono)',
+      }}>
+        <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Title</div>
+        <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Year</div>
+        <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Role</div>
+        {items.map(p => (
+          <React.Fragment key={p.pub}>
+            <a href={'https://patents.google.com/patent/' + p.pub + '/en'}
+               target="_blank" rel="noreferrer"
+               title={p.pub}
+               className="hover-line" style={{
+                 color: 'var(--ink)', padding: '10px 0',
+                 borderTop: '1px solid var(--rule-soft)',
+                 lineHeight: 1.45,
+               }}>
+              {p.title}
+            </a>
+            <span style={{
+              padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
+              color: 'var(--muted)',
+            }}>
+              {p.year}
+            </span>
+            <span style={{
+              padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
+              color: p.lead ? 'var(--accent)' : 'var(--muted)',
+            }}>
+              {p.lead ? 'lead' : 'co'}
+            </span>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
   );
 };
 

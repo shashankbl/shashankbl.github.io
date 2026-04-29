@@ -45,6 +45,38 @@ window.PROJECTS = [
     stack: 'Volunteer · Mentorship', loc: 'CampML.org' },
 ];
 
+// US patents — sorted by earliest priority date, newest first.
+// Source: Espacenet (24 results). `lead` = first listed inventor.
+window.PATENTS = [
+  // 2023
+  { title: 'Network for Behavior Modeling',                                      pub: 'US2025068802A1', year: 2023, lead: false },
+  { title: 'Device Training at a Determined Quantization',                       pub: 'US2025041663A1', year: 2023, lead: true  },
+  { title: 'Authentication-Based Secure Federated Learning',                     pub: 'US2024378456A1', year: 2023, lead: true  },
+  { title: 'Displaying Output Data from a Driver Attention Model on a Display',  pub: 'US2024367670A1', year: 2023, lead: false },
+  { title: 'Certification of Device Calibrations',                               pub: 'US2024354422A1', year: 2023, lead: true  },
+  { title: 'Surveillance Using Transfer Learning of a Federated Model',          pub: 'US2024346328A1', year: 2023, lead: true  },
+  { title: 'Analog Computing Configured Memory',                                 pub: 'US2024329841A1', year: 2023, lead: true  },
+  { title: 'Trust-Based Federated Learning',                                     pub: 'US2024289634A1', year: 2023, lead: true  },
+  { title: 'Operation Decomposition Using Edge Devices',                         pub: 'US2024281289A1', year: 2023, lead: false },
+  { title: 'Accelerating Machine Vision with Peripheral and Focal Processing',   pub: 'US2024282074A1', year: 2023, lead: true  },
+  { title: 'Augmented Reality Devices with Passive Neural Network Computation',  pub: 'US2024280813A1', year: 2023, lead: false },
+  { title: 'Configurable Acceleration of Peripheral Machine Vision',             pub: 'US2024282071A1', year: 2023, lead: true  },
+  { title: 'Deep Learning Computation with Heterogeneous Accelerators',          pub: 'US2024281291A1', year: 2023, lead: false },
+  { title: 'Energy-Efficient Computations of Attention-Based Inferences',        pub: 'US2024281428A1', year: 2023, lead: false },
+  { title: 'Training Deep Learning Models on Accelerator Characteristics',       pub: 'US2025217640A1', year: 2023, lead: false },
+  { title: 'Classifying an Area as Hazardous Based on a Semiconductor Device',   pub: 'US2024231993A1', year: 2023, lead: false },
+  // 2022
+  { title: 'Machine Learning Model Aggregation',                                 pub: 'US2024220860A1', year: 2022, lead: false },
+  { title: 'Artificial Neural Network Training Using Edge Devices',              pub: 'US2024202521A1', year: 2022, lead: false },
+  { title: 'Quantization at Different Levels for Neural Network Computations',   pub: 'US2024161489A1', year: 2022, lead: false },
+  { title: 'Encode Inputs to Reduce Energy in Analog Computation',               pub: 'US2024171192A1', year: 2022, lead: false },
+  // 2019
+  { title: 'Imprint Management for Memory',                                      pub: 'US12230349B2',   year: 2019, lead: true  },
+  { title: 'Imprint Recovery Management for Memory Systems',                     pub: 'US12019506B2',   year: 2019, lead: false },
+  { title: 'Imprint Recovery for Memory Arrays',                                 pub: 'US11217303B2',   year: 2019, lead: false },
+  { title: 'Imprint Recovery for Memory Cells',                                  pub: 'US10998080B2',   year: 2019, lead: false },
+];
+
 window.POSTS = [
   { date: '2026·03', flair: 'AI agents',
     title: 'MicroAgent', url: 'https://shashankbl.substack.com/p/microagent' },
