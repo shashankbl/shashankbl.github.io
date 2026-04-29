@@ -57,8 +57,9 @@ window.Pill = function Pill({ kind }) {
 window.NewsFlash = function NewsFlash({ items, nav }) {
   if (!items || items.length === 0) return null;
 
-  const TYPE_MS = 95;      // ms per word while streaming
-  const HOLD_MS = 3200;    // pause once fully typed before shifting
+  const TYPE_MS  = 95;     // ms per word while typing
+  const ERASE_MS = 40;     // ms per word while erasing
+  const HOLD_MS  = 3200;   // pause once fully typed before erasing
 
   const reduceMotion = React.useMemo(() => (
     typeof matchMedia !== 'undefined' &&
@@ -70,10 +71,9 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
     [items]
   );
 
-  const [idx, setIdx]         = React.useState(0);
-  const [count, setCount]     = React.useState(0);
-  const [phase, setPhase]     = React.useState('typing'); // typing | shifting
-  const [history, setHistory] = React.useState([]);       // newest-first, max 2
+  const [idx, setIdx]     = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const [phase, setPhase] = React.useState('typing'); // typing | erasing
 
   React.useEffect(() => {
     const item  = items[idx];
@@ -83,7 +83,6 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
     if (reduceMotion) {
       setCount(words.length);
       t = setTimeout(() => {
-        setHistory(h => [item, ...h].slice(0, 2));
         setIdx((idx + 1) % items.length);
         setCount(0);
       }, 4500);
@@ -93,55 +92,36 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
       if (count < words.length) {
         t = setTimeout(() => setCount(c => c + 1), TYPE_MS);
       } else {
-        t = setTimeout(() => setPhase('shifting'), HOLD_MS);
+        t = setTimeout(() => setPhase('erasing'), HOLD_MS);
       }
     } else {
-      setHistory(h => [item, ...h].slice(0, 2));
-      setIdx((idx + 1) % items.length);
-      setCount(0);
-      setPhase('typing');
+      if (count > 0) {
+        t = setTimeout(() => setCount(c => c - 1), ERASE_MS);
+      } else {
+        setIdx((idx + 1) % items.length);
+        setPhase('typing');
+      }
     }
     return () => clearTimeout(t);
   }, [count, phase, idx, items, wordLists, reduceMotion]);
 
-  const onItemClick = (e, url) => {
-    if (!url) return;
-    if (url.startsWith('#/')) {
-      e.preventDefault();
-      nav && nav(url.slice(1));
-    }
-  };
-  const linkPropsFor = (url) => url ? {
-    href: url,
-    target: url.startsWith('http') ? '_blank' : undefined,
-    rel:    url.startsWith('http') ? 'noreferrer' : undefined,
-    onClick: (e) => onItemClick(e, url),
+  const item  = items[idx];
+  const shown = (wordLists[idx] || []).slice(0, count).join(' ');
+
+  const linkProps = item.url ? {
+    href: item.url,
+    target: item.url.startsWith('http') ? '_blank' : undefined,
+    rel:    item.url.startsWith('http') ? 'noreferrer' : undefined,
+    onClick: (e) => {
+      if (item.url.startsWith('#/')) {
+        e.preventDefault();
+        nav && nav(item.url.slice(1));
+      }
+    },
   } : null;
 
-  const current = items[idx];
-  const shown   = (wordLists[idx] || []).slice(0, count).join(' ');
-
-  const renderRow = (it, text, isCurrent, slotKey) => {
-    if (!it) {
-      return <div className={'news-flash-row is-empty ' + slotKey} key={slotKey}/>;
-    }
-    const lp = linkPropsFor(it.url);
-    return (
-      <div className={'news-flash-row ' + (isCurrent ? 'is-current' : 'is-history ' + slotKey)}
-           key={slotKey}>
-        <span className="news-flash-prompt" aria-hidden="true">{isCurrent ? '$' : '›'}</span>
-        <span className="news-flash-kind">{it.tag}</span>
-        <span className="news-flash-stream"
-              aria-live={isCurrent ? 'polite' : undefined}>
-          {lp ? <a {...lp}>{text}</a> : <span>{text}</span>}
-          {isCurrent && <span className="news-flash-caret" aria-hidden="true">▍</span>}
-        </span>
-      </div>
-    );
-  };
-
   return (
-    <div className="news-flash news-flash-card reveal" role="region" aria-label="Latest updates">
+    <div className="news-flash news-flash-card reveal" role="region" aria-label="Latest update">
       <div className="news-flash-titlebar" aria-hidden="true">
         <span className="tl-dot tl-red"/>
         <span className="tl-dot tl-yel"/>
@@ -149,9 +129,14 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
         <span className="news-flash-title">flash.log — tail -f</span>
       </div>
       <div className="news-flash-body">
-        {renderRow(current,    shown,                  true,  'slot-1')}
-        {renderRow(history[0], history[0]?.text || '', false, 'slot-2')}
-        {renderRow(history[1], history[1]?.text || '', false, 'slot-3')}
+        <div className="news-flash-row is-current">
+          <span className="news-flash-prompt" aria-hidden="true">$</span>
+          <span className="news-flash-kind">{item.tag}</span>
+          <span className="news-flash-stream" aria-live="polite">
+            {linkProps ? <a {...linkProps}>{shown}</a> : <span>{shown}</span>}
+            <span className="news-flash-caret" aria-hidden="true">▍</span>
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -215,15 +200,15 @@ window.EmptyNote = function EmptyNote({ children }) {
 
 window.Header = function Header({ path, nav, theme, toggleTheme }) {
   const items = [
-    ['/', 'index'],
-    ['/projects', 'work'],
-    ['/research', 'research'],
-    ['/open-source', 'open-source'],
-    ['/gallery', 'gallery'],
-    ['/ideas', 'ideas'],
-    ['/news', 'news'],
-    ['/about-me', 'about me'],
-    ['/play', 'play'],
+    ['/', 'index',        'home'],
+    ['/projects', 'work', 'work'],
+    ['/research', 'research', 'science'],
+    ['/open-source', 'open-source', 'fork_right'],
+    ['/gallery', 'gallery', 'palette'],
+    ['/ideas', 'ideas', 'lightbulb'],
+    ['/news', 'news', 'feed'],
+    ['/about-me', 'about me', 'person'],
+    ['/play', 'play', 'sports_esports'],
   ];
   const isDark = theme === 'dark';
   return (
@@ -283,18 +268,22 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
           display: 'flex', gap: 22, flexWrap: 'wrap',
           font: '400 11px var(--mono)', letterSpacing: '.1em', textTransform: 'uppercase',
         }}>
-          {items.map(([href, lbl], i) => {
+          {items.map(([href, lbl, icon], i) => {
             const active = path === href || (href === '/blog' && path.startsWith('/blog/'));
             return (
               <a key={href} href={'#'+href}
                  onClick={(e)=>{e.preventDefault(); nav(href);}}
-                 className="focus-outline"
+                 className={'focus-outline nav-link' + (active ? ' is-active' : '')}
+                 aria-label={lbl} title={lbl}
                  style={{
                    color: active ? 'var(--ink)' : 'var(--muted)',
                    borderBottom: active ? '1px solid var(--accent)' : '1px solid transparent',
                    paddingBottom: 2,
                  }}>
-                <span style={{ color: 'var(--accent)' }}>{String(i+1).padStart(2,'0')}/</span>{lbl}
+                <span className="nav-text">
+                  <span style={{ color: 'var(--accent)' }}>{String(i+1).padStart(2,'0')}/</span>{lbl}
+                </span>
+                <span className="nav-icon material-symbols-outlined" aria-hidden="true">{icon}</span>
               </a>
             );
           })}
