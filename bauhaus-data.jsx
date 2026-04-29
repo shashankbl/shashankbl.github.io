@@ -5,7 +5,7 @@ window.SITE = {
   short: 'Shashank Bangalore Lakshman',
   tagline: 'Silicon to Software Systems for AI',
   blurb: "Systems thinker, creative maker, and customer advocate. I've done pathfinding for high-density NVM and AI accelerators, and shipped AI solutions, MLOps products, and automotive software.",
-  location: 'Folsom, CA',
+  location: 'California, USA',
   status: 'Open to collaborations · talks',
   social: {
     github:   'https://github.com/shashankbl',
