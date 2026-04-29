@@ -53,6 +53,13 @@ window.PatentTable = function PatentTable({ items }) {
         </h2>
         <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
           {items.length} filings · {leads} as primary inventor · {granted} granted
+          {' · '}
+          <a className="hover-line"
+             href="https://credentials.micron.com/4ef384bc-e26a-4727-a03b-8941cb61458e#acc.HKzuJxY7"
+             target="_blank" rel="noreferrer"
+             style={{ color: 'var(--accent)' }}>
+            Verified by Micron ↗
+          </a>
         </span>
       </div>
       <hr className="rule" style={{ marginTop: 8 }}/>
