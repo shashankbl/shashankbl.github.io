@@ -246,7 +246,7 @@ window.HomePage = function HomePage({ nav }) {
                 <span style={{ color: 'var(--muted)' }}>FOCUS</span>
                 <span>Memory & Compute for AI systems. AI Evals. Agentic AI.</span>
                 <span style={{ color: 'var(--muted)' }}>OPEN&nbsp;TO</span>
-                <span style={{ color: 'var(--accent)' }}>● research collaborations · invited talks</span>
+                <span style={{ color: 'var(--accent)' }}>research collaborations · invited talks</span>
                 <span style={{ color: 'var(--muted)' }}>CONNECT</span>
                 <span style={{ display: 'flex', flexWrap: 'wrap', columnGap: 14, rowGap: 4 }}>
                   <a className="hover-line" href={SITE.social.github}   target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>GitHub ↗</a>
