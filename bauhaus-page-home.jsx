@@ -248,12 +248,7 @@ window.HomePage = function HomePage({ nav }) {
                 <span style={{ color: 'var(--muted)' }}>OPEN&nbsp;TO</span>
                 <span style={{ color: 'var(--accent)' }}>research collaborations · invited talks</span>
                 <span style={{ color: 'var(--muted)' }}>CONNECT</span>
-                <span style={{ display: 'flex', flexWrap: 'wrap', columnGap: 14, rowGap: 4 }}>
-                  <a className="hover-line" href={SITE.social.github}   target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>GitHub ↗</a>
-                  <a className="hover-line" href={SITE.social.linkedin} target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>LinkedIn ↗</a>
-                  <a className="hover-line" href={SITE.social.scholar}  target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Scholar ↗</a>
-                  <a className="hover-line" href={SITE.social.substack} target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>Substack ↗</a>
-                </span>
+                <SocialRow size={20} gap={14}/>
               </div>
             </div>
             <div className="reveal stats-card" style={{

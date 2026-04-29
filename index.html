@@ -229,6 +229,16 @@
 
   .focus-outline:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 
+  /* Social media icon links */
+  .social-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    color: currentColor;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color .18s ease, transform .18s ease;
+  }
+  .social-link:hover { color: var(--accent); transform: translateY(-1px); }
+
   /* Play page — landscape phone-frame chrome around the p5 canvas */
   .play-phone {
     width: 560px; max-width: 100%;
