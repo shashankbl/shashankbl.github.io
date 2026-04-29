@@ -211,7 +211,7 @@ window.HomePage = function HomePage({ nav }) {
               ))}
             </div>
             <h1 className="reveal display hero-headline" style={{
-              font: '500 clamp(22px, 3vw, 34px)/1.05 var(--display)',
+              font: '500 clamp(26px, 3.6vw, 41px)/1.05 var(--display)',
               margin: 0, letterSpacing: '-.025em',
             }}>
               Engineering Leader at the intersection of{' '}
