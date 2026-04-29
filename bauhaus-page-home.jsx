@@ -247,7 +247,7 @@ window.HomePage = function HomePage({ nav }) {
                 <span>Memory & Compute for AI systems. AI Evals. Agentic AI.</span>
                 <span style={{ color: 'var(--muted)' }}>OPEN&nbsp;TO</span>
                 <span style={{ color: 'var(--accent)' }}>research collaborations · invited talks</span>
-                <span style={{ color: 'var(--muted)' }}>CONNECT</span>
+                <span style={{ color: 'var(--muted)' }}>SOCIAL</span>
                 <SocialRow size={20} gap={14}/>
               </div>
             </div>
