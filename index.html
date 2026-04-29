@@ -156,68 +156,50 @@
     .live-dot { animation: none; }
   }
 
-  /* News flash — marquee ticker below the nav */
+  /* News flash — typewriter headline below the nav */
   .news-flash {
     border-top: 1px solid var(--rule-soft);
     background: color-mix(in oklab, var(--paper) 85%, var(--accent) 6%);
-    overflow: hidden;
   }
   .news-flash-inner {
     max-width: 1180px; margin: 0 auto;
-    display: flex; align-items: stretch;
-    padding: 0 32px;
-  }
-  .news-flash-track-wrap {
-    flex: 1 1 auto; min-width: 0;
-    overflow: hidden;
-    align-self: center;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
-  }
-  .news-flash-track {
-    display: inline-flex; flex-wrap: nowrap; white-space: nowrap;
-    animation: news-flash-scroll 64s linear infinite;
-    will-change: transform;
-  }
-  .news-flash-track-wrap:hover .news-flash-track,
-  .news-flash-track:focus-within {
-    animation-play-state: paused;
-  }
-  .news-flash-item {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 9px 0;
-    font: 400 12.5px/1.2 var(--mono);
+    display: flex; align-items: baseline; gap: 14px;
+    padding: 10px 32px;
+    min-height: 38px;
+    font: 400 13px/1.5 var(--mono);
     color: var(--ink);
   }
-  .news-flash-item .news-flash-kind {
+  .news-flash-kind {
+    flex: 0 0 auto;
     font: 500 10px var(--mono);
     letter-spacing: .18em; text-transform: uppercase;
     color: var(--accent);
-    padding-left: 14px;
+    white-space: nowrap;
   }
-  .news-flash-item a {
+  .news-flash-stream {
+    flex: 1 1 auto; min-width: 0;
+  }
+  .news-flash-stream a {
     color: var(--ink);
     text-decoration: none;
     transition: color .2s ease;
   }
-  .news-flash-item a:hover { color: var(--accent); }
-  .news-flash-item .sep {
-    color: color-mix(in oklab, var(--accent) 70%, transparent);
-    font-size: 9px;
-    padding: 0 4px 0 14px;
+  .news-flash-stream a:hover { color: var(--accent); }
+  .news-flash-caret {
+    display: inline-block;
+    margin-left: 2px;
+    color: var(--accent);
+    animation: news-flash-blink 1.05s steps(2, start) infinite;
+    transform: translateY(1px);
   }
-  @keyframes news-flash-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+  @keyframes news-flash-blink {
+    50%   { opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .news-flash-track-wrap { overflow-x: auto; }
-    .news-flash-track { animation: none; }
+    .news-flash-caret { animation: none; opacity: .55; }
   }
   @media (max-width: 640px) {
-    .news-flash-inner { padding: 0 16px; }
-    .news-flash-item { font-size: 12px; }
-    .news-flash-track { animation-duration: 48s; }
+    .news-flash-inner { padding: 10px 16px; gap: 10px; font-size: 12px; }
   }
 
   kbd {

@@ -56,8 +56,48 @@ window.Pill = function Pill({ kind }) {
 
 window.NewsFlash = function NewsFlash({ items, nav }) {
   if (!items || items.length === 0) return null;
-  // Duplicate the run so the -50% translate loops seamlessly.
-  const loop = items.concat(items);
+
+  const TYPE_MS  = 26;     // ms per character while typing forward
+  const ERASE_MS = 12;     // ms per character while erasing
+  const HOLD_MS  = 3200;   // pause once fully typed before erasing
+
+  const reduceMotion = React.useMemo(() => (
+    typeof matchMedia !== 'undefined' &&
+    matchMedia('(prefers-reduced-motion: reduce)').matches
+  ), []);
+
+  const [idx, setIdx] = React.useState(0);
+  const [shown, setShown] = React.useState('');
+  const [phase, setPhase] = React.useState('typing'); // typing | erasing
+
+  React.useEffect(() => {
+    const item = items[idx];
+    if (!item) return;
+    let t;
+    if (reduceMotion) {
+      // No typewriter — just rotate the headline every few seconds.
+      setShown(item.text);
+      t = setTimeout(() => setIdx((idx + 1) % items.length), 5000);
+      return () => clearTimeout(t);
+    }
+    if (phase === 'typing') {
+      if (shown.length < item.text.length) {
+        t = setTimeout(() => setShown(item.text.slice(0, shown.length + 1)), TYPE_MS);
+      } else {
+        t = setTimeout(() => setPhase('erasing'), HOLD_MS);
+      }
+    } else {
+      if (shown.length > 0) {
+        t = setTimeout(() => setShown(item.text.slice(0, shown.length - 1)), ERASE_MS);
+      } else {
+        setIdx((idx + 1) % items.length);
+        setPhase('typing');
+      }
+    }
+    return () => clearTimeout(t);
+  }, [shown, phase, idx, items, reduceMotion]);
+
+  const item = items[idx];
   const onItemClick = (e, url) => {
     if (!url) return;
     if (url.startsWith('#/')) {
@@ -65,30 +105,25 @@ window.NewsFlash = function NewsFlash({ items, nav }) {
       nav && nav(url.slice(1));
     }
   };
+  const linkProps = item.url
+    ? {
+        href: item.url,
+        target: item.url.startsWith('http') ? '_blank' : undefined,
+        rel:    item.url.startsWith('http') ? 'noreferrer' : undefined,
+        onClick: (e) => onItemClick(e, item.url),
+      }
+    : null;
+
   return (
     <div className="news-flash" role="region" aria-label="Latest updates">
       <div className="news-flash-inner">
-        <div className="news-flash-track-wrap">
-          <div className="news-flash-track">
-            {loop.map((it, i) => (
-              <span className="news-flash-item" key={i}
-                    aria-hidden={i >= items.length ? 'true' : 'false'}>
-                <span className="news-flash-kind">{it.tag}</span>
-                {it.url ? (
-                  <a href={it.url}
-                     target={it.url.startsWith('http') ? '_blank' : undefined}
-                     rel={it.url.startsWith('http') ? 'noreferrer' : undefined}
-                     onClick={(e) => onItemClick(e, it.url)}>
-                    {it.text}
-                  </a>
-                ) : (
-                  <span>{it.text}</span>
-                )}
-                <span className="sep" aria-hidden="true">◆</span>
-              </span>
-            ))}
-          </div>
-        </div>
+        <span className="news-flash-kind">{item.tag}</span>
+        <span className="news-flash-stream" aria-live="polite">
+          {linkProps
+            ? <a {...linkProps}>{shown}</a>
+            : <span>{shown}</span>}
+          <span className="news-flash-caret" aria-hidden="true">▍</span>
+        </span>
       </div>
     </div>
   );
