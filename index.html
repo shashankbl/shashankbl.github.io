@@ -187,7 +187,11 @@
   }
   .news-flash-body {
     padding: 10px 12px 12px;
-    display: flex; flex-direction: column; gap: 4px;
+    box-sizing: border-box;
+    display: flex; flex-direction: column-reverse; gap: 4px;
+    /* Cap to ~3 single-line rows; older content scrolls off the top. */
+    max-height: 84px;
+    overflow: hidden;
   }
   .news-flash-row {
     display: flex; align-items: baseline; gap: 8px;
@@ -236,7 +240,7 @@
   @media (max-width: 640px) {
     .news-flash-row { font-size: 10.5px; }
     .news-flash-kind { width: 70px; font-size: 9px; }
-    .news-flash-body { padding: 8px 10px 10px; }
+    .news-flash-body { padding: 8px 10px 10px; max-height: 78px; }
   }
 
   kbd {
