@@ -1,6 +1,8 @@
 // bauhaus-page-projects.jsx — ProjectsPage, ProjectGroup, Placeholder.
 (function() {
 
+const { useState } = React;
+
 window.Placeholder = function Placeholder({ label, h = 180 }) {
   return (
     <div style={{
@@ -39,6 +41,12 @@ window.ProjectsPage = function ProjectsPage() {
 };
 
 window.PatentTable = function PatentTable({ items }) {
+  const PER_PAGE = 10;
+  const [page, setPage] = useState(0);
+  const totalPages = Math.max(1, Math.ceil(items.length / PER_PAGE));
+  const safePage = Math.min(page, totalPages - 1);
+  const start = safePage * PER_PAGE;
+  const visible = items.slice(start, start + PER_PAGE);
   const leads   = items.filter(p => p.lead).length;
   const granted = items.filter(p => /B\d*$/.test(p.pub)).length;
   return (
@@ -91,7 +99,7 @@ window.PatentTable = function PatentTable({ items }) {
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Year</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Role</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Status</div>
-        {items.map(p => {
+        {visible.map(p => {
           const isGranted = /B\d*$/.test(p.pub);
           const cell = {
             padding: '10px 0', borderTop: '1px solid var(--rule-soft)',
@@ -117,7 +125,55 @@ window.PatentTable = function PatentTable({ items }) {
           );
         })}
       </div>
+
+      {totalPages > 1 && (
+        <div className="reveal" style={{
+          marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--rule-soft)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+          gap: 16, flexWrap: 'wrap',
+          font: '400 11px var(--mono)', letterSpacing: '.1em', textTransform: 'uppercase',
+        }}>
+          <span style={{ color: 'var(--muted)' }}>
+            Showing <span style={{ color: 'var(--ink)' }}>{start + 1}–{Math.min(start + PER_PAGE, items.length)}</span> of {items.length}
+          </span>
+          <div style={{ display: 'flex', gap: 18, alignItems: 'baseline' }}>
+            <PageButton
+              disabled={safePage === 0}
+              onClick={() => setPage(p => Math.max(0, p - 1))}>
+              ← prev
+            </PageButton>
+            <span style={{ color: 'var(--muted)' }}>
+              page <span style={{ color: 'var(--accent)' }}>{safePage + 1}</span> / {totalPages}
+            </span>
+            <PageButton
+              disabled={safePage === totalPages - 1}
+              onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}>
+              next →
+            </PageButton>
+          </div>
+        </div>
+      )}
     </div>
+  );
+};
+
+window.PageButton = function PageButton({ disabled, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="focus-outline"
+      style={{
+        background: 'none', border: 'none', padding: 0,
+        font: 'inherit', letterSpacing: 'inherit', textTransform: 'inherit',
+        color: disabled ? 'var(--faint)' : 'var(--ink)',
+        cursor: disabled ? 'default' : 'pointer',
+        transition: 'color .2s ease',
+      }}
+      onMouseEnter={e => { if (!disabled) e.currentTarget.style.color = 'var(--accent)'; }}
+      onMouseLeave={e => { if (!disabled) e.currentTarget.style.color = 'var(--ink)'; }}>
+      {children}
+    </button>
   );
 };
 
