@@ -237,7 +237,6 @@ window.HomePage = function HomePage({ nav }) {
             <div className="reveal" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
             }}>
-              <div className="lbl-mono" style={{ marginBottom: 12 }}>◇ Status · 2026</div>
               <div style={{
                 display: 'grid', gridTemplateColumns: '90px 1fr', rowGap: 8,
                 font: '400 12.5px var(--mono)',
