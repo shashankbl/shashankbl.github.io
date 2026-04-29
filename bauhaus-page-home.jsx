@@ -389,12 +389,25 @@ window.HomePage = function HomePage({ nav }) {
                   )}
                 </span>
                 {typeof it.progress === 'number' && (
-                  <span className="lbl-mono" title={it.progress + '% complete'}
+                  <span title={it.progress + '% complete'}
                         style={{
-                          color: 'var(--accent)', whiteSpace: 'nowrap',
-                          paddingTop: 4,
+                          display: 'inline-flex', alignItems: 'center', gap: 8,
+                          whiteSpace: 'nowrap', paddingTop: 4,
                         }}>
-                    {it.progress}%
+                    <span role="img" aria-label={it.progress + '% complete'}
+                          style={{ display: 'inline-flex', gap: 2 }}>
+                      {Array.from({ length: 10 }).map((_, n) => (
+                        <span key={n} style={{
+                          width: 8, height: 8,
+                          background: n < Math.floor(it.progress / 10)
+                            ? 'var(--accent)' : 'var(--rule)',
+                          borderRadius: 1,
+                        }}/>
+                      ))}
+                    </span>
+                    <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
+                      {it.progress}%
+                    </span>
                   </span>
                 )}
               </div>
