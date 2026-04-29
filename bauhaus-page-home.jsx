@@ -245,7 +245,7 @@ window.HomePage = function HomePage({ nav }) {
                 <span style={{ color: 'var(--muted)' }}>LOCATION</span>
                 <span>{SITE.location}</span>
                 <span style={{ color: 'var(--muted)' }}>FOCUS</span>
-                <span>Edge AI. Agentic Tools. AI Evals. AI Systems.</span>
+                <span>Memory & Compute for AI systems. AI Evals. Agentic AI.</span>
                 <span style={{ color: 'var(--muted)' }}>OPEN&nbsp;TO</span>
                 <span style={{ color: 'var(--accent)' }}>● collaborations · talks</span>
               </div>
