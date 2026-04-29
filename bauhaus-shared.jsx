@@ -320,7 +320,6 @@ window.Footer = function Footer() {
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <SocialRow size={22} gap={18} justify="flex-end"/>
           </div>
-          <div style={{ marginTop: 16, color: 'var(--accent)' }}>● AVAILABLE</div>
         </div>
       </div>
       <div className="footer-bottom" style={{
@@ -330,7 +329,7 @@ window.Footer = function Footer() {
         font: '400 10.5px var(--mono)', color: 'color-mix(in oklab, var(--bg) 50%, transparent)',
         letterSpacing: '.1em', textTransform: 'uppercase',
       }}>
-        <span>© {SITE.name} · {new Date().getFullYear()}</span>
+        <span>© {SITE.name} · {new Date().getFullYear()} · v1.1</span>
         <span>Built with Claude Code and Claude Design</span>
         <span>Press <kbd style={{
           background: 'transparent',
