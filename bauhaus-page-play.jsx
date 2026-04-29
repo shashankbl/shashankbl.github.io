@@ -64,6 +64,27 @@ function passable(tile) {
   return tile === T.SAND || tile === T.PATH || tile === T.JUNK;
 }
 
+// Flood-fill from spawn over passable tiles. Used to keep gems/cores/bots
+// inside the connected region the player can actually reach.
+function reachableTiles(map) {
+  const visited = new Set();
+  const stack = [[SPAWN_R, SPAWN_C]];
+  visited.add(SPAWN_R + '_' + SPAWN_C);
+  while (stack.length) {
+    const [r, c] = stack.pop();
+    const nbrs = [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]];
+    for (const [nr, nc] of nbrs) {
+      if (nr < 0 || nr >= ROWS_W || nc < 0 || nc >= COLS_W) continue;
+      if (!passable(map[nr][nc])) continue;
+      const k = nr + '_' + nc;
+      if (visited.has(k)) continue;
+      visited.add(k);
+      stack.push([nr, nc]);
+    }
+  }
+  return visited;
+}
+
 // Robot sprite faces "down" (south) by default. Map travel direction → radians.
 const DIR_ANGLE = {
   down:  0,
@@ -192,13 +213,15 @@ const BOT_MOVE_SPEED = 0.05;    // per frame; ~20 frames per tile (~330ms)
 const HIT_PENALTY = 1;
 const HIT_COOLDOWN_MS = 900;
 
-function placeBots(p, map, seed) {
+function placeBots(p, map, seed, reachable) {
   p.randomSeed(seed);
   const candidates = [];
   for (let r = 1; r < ROWS_W - 1; r++) {
     for (let c = 1; c < COLS_W - 1; c++) {
       if (Math.abs(r - SPAWN_R) <= 6 && Math.abs(c - SPAWN_C) <= 6) continue;
-      if (passable(map[r][c])) candidates.push({ r, c });
+      if (!passable(map[r][c])) continue;
+      if (!reachable.has(r + '_' + c)) continue;
+      candidates.push({ r, c });
     }
   }
   for (let i = candidates.length - 1; i > 0; i--) {
@@ -218,13 +241,15 @@ const GEM_START = 5;  // starting fuel
 
 // Seeded placement of gems (yellow) and cores (cyan, scrap-rich tiles) on
 // passable tiles, excluding the spawn clearing.
-function placeGems(p, map, seed) {
+function placeGems(p, map, seed, reachable) {
   p.randomSeed(seed);
   const candidates = [];
   for (let r = 1; r < ROWS_W - 1; r++) {
     for (let c = 1; c < COLS_W - 1; c++) {
       if (Math.abs(r - SPAWN_R) <= 1 && Math.abs(c - SPAWN_C) <= 1) continue;
-      if (passable(map[r][c])) candidates.push({ r, c });
+      if (!passable(map[r][c])) continue;
+      if (!reachable.has(r + '_' + c)) continue;
+      candidates.push({ r, c });
     }
   }
   for (let i = candidates.length - 1; i > 0; i--) {
@@ -277,8 +302,9 @@ function makeSketch(api) {
     function regenerate() {
       sessionSeed = 1000 + Math.floor(Math.random() * 9000);
       map = buildMap(p, sessionSeed);
-      ({ gems, cores } = placeGems(p, map, sessionSeed * 7 + 1));
-      bots = placeBots(p, map, sessionSeed * 13 + 3);
+      const reachable = reachableTiles(map);
+      ({ gems, cores } = placeGems(p, map, sessionSeed * 7 + 1, reachable));
+      bots = placeBots(p, map, sessionSeed * 13 + 3, reachable);
       gemsTotal = gems.size;
       coresTotal = cores.size;
       api.onSeed && api.onSeed(sessionSeed);
