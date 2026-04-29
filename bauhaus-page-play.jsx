@@ -142,6 +142,40 @@ const SOUNDS = {
     tone(ctx, t,        220, 0.05, 0.04);
     tone(ctx, t + 0.04, 165, 0.07, 0.04);
   },
+  victory: (ctx) => {
+    // ~10s celebratory chiptune — rising arpeggio, riffs, final triad sustain.
+    const t0 = ctx.currentTime;
+    const beats = [
+      // Phrase 1: ascending arpeggio (0-1.5s)
+      [0.0,  523, 0.18, 0.06], [0.2,  659, 0.18, 0.06],
+      [0.4,  784, 0.18, 0.06], [0.6, 1047, 0.18, 0.06],
+      [0.8, 1319, 0.18, 0.06], [1.0, 1568, 0.45, 0.07],
+      // Phrase 2: descending riff (1.5-3s)
+      [1.6, 1568, 0.18, 0.06], [1.8, 1319, 0.18, 0.06],
+      [2.0, 1047, 0.18, 0.06], [2.2, 1319, 0.45, 0.07],
+      [2.7, 1047, 0.20, 0.06], [2.7, 1319, 0.20, 0.05], [2.7, 1568, 0.20, 0.05],
+      // Phrase 3: lifted scale (3-4.5s)
+      [3.0, 880,  0.18, 0.06], [3.2, 1047, 0.18, 0.06],
+      [3.4, 1319, 0.18, 0.06], [3.6, 1568, 0.18, 0.06],
+      [3.8, 1397, 0.40, 0.07],
+      // Phrase 4: F major roll (4.5-6s)
+      [4.4, 1175, 0.30, 0.06], [4.7, 1397, 0.30, 0.06],
+      [5.0, 1568, 0.30, 0.06], [5.3, 2093, 0.45, 0.07],
+      // Phrase 5: G7 → C resolution (6-8s)
+      [6.0,  784, 0.22, 0.06], [6.25, 988, 0.22, 0.06],
+      [6.5, 1175, 0.22, 0.06], [6.75, 1568, 0.30, 0.07],
+      [7.1, 1175, 0.30, 0.06], [7.4, 1319, 0.30, 0.06],
+      [7.7, 1568, 0.40, 0.07],
+      // Phrase 6: final sustained C-major triad (8-10s)
+      [8.2, 1047, 1.6, 0.07],
+      [8.2, 1319, 1.6, 0.06],
+      [8.2, 1568, 1.6, 0.06],
+      [8.2, 2093, 1.6, 0.05],
+    ];
+    for (const [time, freq, dur, vol] of beats) {
+      tone(ctx, t0 + time, freq, dur, vol);
+    }
+  },
 };
 
 const STEP_PENALTY_INTERVAL = 50;
@@ -268,6 +302,15 @@ function makeSketch(api) {
     let stepCount = 0;
     let botFrames = 0;
     let lastHitAt = 0;
+    let won = false;
+
+    function checkWin() {
+      if (won) return;
+      if (gems.size === 0 && cores.size === 0 && bots.length === 0) {
+        won = true;
+        api.onWin && api.onWin();
+      }
+    }
     let bobT = 0;
     const camera = { x: 0, y: 0 };
     let minimapVisible = false;
@@ -308,6 +351,7 @@ function makeSketch(api) {
       bursts = [];
       rockets = [];
       explosions = [];
+      won = false;
       regenerate();
       updateCamera();
       notifyProgress();
@@ -405,6 +449,7 @@ function makeSketch(api) {
           }
           explosions.push({ x: pos.x, y: pos.y, t: 0 });
           api.playSound && api.playSound('zap');
+          checkWin();
         }
       }
       rockets = rockets.filter(r => !r.done);
@@ -457,11 +502,13 @@ function makeSketch(api) {
         gemsCollected++;
         notifyProgress();
         api.playSound && api.playSound('gem');
+        checkWin();
       } else if (cores.has(key)) {
         cores.delete(key);
         coresCollected++;
         notifyProgress();
         api.playSound && api.playSound('core');
+        checkWin();
       }
     }
 
@@ -858,6 +905,8 @@ window.PlayPage = function PlayPage() {
   const [sprint, setSprint] = React.useState(false);
   const [sprintTouch, setSprintTouch] = React.useState(false);
   const [helpOpen, setHelpOpen] = React.useState(false);
+  const [wonBanner, setWonBanner] = React.useState(false);
+  const winTimerRef = useRef(null);
   const sprintTouchRef = useRef(false);
   React.useEffect(() => { sprintTouchRef.current = sprintTouch; }, [sprintTouch]);
   const sprintActive = sprint || sprintTouch;
@@ -885,6 +934,12 @@ window.PlayPage = function PlayPage() {
     setRunStartedAt(null);
     setRunEndedAt(null);
     setTick(0);
+    setWonBanner(false);
+    if (winTimerRef.current) { clearTimeout(winTimerRef.current); winTimerRef.current = null; }
+  }, []);
+
+  React.useEffect(() => () => {
+    if (winTimerRef.current) clearTimeout(winTimerRef.current);
   }, []);
 
   React.useEffect(() => {
@@ -952,6 +1007,20 @@ window.PlayPage = function PlayPage() {
     if (SOUNDS[name]) SOUNDS[name](ctx);
   }, []);
 
+  const handleWin = React.useCallback(() => {
+    setWonBanner(true);
+    playSound('victory');
+    if (winTimerRef.current) clearTimeout(winTimerRef.current);
+    winTimerRef.current = setTimeout(() => {
+      winTimerRef.current = null;
+      setWonBanner(false);
+      apiRef.current.reset && apiRef.current.reset();
+      setRunStartedAt(null);
+      setRunEndedAt(null);
+      setTick(0);
+    }, 10000);
+  }, [playSound]);
+
   useEffect(() => {
     if (!screenRef.current) return;
     if (typeof window.p5 === 'undefined') {
@@ -963,6 +1032,7 @@ window.PlayPage = function PlayPage() {
       onProgress: (p) => setProgress(p),
       onSeed: (s) => setSeed(s),
       onMinimap: (v) => setMapOn(v),
+      onWin: handleWin,
       isSprintingTouch: () => sprintTouchRef.current,
       playSound,
       onReady: null,
@@ -1089,6 +1159,38 @@ window.PlayPage = function PlayPage() {
       </p>
 
       {helpOpen && <PlayHelp onClose={() => setHelpOpen(false)}/>}
+      {wonBanner && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 200,
+          background: 'rgba(0, 0, 0, .55)', backdropFilter: 'blur(8px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: 20, animation: 'reveal-in .5s ease-out',
+        }}>
+          <div style={{
+            background: 'var(--bg)',
+            border: '2px solid var(--accent)',
+            padding: '44px 56px',
+            textAlign: 'center',
+            maxWidth: 480, width: '100%',
+            boxShadow: '0 30px 60px rgba(0,0,0,.45)',
+          }}>
+            <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 14 }}>
+              ── COMPLETE
+            </div>
+            <div className="display" style={{
+              font: "500 34px/1.15 var(--display)", marginBottom: 10,
+            }}>
+              You got this!
+            </div>
+            <div style={{ color: 'var(--muted)', fontSize: 16 }}>
+              Now get back to work.
+            </div>
+            <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
+              ── auto-reset in 10s
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
