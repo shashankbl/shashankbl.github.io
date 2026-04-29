@@ -119,7 +119,7 @@ window.NEWS = [
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
   { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·05·15" },
-  { tag: 'Shipped',  text: 'STARBOY — a tiny arcade game lives on /play',
+  { tag: 'Shipped',  text: 'STARBOY — a tiny arcade game lives on /play · released 2026·04·28',
     url: '#/play' },
 ];
 
