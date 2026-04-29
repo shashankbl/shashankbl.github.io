@@ -30,8 +30,10 @@ window.LiveDot = function LiveDot() {
 
 window.Pill = function Pill({ kind }) {
   const map = {
-    engineering: { glyph: '■', label: 'Engineering' },
-    art:         { glyph: '●', label: 'Art' },
+    'closed-source': { glyph: '■', label: 'Closed-source' },
+    'open-source':   { glyph: '◇', label: 'Open-source' },
+    art:             { glyph: '●', label: 'Art' },
+    engineering:     { glyph: '■', label: 'Engineering' },
   };
   const m = map[kind];
   if (!m) return null;
@@ -203,7 +205,6 @@ window.Header = function Header({ path, nav, theme, toggleTheme }) {
     ['/', 'index',        'home'],
     ['/projects', 'work', 'work'],
     ['/research', 'research', 'science'],
-    ['/open-source', 'open-source', 'fork_right'],
     ['/gallery', 'gallery', 'palette'],
     ['/ideas', 'ideas', 'lightbulb'],
     ['/about-me', 'about me', 'person'],
@@ -348,11 +349,10 @@ window.HelpOverlay = function HelpOverlay({ open, onClose }) {
     ['1',   'index'],
     ['2',   'work'],
     ['3',   'research'],
-    ['4',   'open-source'],
-    ['5',   'gallery'],
-    ['6',   'ideas'],
-    ['7',   'about me'],
-    ['8',   'play'],
+    ['4',   'gallery'],
+    ['5',   'ideas'],
+    ['6',   'about me'],
+    ['7',   'play'],
     ['t',   'toggle theme'],
     ['?',   'this help'],
     ['esc', 'close'],

@@ -18,7 +18,7 @@ const ACCENTS = {
 
 const { TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakColor, TweakToggle, TweakSelect } = window;
 
-const ROUTES = ['/', '/projects', '/research', '/open-source', '/gallery', '/ideas', '/about-me', '/play'];
+const ROUTES = ['/', '/projects', '/research', '/gallery', '/ideas', '/about-me', '/play'];
 
 function useHashRoute() {
   const [path, setPath] = React.useState(() => {
@@ -70,7 +70,7 @@ function useKeyboardNav(nav, toggleTheme) {
       if (e.key === 'Escape') { setHelp(false); return; }
       if (e.key === 't') { toggleTheme(); return; }
 
-      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/open-source', '5': '/gallery', '6': '/ideas', '7': '/about-me', '8': '/play' };
+      const numMap = { '1': '/', '2': '/projects', '3': '/research', '4': '/gallery', '5': '/ideas', '6': '/about-me', '7': '/play' };
       if (numMap[e.key]) { nav(numMap[e.key]); return; }
     };
     window.addEventListener('keydown', onKey);
@@ -103,9 +103,8 @@ function App() {
     const HOME_TITLE = `${BASE} — Engineer · AI & Semiconductors`;
     const labels = {
       '/': HOME_TITLE,
-      '/projects': 'Projects',
+      '/projects': 'Projects', '/open-source': 'Projects',
       '/research': 'Research',
-      '/open-source': 'Open source',
       '/gallery': 'Gallery',
       '/ideas': 'Ideas', '/blog': 'Ideas', '/talks': 'Ideas',
       '/about-me': 'About me', '/experience': 'About me', '/contact': 'About me',
@@ -135,9 +134,8 @@ function App() {
 
   let page;
   if (path === '/') page = <window.HomePage nav={nav}/>;
-  else if (path === '/projects') page = <window.ProjectsPage/>;
+  else if (path === '/projects' || path === '/open-source') page = <window.ProjectsPage/>;
   else if (path === '/research') page = <window.ResearchPage/>;
-  else if (path === '/open-source') page = <window.OpenSourcePage/>;
   else if (path === '/gallery') page = <window.GalleryPage/>;
   else if (path === '/ideas' || path === '/blog' || path === '/talks') page = <window.IdeasPage nav={nav}/>;
   else if (path.startsWith('/blog/')) page = <window.PostPage slug={path.slice(6)} nav={nav}/>;

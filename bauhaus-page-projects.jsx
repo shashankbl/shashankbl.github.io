@@ -32,8 +32,25 @@ window.ProjectsPage = function ProjectsPage() {
         A handful of artifacts across the AI / software / silicon stack.
       </p>
 
-      <ProjectGroup label="Engineering" kind="engineering"
-                    items={PROJECTS.filter(p => p.kind === 'engineering')}/>
+      <ProjectGroup label="Closed-source" kind="closed-source"
+                    items={PROJECTS.filter(p => p.kind === 'closed-source')}/>
+
+      <ProjectGroup label="Open-source" kind="open-source"
+                    items={(window.OSS || []).map((o, i) => ({
+                      id:    'oss-' + i,
+                      n:     String(i + 1).padStart(3, '0'),
+                      kind:  'open-source',
+                      title: o.name,
+                      tag:   o.tag,
+                      year:  o.year,
+                      blurb: o.desc,
+                      stack: o.role,
+                      loc:   '',
+                      links: [
+                        o.url  && { label: 'Repo', url: o.url  },
+                        o.demo && { label: 'Demo', url: o.demo },
+                      ].filter(Boolean),
+                    }))}/>
 
       <PatentTable items={PATENTS}/>
     </section>
@@ -91,12 +108,11 @@ window.PatentTable = function PatentTable({ items }) {
 
       <div className="patent-table reveal" style={{
         marginTop: 18, display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr) 64px 130px 80px',
+        gridTemplateColumns: 'minmax(0, 1fr) 130px 80px',
         columnGap: 18, rowGap: 0,
         font: '400 13px var(--mono)',
       }}>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Title</div>
-        <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Year</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Role</div>
         <div className="lbl-mono" style={{ paddingBottom: 8, color: 'var(--muted)' }}>Status</div>
         {visible.map(p => {
@@ -106,15 +122,11 @@ window.PatentTable = function PatentTable({ items }) {
           };
           return (
             <React.Fragment key={p.pub}>
-              <a href={'https://patents.google.com/patent/' + p.pub + '/en'}
-                 target="_blank" rel="noreferrer"
-                 title={p.pub}
-                 className="hover-line" style={{
-                   ...cell, color: 'var(--ink)', lineHeight: 1.45,
-                 }}>
+              <span title={p.pub} style={{
+                ...cell, color: 'var(--ink)', lineHeight: 1.45,
+              }}>
                 {p.title}
-              </a>
-              <span style={{ ...cell, color: 'var(--muted)' }}>{p.year}</span>
+              </span>
               <span style={{ ...cell, color: p.lead ? 'var(--accent)' : 'var(--muted)' }}>
                 {p.lead ? 'Primary inventor' : 'Co-inventor'}
               </span>
@@ -230,8 +242,8 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 marginTop: 'auto', paddingTop: 14,
                 display: 'flex', gap: 16, flexWrap: 'wrap',
               }}>
-                <span>STACK · {p.stack}</span>
-                <span>{p.loc}</span>
+                {p.stack && <span>STACK · {p.stack}</span>}
+                {p.loc && <span>{p.loc}</span>}
                 {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
                   <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"
                      style={{ color: 'var(--accent)' }}>

@@ -15,9 +15,9 @@ window.SITE = {
   },
 };
 
-// kind: 'engineering' (■) | 'art' (●)
+// kind: 'closed-source' (■) | 'open-source' (◇) | 'art' (●)
 window.PROJECTS = [
-  { id: 'rox-ai-studio', n: '001', kind: 'engineering',
+  { id: 'rox-ai-studio', n: '001', kind: 'closed-source',
     title: 'RoX AI Studio', tag: 'AI · MLOPS · Evals', year: '2024-Present',
     blurb: 'Cloud-native MLOps platform for Renesas R-Car SoC customers. Enables HIL performance evaluation for BYO models on an intuitive Web UI. Featured at Renesas CES demo pavilion.',
     stack: 'Python · PyTorch · MLFlow · Airflow · Azure · CI/CD', loc: 'Renesas Electronics',
@@ -26,12 +26,12 @@ window.PROJECTS = [
       { label: 'Product', url: 'https://aistudio.renesas.com' },
       { label: 'Blog', url: 'https://www.renesas.com/en/blogs/accelerate-automotive-ai-innovation-rox-ai-studio' },
     ] },
-  { id: 'mdla-cebu', n: '002', kind: 'engineering',
+  { id: 'mdla-cebu', n: '002', kind: 'closed-source',
     title: 'Micron DLA Customer Eval and Benchmark Utility', tag: 'AI · MLOps · Evals', year: '2021-2023',
     blurb: 'AI accelerator customer demos and benchmarking suite for Micron DLA.',
     stack: 'Python · PyTorch · ONNX', loc: 'Micron Technology',
     image: 'images/things_built/micron-dla.png' },
-  { id: 'feram-tft-pathfinding', n: '003', kind: 'engineering',
+  { id: 'feram-tft-pathfinding', n: '003', kind: 'closed-source',
     title: '3D NV-RAM Pathfinding', tag: 'SILICON · MEMORIES', year: '2015 → 2021',
     blurb: 'Silicon characterization for industry-first multi-Gb 3D NV-RAM (FeRAM, TFT). Novel bit-level analytics technique unlocked deeper insight into process and reliability.',
     stack: 'Verilog · Python · Benchlab', loc: 'Micron Technology',
@@ -39,7 +39,7 @@ window.PROJECTS = [
       { label: 'Related work', url: 'https://ieeexplore.ieee.org/abstract/document/10413848' },
       { label: 'Related work', url: 'https://ieeexplore.ieee.org/document/11075050' },
     ] },
-  { id: 'campml', n: '004', kind: 'engineering',
+  { id: 'campml', n: '004', kind: 'closed-source',
     title: 'CampML.org', tag: 'COMMUNITY · EDU', year: 'Ongoing',
     blurb: 'Founder and AI educator at CampML.org — a community-driven ML bootcamp. Technical keynote, AI technical advisor/mentor at Folsom Lake College, Industry evaluator at UC Davis Engg Design Showcase.',
     stack: 'Volunteer · Mentorship', loc: 'CampML.org' },
