@@ -44,8 +44,8 @@ window.ProjectsPage = function ProjectsPage() {
                       tag:   o.tag,
                       year:  o.year,
                       blurb: o.desc,
-                      stack: o.role,
-                      loc:   '',
+                      stack: o.stack,
+                      loc:   o.role,
                       links: [
                         o.url  && { label: 'Repo', url: o.url  },
                         o.demo && { label: 'Demo', url: o.demo },
@@ -242,7 +242,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 marginTop: 'auto', paddingTop: 14,
                 display: 'flex', gap: 16, flexWrap: 'wrap',
               }}>
-                {p.stack && <span>STACK · {p.stack}</span>}
+                {p.stack && p.kind !== 'closed-source' && <span>STACK · {p.stack}</span>}
                 {p.loc && <span>{p.loc}</span>}
                 {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
                   <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"

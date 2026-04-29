@@ -95,16 +95,19 @@ window.POSTS = [
 window.OSS = [
   { name: 'zumo-shield-arduino-rev4wifi-library', role: 'Author', year: '2026',
     tag: 'EMBEDDED · ROBOTICS',
+    stack: 'Arduino · C++ · AVR · ARM Cortex-M4',
     desc: 'Port of the Pololu Zumo Arduino library (v1.3) from Uno R3 (8-bit AVR) to Uno R4 WiFi (Renesas RA4M1, 32-bit ARM Cortex-M4). Existing AVR paths kept byte-identical behind compile-time guards — zero regression for R3 users. Built as a side quest with Claude Code pair-programming, then debugged on hardware.',
     url: 'https://github.com/shashankbl/zumo-shield-arduino-rev4wifi-library/tree/feature/uno-r4-wifi-timers' },
 
   { name: 'LiveResume', role: 'Author · MIT licensed', year: '2026',
     tag: 'TOOLING · DEV',
+    stack: 'HTML · CSS · JavaScript · GitHub Pages',
     desc: 'Turn a Markdown resume into a print-ready PDF and host it on a GitHub Pages site. No build step or dependencies — vanilla HTML, CSS, and JavaScript; auto-detects the latest dated file in resume_md/.',
     url: 'https://github.com/shashankbl/LiveResume' },
 
   { name: 'PixelSynth', role: 'Author · MIT licensed', year: '2025',
     tag: 'CREATIVE CODING · ART',
+    stack: 'Python · p5.js · WebGL · Webcam',
     desc: 'A creative-coding tool that uses Python to procedurally compile and generate interactive p5.js sketches for live webcam manipulation — so indie artists can make fun music videos at zero budget. Vibe-coded.',
     url:  'https://github.com/shashankbl/pixelsynth',
     demo: 'https://shashankbl.github.io/pixelsynth/' },
