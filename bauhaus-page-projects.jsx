@@ -202,7 +202,7 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
         </h2>
         <Pill kind={kind}/>
         <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
-          {items.length} {items.length === 1 ? 'piece' : 'pieces'}
+          {items.length} {items.length === 1 ? 'project' : 'projects'}
         </span>
       </div>
       <hr className="rule" style={{ marginTop: 8 }}/>
