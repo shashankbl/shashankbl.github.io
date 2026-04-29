@@ -343,7 +343,12 @@
       grid-template-columns: 1fr !important;
       gap: 6px !important;
     }
-    /* Stack project article: 60 | 1fr | 200 → 1 col */
+    /* Stack project grid into a single column on small screens */
+    .proj-grid {
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+    }
+    /* Legacy single-column collapse for any remaining .proj-row uses */
     .proj-row {
       grid-template-columns: 1fr !important;
       gap: 14px !important;

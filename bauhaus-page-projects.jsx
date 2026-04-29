@@ -61,49 +61,36 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
           ◇ More coming soon.
         </div>
       ) : (
-        <div style={{ display: 'grid', gap: 0 }}>
+        <div className="proj-grid" style={{
+          display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          columnGap: 32, rowGap: 0, marginTop: 12,
+        }}>
           {items.map((p) => (
-            <article key={p.id} className="reveal proj-row" style={{
-              display: 'grid', gridTemplateColumns: '60px 1fr 320px',
-              gap: 28, padding: '32px 0',
+            <article key={p.id} className="reveal" style={{
+              padding: '24px 0 4px',
               borderTop: '1px solid var(--rule-soft)',
             }}>
-              <div className="lbl-mono"><span className="num">{p.n}</span></div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                  <span className="lbl-mono">{p.tag} · {p.year}</span>
-                  <Pill kind={p.kind}/>
-                </div>
-                <h3 className="display" style={{
-                  font: '500 28px/1.15 var(--display)', margin: '8px 0 0',
-                }}>{p.title}</h3>
-                <p style={{ marginTop: 10, color: 'var(--muted)', maxWidth: 720, fontSize: 14.5, lineHeight: 1.65 }}>
-                  {p.blurb}
-                </p>
-                <div className="lbl-mono" style={{ marginTop: 14, display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-                  <span>STACK · {p.stack}</span>
-                  <span>{p.loc}</span>
-                  {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
-                    <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"
-                       style={{ color: 'var(--accent)' }}>
-                      {l.label} ↗
-                    </a>
-                  ))}
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                <span className="lbl-mono"><span className="num">{p.n}</span> · {p.tag} · {p.year}</span>
+                <Pill kind={p.kind}/>
               </div>
-              <div>
-                {p.image ? (
-                  <div style={{
-                    height: 200, border: '1px solid var(--rule)',
-                    background: 'var(--paper)', overflow: 'hidden',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <img src={p.image} alt={p.title}
-                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}/>
-                  </div>
-                ) : (
-                  <Placeholder label={`Figure / ${p.n}`} h={200}/>
-                )}
+              <h3 className="display" style={{
+                font: '500 26px/1.18 var(--display)', margin: '8px 0 0',
+              }}>{p.title}</h3>
+              <p style={{ marginTop: 10, color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65 }}>
+                {p.blurb}
+              </p>
+              <div className="lbl-mono" style={{
+                marginTop: 14, display: 'flex', gap: 16, flexWrap: 'wrap',
+              }}>
+                <span>STACK · {p.stack}</span>
+                <span>{p.loc}</span>
+                {(p.links || (p.url ? [{ label: 'Demo', url: p.url }] : [])).map((l, li) => (
+                  <a key={li} className="hover-line" href={l.url} target="_blank" rel="noreferrer"
+                     style={{ color: 'var(--accent)' }}>
+                    {l.label} ↗
+                  </a>
+                ))}
               </div>
             </article>
           ))}
