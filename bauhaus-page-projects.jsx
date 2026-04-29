@@ -63,13 +63,18 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
       ) : (
         <div className="proj-grid" style={{
           display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          columnGap: 32, rowGap: 0, marginTop: 12,
+          gap: 18, marginTop: 18,
         }}>
           {items.map((p) => (
             <article key={p.id} className="reveal" style={{
-              padding: '24px 0 4px',
-              borderTop: '1px solid var(--rule-soft)',
-            }}>
+              padding: 22,
+              background: 'var(--paper)',
+              border: '1px solid var(--rule)',
+              transition: 'border-color .2s ease',
+              display: 'flex', flexDirection: 'column',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <span className="lbl-mono"><span className="num">{p.n}</span> · {p.tag} · {p.year}</span>
                 <Pill kind={p.kind}/>
@@ -81,7 +86,8 @@ window.ProjectGroup = function ProjectGroup({ label, kind, items }) {
                 {p.blurb}
               </p>
               <div className="lbl-mono" style={{
-                marginTop: 14, display: 'flex', gap: 16, flexWrap: 'wrap',
+                marginTop: 'auto', paddingTop: 14,
+                display: 'flex', gap: 16, flexWrap: 'wrap',
               }}>
                 <span>STACK · {p.stack}</span>
                 <span>{p.loc}</span>
