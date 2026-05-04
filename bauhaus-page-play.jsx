@@ -988,11 +988,14 @@ window.PlayPage = function PlayPage() {
     setRunEndedAt(null);
     setTick(0);
     setWonBanner(false);
+    setLostBanner(false);
     if (winTimerRef.current) { clearTimeout(winTimerRef.current); winTimerRef.current = null; }
+    if (loseTimerRef.current) { clearTimeout(loseTimerRef.current); loseTimerRef.current = null; }
   }, []);
 
   React.useEffect(() => () => {
     if (winTimerRef.current) clearTimeout(winTimerRef.current);
+    if (loseTimerRef.current) clearTimeout(loseTimerRef.current);
   }, []);
 
   React.useEffect(() => {
@@ -1071,7 +1074,7 @@ window.PlayPage = function PlayPage() {
       setRunStartedAt(null);
       setRunEndedAt(null);
       setTick(0);
-    }, 10000);
+    }, 5000);
   }, [playSound]);
 
   const handleLose = React.useCallback(() => {
@@ -1085,7 +1088,7 @@ window.PlayPage = function PlayPage() {
       setRunStartedAt(null);
       setRunEndedAt(null);
       setTick(0);
-    }, 8000);
+    }, 5000);
   }, [playSound]);
 
   useEffect(() => {
@@ -1235,6 +1238,7 @@ window.PlayPage = function PlayPage() {
           padding: 20, animation: 'reveal-in .5s ease-out',
         }}>
           <div style={{
+            position: 'relative',
             background: 'var(--bg)',
             border: '2px solid var(--accent)',
             padding: '44px 56px',
@@ -1242,6 +1246,19 @@ window.PlayPage = function PlayPage() {
             maxWidth: 480, width: '100%',
             boxShadow: '0 30px 60px rgba(0,0,0,.45)',
           }}>
+            <button
+              type="button"
+              onClick={handleReset}
+              aria-label="Close"
+              style={{
+                position: 'absolute', top: 10, right: 10,
+                width: 28, height: 28, padding: 0,
+                background: 'transparent', border: '1px solid var(--rule)',
+                color: 'var(--muted)', cursor: 'pointer',
+                font: '500 16px/1 var(--display)',
+              }}>
+              ×
+            </button>
             <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 14 }}>
               ── COMPLETE
             </div>
@@ -1254,7 +1271,7 @@ window.PlayPage = function PlayPage() {
               Now get back to work.
             </div>
             <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
-              ── auto-reset in 10s
+              ── auto-reset in 5s
             </div>
           </div>
         </div>
@@ -1267,6 +1284,7 @@ window.PlayPage = function PlayPage() {
           padding: 20, animation: 'reveal-in .5s ease-out',
         }}>
           <div style={{
+            position: 'relative',
             background: 'var(--bg)',
             border: '2px solid var(--accent)',
             padding: '44px 56px',
@@ -1274,6 +1292,19 @@ window.PlayPage = function PlayPage() {
             maxWidth: 480, width: '100%',
             boxShadow: '0 30px 60px rgba(0,0,0,.45)',
           }}>
+            <button
+              type="button"
+              onClick={handleReset}
+              aria-label="Close"
+              style={{
+                position: 'absolute', top: 10, right: 10,
+                width: 28, height: 28, padding: 0,
+                background: 'transparent', border: '1px solid var(--rule)',
+                color: 'var(--muted)', cursor: 'pointer',
+                font: '500 16px/1 var(--display)',
+              }}>
+              ×
+            </button>
             <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 14 }}>
               ── GAME OVER
             </div>
@@ -1286,7 +1317,7 @@ window.PlayPage = function PlayPage() {
               The rust bots are still standing. Wah-wah-waaaah.
             </div>
             <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
-              ── auto-reset in 8s
+              ── auto-reset in 5s
             </div>
           </div>
         </div>
