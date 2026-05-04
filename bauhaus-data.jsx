@@ -82,17 +82,17 @@ window.POSTS = [
     title: 'Demystifying AI Agents: The Engine Behind the Magic — DENA, May/June 2026',
     url: 'https://flickread.com/edition/html/index.php?pdf=69f33df9534f2#35' },
   { date: '2026·03', flair: 'AI agents',
-    title: 'MicroAgent', url: 'https://shashankbl.substack.com/p/microagent' },
+    title: 'MicroAgent - Substack', url: 'https://shashankbl.substack.com/p/microagent' },
   { date: '2026·03', flair: 'AI agents',
-    title: 'MicroAgent — Part 2', url: 'https://shashankbl.substack.com/p/microagent-part-2' },
+    title: 'MicroAgent — Part 2 - Substack', url: 'https://shashankbl.substack.com/p/microagent-part-2' },
   { date: '2026·03', flair: 'AI agents',
-    title: 'MicroAgent — Part 3', url: 'https://shashankbl.substack.com/p/microagent-part-3' },
+    title: 'MicroAgent — Part 3 - Substack', url: 'https://shashankbl.substack.com/p/microagent-part-3' },
   { date: '2026·04', flair: 'Robotics',
-    title: 'Keeping Old Robots Cool With New Tricks', url: 'https://shashankbl.substack.com/p/keeping-old-robots-cool-with-new' },
+    title: 'Keeping Old Robots Cool With New Tricks - Substack', url: 'https://shashankbl.substack.com/p/keeping-old-robots-cool-with-new' },
   { date: '2026·04', flair: 'Career',
-    title: 'Think Like a Game Theorist', url: 'https://shashankbl.substack.com/p/think-like-a-game-theorist' },
+    title: 'Think Like a Game Theorist - Substack', url: 'https://shashankbl.substack.com/p/think-like-a-game-theorist' },
   { date: '2026·04', flair: 'Career',
-    title: 'Bet hard on your human skills', url: 'https://shashankbl.substack.com/p/bet-hard-on-your-human-skills' },
+    title: 'Bet hard on your human skills - Substack', url: 'https://shashankbl.substack.com/p/bet-hard-on-your-human-skills' },
 ];
 
 window.OSS = [
