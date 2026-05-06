@@ -178,9 +178,6 @@ window.RESEARCH = {
       url: 'https://dl.acm.org/doi/10.1145/3528227.3528569',
       loc: 'Workshop · paper' },
   ],
-  collaborators: [
-    // { name: 'Name', affiliation: 'Lab / University', url: 'https://...' },
-  ],
 };
 
 // Capabilities (what I do)
