@@ -156,6 +156,11 @@ window.ART = [
     tags: ['painting', 'watercolor', 'architecture'],
     image: 'images/artwork/Hampi_StoneChariot.webp',
     description: "Humanity thrives and falters on its beliefs. The need is to understand the thin line of separation between sanity and insanity. Why ruin the beauty that your eyes beheld humanity?" },
+  { id: 'burney-falls-mother-nature', title: 'Mother nature', year: '2023',
+    medium: 'Digital art · iPad / Procreate',
+    tags: ['digitalart', 'ipad', 'procreate'],
+    image: 'images/artwork/burney-falls-2023-digital-art.webp',
+    description: "Nature illustrated the cyclic nature of many processes, as a reminder of the Karmic cycle of all things, material or otherwise." },
 ];
 
 window.RESEARCH = {
