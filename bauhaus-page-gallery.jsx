@@ -125,11 +125,23 @@ window.ArtModal = function ArtModal({ art, onClose, onPrev, onNext, hasNav }) {
 
 window.GalleryPage = function GalleryPage() {
   const [activeIndex, setActiveIndex] = React.useState(null);
+  const [activeGroup, setActiveGroup] = React.useState(null);
   const items = window.ART || [];
   const hasNav = items.length > 1;
   const close = () => setActiveIndex(null);
   const prev = () => setActiveIndex(i => (i === null ? null : (i - 1 + items.length) % items.length));
   const next = () => setActiveIndex(i => (i === null ? null : (i + 1) % items.length));
+
+  // Group items by their normalized medium (first segment before " · "),
+  // preserving first-seen order and the original flat index for modal nav.
+  const groupOrder = [];
+  const groups = {};
+  items.forEach((art, idx) => {
+    const key = ((art.medium || 'Other').split(' · ')[0] || 'Other').trim();
+    if (!groups[key]) { groups[key] = []; groupOrder.push(key); }
+    groups[key].push({ art, index: idx });
+  });
+
   return (
     <section className="pad-x section-block" style={{ maxWidth: 1180, margin: '0 auto', padding: '64px 32px' }}>
       <div className="reveal"><SectionLabel n="05">Gallery</SectionLabel></div>
@@ -139,52 +151,35 @@ window.GalleryPage = function GalleryPage() {
         Selected art.
       </h1>
       <p className="reveal" style={{ color: 'var(--muted)', maxWidth: 580, fontSize: 14.5 }}>
-        Visual experiments and personal pieces. Click any tile for the full image and notes.
+        {activeGroup
+          ? 'Click any tile for the full image and notes.'
+          : 'Browse by medium. Click a card to open a grouping.'}
       </p>
 
       {items.length === 0 ? (
         <EmptyNote/>
-      ) : (() => {
-        // Group items by their normalized medium (first segment before " · "),
-        // preserving first-seen order and the original flat index for modal nav.
-        const groupOrder = [];
-        const groups = {};
-        items.forEach((art, idx) => {
-          const key = ((art.medium || 'Other').split(' · ')[0] || 'Other').trim();
-          if (!groups[key]) { groups[key] = []; groupOrder.push(key); }
-          groups[key].push({ art, index: idx });
-        });
-        return groupOrder.map(medium => (
-          <div key={medium} style={{ marginTop: 40 }}>
-            <div className="reveal" style={{
-              display: 'flex', alignItems: 'baseline', gap: 12,
-              marginBottom: 4, flexWrap: 'wrap',
-            }}>
-              <h2 className="display" style={{
-                font: '500 22px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
-              }}>{medium}</h2>
-              <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
-                {groups[medium].length} {groups[medium].length === 1 ? 'piece' : 'pieces'}
-              </span>
-            </div>
-            <hr className="rule" style={{ marginTop: 8 }}/>
-            <div style={{
-              marginTop: 18, display: 'grid', gap: 10,
-              gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-            }}>
-              {groups[medium].map(({ art, index }) => (
-                <button key={art.id || index} onClick={() => setActiveIndex(index)}
-                        aria-label={`Open ${art.title}`}
-                        className="reveal focus-outline"
-                        style={{
-                          display: 'block', padding: 0, border: '1px solid var(--rule)',
-                          background: 'var(--paper)', cursor: 'default',
-                          aspectRatio: '1 / 1', overflow: 'hidden',
-                          transition: 'border-color .2s ease, transform .2s ease',
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-                  <img src={art.thumbnail || art.image} alt={art.title}
+      ) : !activeGroup ? (
+        <div style={{
+          marginTop: 32, display: 'grid', gap: 12,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        }}>
+          {groupOrder.map(name => {
+            const cover = groups[name][0].art;
+            const count = groups[name].length;
+            return (
+              <button key={name} onClick={() => setActiveGroup(name)}
+                      aria-label={`Open ${name}`}
+                      className="reveal focus-outline"
+                      style={{
+                        display: 'block', padding: 0, border: '1px solid var(--rule)',
+                        background: 'var(--paper)', cursor: 'default',
+                        overflow: 'hidden', textAlign: 'left',
+                        transition: 'border-color .2s ease, transform .2s ease',
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+                <div style={{ aspectRatio: '1 / 1', overflow: 'hidden', background: 'var(--bg)' }}>
+                  <img src={cover.thumbnail || cover.image} alt={`${name} cover`}
                        draggable="false"
                        onContextMenu={(e) => e.preventDefault()}
                        onDragStart={(e) => e.preventDefault()}
@@ -194,12 +189,77 @@ window.GalleryPage = function GalleryPage() {
                          userSelect: 'none', WebkitUserSelect: 'none',
                          WebkitUserDrag: 'none', WebkitTouchCallout: 'none',
                        }}/>
-                </button>
-              ))}
-            </div>
+                </div>
+                <div style={{
+                  padding: '12px 14px', borderTop: '1px solid var(--rule)',
+                  display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap',
+                }}>
+                  <h2 className="display" style={{
+                    font: '500 16px/1.25 var(--display)', margin: 0, letterSpacing: '-.005em',
+                    flex: 1, minWidth: 0,
+                  }}>{name}</h2>
+                  <span className="lbl-mono" style={{ color: 'var(--muted)' }}>
+                    {count} {count === 1 ? 'piece' : 'pieces'}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div style={{ marginTop: 32 }}>
+          <button onClick={() => setActiveGroup(null)}
+                  aria-label="Back to groupings"
+                  className="hover-line lbl-mono"
+                  style={{
+                    background: 'transparent', border: 'none', padding: 0,
+                    color: 'var(--ink)', cursor: 'default',
+                  }}>
+            ← back to groupings
+          </button>
+          <div className="reveal" style={{
+            display: 'flex', alignItems: 'baseline', gap: 12,
+            marginTop: 16, marginBottom: 4, flexWrap: 'wrap',
+          }}>
+            <h2 className="display" style={{
+              font: '500 22px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+            }}>{activeGroup}</h2>
+            <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+              {groups[activeGroup].length} {groups[activeGroup].length === 1 ? 'piece' : 'pieces'}
+            </span>
           </div>
-        ));
-      })()}
+          <hr className="rule" style={{ marginTop: 8 }}/>
+          <div style={{
+            marginTop: 18, display: 'grid', gap: 10,
+            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+          }}>
+            {groups[activeGroup].map(({ art, index }) => (
+              <button key={art.id || index} onClick={() => setActiveIndex(index)}
+                      aria-label={`Open ${art.title}`}
+                      className="reveal focus-outline"
+                      style={{
+                        display: 'block', padding: 0, border: '1px solid var(--rule)',
+                        background: 'var(--paper)', cursor: 'default',
+                        aspectRatio: '1 / 1', overflow: 'hidden',
+                        transition: 'border-color .2s ease, transform .2s ease',
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+                <img src={art.thumbnail || art.image} alt={art.title}
+                     draggable="false"
+                     onContextMenu={(e) => e.preventDefault()}
+                     onDragStart={(e) => e.preventDefault()}
+                     style={{
+                       width: '100%', height: '100%',
+                       objectFit: 'cover', display: 'block',
+                       userSelect: 'none', WebkitUserSelect: 'none',
+                       WebkitUserDrag: 'none', WebkitTouchCallout: 'none',
+                     }}/>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {activeIndex !== null && (
         <ArtModal art={items[activeIndex]} onClose={close}
