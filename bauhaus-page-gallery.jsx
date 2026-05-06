@@ -155,9 +155,13 @@ window.GalleryPage = function GalleryPage() {
 
       {items.length === 0 ? (
         <EmptyNote/>
-      ) : groupOrder.map(name => (
-        <div key={name} style={{ marginTop: 40 }}>
-          <div className="reveal" style={{
+      ) : groupOrder.map((name, gi) => (
+        <div key={name} className="reveal" style={{
+          marginTop: gi === 0 ? 32 : 16,
+          padding: '24px 28px',
+          border: '1px solid var(--rule)', background: 'var(--paper)',
+        }}>
+          <div style={{
             display: 'flex', alignItems: 'baseline', gap: 12,
             marginBottom: 4, flexWrap: 'wrap',
           }}>
