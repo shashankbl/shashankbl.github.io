@@ -160,8 +160,11 @@ window.ART = [
 
 window.RESEARCH = {
   active: [
-    // { id: 'proj-id', year: '2026', title: 'Title', blurb: 'One-liner.',
-    //   status: 'In progress', url: 'https://...' },
+    { id: 'maestro', year: '2026',
+      title: 'MAESTRO — Multimodal Agentic Engine for Swarm Tasking through Reasoning with Observations',
+      blurb: 'A research framework for orchestrating swarms of autonomous robots via vision-language-action models. Investigates where the boundary between foundation-model reasoning and classical control should be drawn, using a calibrated tabletop habitat with wheeled agents and static objects.',
+      status: 'Coming Summer 2026',
+      url: 'https://shashankbl.github.io/MAESTRO/' },
   ],
   publications: [
     { date: '2025', kind: 'science', venue: 'IOVS 66(8)',
