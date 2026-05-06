@@ -200,19 +200,13 @@ window.GalleryPage = function GalleryPage() {
                 </div>
                 <div style={{
                   padding: '10px 12px', borderTop: '1px solid var(--rule)',
-                  display: 'flex', flexDirection: 'column', gap: 3,
                 }}>
                   <span className="display" style={{
+                    display: 'block',
                     font: '500 13.5px/1.25 var(--display)', letterSpacing: '-.005em',
                     color: 'var(--ink)',
                     overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                   }}>{art.title}</span>
-                  {art.medium && (
-                    <span className="lbl-mono" style={{
-                      color: 'var(--muted)',
-                      overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                    }}>{art.medium}</span>
-                  )}
                 </div>
               </button>
             ))}
