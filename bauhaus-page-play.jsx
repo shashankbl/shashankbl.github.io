@@ -355,9 +355,14 @@ function makeSketch(api) {
     }
     function checkLose() {
       if (won || lost) return;
+      if (gemsCollected <= 0) {
+        lost = true;
+        api.onLose && api.onLose('fuel');
+        return;
+      }
       if (rocketsLeft <= 0 && bots.length > 0) {
         lost = true;
-        api.onLose && api.onLose();
+        api.onLose && api.onLose('ammo');
       }
     }
     let bobT = 0;
@@ -539,6 +544,7 @@ function makeSketch(api) {
           notifyProgress();
         }
         api.playSound && api.playSound('fatigue');
+        checkLose();
       }
       api.playSound && api.playSound('step');
     }
@@ -958,6 +964,7 @@ window.PlayPage = function PlayPage() {
   const [helpOpen, setHelpOpen] = React.useState(false);
   const [wonBanner, setWonBanner] = React.useState(false);
   const [lostBanner, setLostBanner] = React.useState(false);
+  const [loseReason, setLoseReason] = React.useState('ammo');
   const winTimerRef = useRef(null);
   const loseTimerRef = useRef(null);
   const sprintTouchRef = useRef(false);
@@ -1077,7 +1084,8 @@ window.PlayPage = function PlayPage() {
     }, 5000);
   }, [playSound]);
 
-  const handleLose = React.useCallback(() => {
+  const handleLose = React.useCallback((reason) => {
+    setLoseReason(reason || 'ammo');
     setLostBanner(true);
     playSound('gameover');
     if (loseTimerRef.current) clearTimeout(loseTimerRef.current);
@@ -1311,10 +1319,12 @@ window.PlayPage = function PlayPage() {
             <div className="display" style={{
               font: "500 34px/1.15 var(--display)", marginBottom: 10,
             }}>
-              Out of ammo.
+              {loseReason === 'fuel' ? 'Out of fuel.' : 'Out of ammo.'}
             </div>
             <div style={{ color: 'var(--muted)', fontSize: 16 }}>
-              The rust bots are still standing. Wah-wah-waaaah.
+              {loseReason === 'fuel'
+                ? 'You ran the tank dry. Wah-wah-waaaah.'
+                : 'The rust bots are still standing. Wah-wah-waaaah.'}
             </div>
             <div className="lbl-mono" style={{ marginTop: 22, color: 'var(--muted)' }}>
               ── auto-reset in 5s
