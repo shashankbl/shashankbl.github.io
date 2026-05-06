@@ -163,7 +163,6 @@ window.RESEARCH = {
     { id: 'maestro', year: '2026',
       title: 'MAESTRO — Multimodal Agentic Engine for Swarm Tasking through Reasoning with Observations',
       blurb: 'A research framework for orchestrating swarms of autonomous robots via vision-language-action models. Investigates where the boundary between foundation-model reasoning and classical control should be drawn, using a calibrated tabletop habitat with wheeled agents and static objects.',
-      status: 'Coming Summer 2026',
       url: 'https://shashankbl.github.io/MAESTRO/' },
   ],
   publications: [
