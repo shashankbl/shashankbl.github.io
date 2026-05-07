@@ -307,6 +307,60 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
+      {/* Open-source */}
+      <section className="pad-x section-block" style={{
+        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
+        borderTop: '1px solid var(--rule)',
+      }}>
+        <div className="reveal">
+          <SectionLabel n="01·d">Open-source</SectionLabel>
+          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
+            Code in the open.
+          </h2>
+          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
+            Side projects published on GitHub.
+          </p>
+        </div>
+        <div style={{
+          marginTop: 28, display: 'grid', gap: 12,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+        }}>
+          {(window.OSS || []).map((o, i) => (
+            <a key={i} href={o.url} target="_blank" rel="noreferrer"
+               className="reveal focus-outline"
+               style={{
+                 display: 'flex', flexDirection: 'column', gap: 8,
+                 padding: '14px 16px',
+                 border: '1px solid var(--rule)', background: 'var(--paper)',
+                 color: 'var(--ink)', textDecoration: 'none',
+                 transition: 'border-color .2s ease',
+               }}
+               onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+              <div className="lbl-mono" style={{
+                display: 'flex', justifyContent: 'space-between', gap: 8,
+                color: 'var(--muted)',
+              }}>
+                <span style={{ color: 'var(--accent)' }}>{o.year}</span>
+                <span style={{
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                  minWidth: 0,
+                }}>{o.tag}</span>
+              </div>
+              <div className="display" style={{
+                font: '500 16px/1.25 var(--display)', letterSpacing: '-.005em',
+                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>{o.name}</div>
+              <div className="lbl-mono" style={{
+                color: 'var(--accent)', marginTop: 'auto', paddingTop: 4,
+              }}>
+                Repo ↗
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
     </>
   );
 };

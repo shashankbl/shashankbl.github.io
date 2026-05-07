@@ -35,23 +35,6 @@ window.ProjectsPage = function ProjectsPage() {
       <ProjectGroup label="Closed-source" kind="closed-source"
                     items={PROJECTS.filter(p => p.kind === 'closed-source')}/>
 
-      <ProjectGroup label="Open-source" kind="open-source"
-                    items={(window.OSS || []).map((o, i) => ({
-                      id:    'oss-' + i,
-                      n:     String(i + 1).padStart(3, '0'),
-                      kind:  'open-source',
-                      title: o.name,
-                      tag:   o.tag,
-                      year:  o.year,
-                      blurb: o.desc,
-                      stack: o.stack,
-                      loc:   o.role,
-                      links: [
-                        o.url  && { label: 'Repo', url: o.url  },
-                        o.demo && { label: 'Demo', url: o.demo },
-                      ].filter(Boolean),
-                    }))}/>
-
       <PatentTable items={PATENTS}/>
 
       <div className="reveal" style={{ marginTop: 56 }}>
