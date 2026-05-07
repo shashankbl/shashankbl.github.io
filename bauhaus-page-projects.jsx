@@ -53,6 +53,34 @@ window.ProjectsPage = function ProjectsPage() {
                     }))}/>
 
       <PatentTable items={PATENTS}/>
+
+      <div className="reveal" style={{ marginTop: 56 }}>
+        <h2 className="display" style={{
+          font: '500 26px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>
+          What I do.
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: 14, margin: '6px 0 0' }}>
+          Capabilities, grouped by domain.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <SkillMatrix groups={SKILLS}/>
+        </div>
+      </div>
+
+      <div className="reveal" style={{ marginTop: 56 }}>
+        <h2 className="display" style={{
+          font: '500 26px/1.2 var(--display)', margin: 0, letterSpacing: '-.01em',
+        }}>
+          What I use.
+        </h2>
+        <p style={{ color: 'var(--muted)', fontSize: 14, margin: '6px 0 0' }}>
+          Languages, libraries, frameworks, and hardware.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <SkillMatrix groups={TOOLS}/>
+        </div>
+      </div>
     </section>
   );
 };

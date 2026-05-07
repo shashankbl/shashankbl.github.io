@@ -271,51 +271,13 @@ window.HomePage = function HomePage({ nav }) {
         </div>
       </section>
 
-      {/* Skills */}
-      <section className="pad-x section-block" style={{
-        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
-        borderTop: '1px solid var(--rule)',
-      }}>
-        <div className="reveal">
-          <SectionLabel n="01·c">Skills</SectionLabel>
-          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
-            What I do.
-          </h2>
-          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
-            Capabilities, grouped by domain.
-          </p>
-        </div>
-        <div style={{ marginTop: 28 }}>
-          <SkillMatrix groups={SKILLS}/>
-        </div>
-      </section>
-
-      {/* Tools */}
-      <section className="pad-x section-block" style={{
-        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
-        borderTop: '1px solid var(--rule)',
-      }}>
-        <div className="reveal">
-          <SectionLabel n="01·d">Tools</SectionLabel>
-          <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
-            What I use.
-          </h2>
-          <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
-            Languages, libraries, frameworks, and hardware.
-          </p>
-        </div>
-        <div style={{ marginTop: 28 }}>
-          <SkillMatrix groups={TOOLS}/>
-        </div>
-      </section>
-
       {/* Now */}
       <section className="pad-x section-block" style={{
         maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
         borderTop: '1px solid var(--rule)',
       }}>
         <div className="reveal">
-          <SectionLabel n="01·e">Now</SectionLabel>
+          <SectionLabel n="01·c">Now</SectionLabel>
           <h2 className="display" style={{ font: '500 32px/1.1 var(--display)', margin: '8px 0 4px' }}>
             What I'm doing now.
           </h2>
