@@ -253,14 +253,37 @@ window.AboutMePage = function AboutMePage() {
 };
 
 window.ResumeGroup = function ResumeGroup({ label, entries }) {
+  const [open, setOpen] = React.useState(false);
   return (
     <div style={{ marginTop: 48 }}>
-      <h2 className="display reveal" style={{
-        font: '500 26px/1.2 var(--display)', margin: '0 0 4px',
-        letterSpacing: '-.01em',
-      }}>
-        {label}
-      </h2>
+      <button onClick={() => setOpen(o => !o)}
+              aria-expanded={open}
+              className="reveal focus-outline"
+              style={{
+                display: 'flex', alignItems: 'baseline', gap: 12,
+                width: '100%', padding: 0,
+                background: 'transparent', border: 'none',
+                color: 'var(--ink)', cursor: 'default', textAlign: 'left',
+              }}>
+        <span aria-hidden="true" style={{
+          color: 'var(--accent)', font: '500 14px var(--mono)',
+          display: 'inline-block', minWidth: 14,
+        }}>
+          {open ? '▾' : '▸'}
+        </span>
+        <h2 className="display" style={{
+          font: '500 26px/1.2 var(--display)', margin: 0,
+          letterSpacing: '-.01em',
+        }}>
+          {label}
+        </h2>
+        <span className="lbl-mono" style={{ marginLeft: 'auto', color: 'var(--muted)' }}>
+          {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
+        </span>
+      </button>
+      {!open ? (
+        <hr className="rule" style={{ marginTop: 12 }}/>
+      ) : (<>
       <hr className="rule" style={{ marginTop: 12 }}/>
       <div>
         {entries.map((emp, i) => (
@@ -327,6 +350,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
           </div>
         ))}
       </div>
+      </>)}
     </div>
   );
 };
