@@ -287,7 +287,7 @@ window.ResumeGroup = function ResumeGroup({ label, entries }) {
       <hr className="rule" style={{ marginTop: 12 }}/>
       <div>
         {entries.map((emp, i) => (
-          <div key={i} className="reveal" style={{
+          <div key={i} style={{
             padding: '28px 0', borderTop: i ? '1px solid var(--rule-soft)' : 'none',
           }}>
             {/* Employer header */}
