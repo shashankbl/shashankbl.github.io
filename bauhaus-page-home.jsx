@@ -351,6 +351,12 @@ window.HomePage = function HomePage({ nav }) {
                 font: '500 16px/1.25 var(--display)', letterSpacing: '-.005em',
                 overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
               }}>{o.name}</div>
+              {o.tagline && (
+                <div style={{
+                  color: 'var(--muted)', font: '400 13px/1.5 var(--sans)',
+                  marginTop: 2,
+                }}>{o.tagline}</div>
+              )}
               <div className="lbl-mono" style={{
                 color: 'var(--accent)', marginTop: 'auto', paddingTop: 4,
               }}>
