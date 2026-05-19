@@ -96,6 +96,12 @@ window.POSTS = [
 ];
 
 window.OSS = [
+  { name: 'GemScan', role: 'Author', year: '2026',
+    tag: 'iOS · ON-DEVICE AI · PRIVACY',
+    desc: 'iOS app that checks suspicious messages, links, and screenshots for scams — fully on-device in seconds. Runs Gemma 4 E2B locally via Apple MLX-Swift (with a llama.cpp fallback), uses Apple Vision OCR for screenshots, and ships a Share-extension entry point so anything in Messages/Mail/Safari can be analysed without leaving the device. Built on Next.js 14 + Capacitor 6.',
+    url:  'https://github.com/GemScan/GemScan',
+    demo: 'https://gemscan.github.io/GemScan' },
+
   { name: 'zumo-shield-arduino-rev4wifi-library', role: 'Author', year: '2026',
     tag: 'EMBEDDED · ROBOTICS',
     stack: 'Arduino · C++ · AVR · ARM Cortex-M4',
@@ -119,6 +125,8 @@ window.OSS = [
 // Short headlines for the marquee ticker below the nav. Curated from real site
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
+  { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX',
+    url: 'https://gemscan.github.io/GemScan' },
   { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·05·25" },
   { tag: 'Published', text: "New article in DENA (May/June 2026, page 35) — Demystifying AI Agents: The Engine Behind the Magic",
     url: 'https://flickread.com/edition/html/index.php?pdf=69f33df9534f2#35' },
