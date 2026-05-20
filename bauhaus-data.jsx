@@ -79,7 +79,7 @@ window.PATENTS = [
 
 window.POSTS = [
   { date: '2026·05', flair: 'Cognition',
-    title: 'The story of human cognitive load',
+    title: 'The story of human cognitive load - Substack',
     url: 'https://shashankbl.substack.com/p/the-story-of-human-cognitive-load' },
   { date: '2026·05', flair: 'AI agents',
     title: 'Demystifying AI Agents: The Engine Behind the Magic — DENA, May/June 2026',
