@@ -78,6 +78,9 @@ window.PATENTS = [
 ];
 
 window.POSTS = [
+  { date: '2026·05', flair: 'Cognition',
+    title: 'The story of human cognitive load',
+    url: 'https://shashankbl.substack.com/p/the-story-of-human-cognitive-load' },
   { date: '2026·05', flair: 'AI agents',
     title: 'Demystifying AI Agents: The Engine Behind the Magic — DENA, May/June 2026',
     url: 'https://flickread.com/edition/html/index.php?pdf=69f33df9534f2#35' },
@@ -115,7 +118,8 @@ window.OSS = [
     stack: 'HTML · CSS · JavaScript · GitHub Pages',
     tagline: 'Markdown résumé → print-ready PDF, hosted on GitHub Pages with zero dependencies.',
     desc: 'Turn a Markdown resume into a print-ready PDF and host it on a GitHub Pages site. No build step or dependencies — vanilla HTML, CSS, and JavaScript; auto-detects the latest dated file in resume_md/.',
-    url: 'https://github.com/shashankbl/LiveResume' },
+    url: 'https://github.com/shashankbl/LiveResume',
+    demo: 'https://shashankbl.github.io/LiveResume/' },
 
   { name: 'PixelSynth', role: 'Author · MIT licensed', year: '2025',
     tag: 'CREATIVE CODING · ART',

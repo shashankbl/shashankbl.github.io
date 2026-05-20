@@ -326,17 +326,17 @@ window.HomePage = function HomePage({ nav }) {
           gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
         }}>
           {(window.OSS || []).map((o, i) => (
-            <a key={i} href={o.url} target="_blank" rel="noreferrer"
-               className="reveal focus-outline"
-               style={{
-                 display: 'flex', flexDirection: 'column', gap: 8,
-                 padding: '14px 16px',
-                 border: '1px solid var(--rule)', background: 'var(--paper)',
-                 color: 'var(--ink)', textDecoration: 'none',
-                 transition: 'border-color .2s ease',
-               }}
-               onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+            <div key={i}
+                 className="reveal focus-outline"
+                 style={{
+                   display: 'flex', flexDirection: 'column', gap: 8,
+                   padding: '14px 16px',
+                   border: '1px solid var(--rule)', background: 'var(--paper)',
+                   color: 'var(--ink)',
+                   transition: 'border-color .2s ease',
+                 }}
+                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
               <div className="lbl-mono" style={{
                 display: 'flex', justifyContent: 'space-between', gap: 8,
                 color: 'var(--muted)',
@@ -357,12 +357,23 @@ window.HomePage = function HomePage({ nav }) {
                   marginTop: 2,
                 }}>{o.tagline}</div>
               )}
-              <div className="lbl-mono" style={{
-                color: 'var(--accent)', marginTop: 'auto', paddingTop: 4,
+              <div style={{
+                display: 'flex', gap: 14, marginTop: 'auto', paddingTop: 4,
               }}>
-                Repo ↗
+                <a href={o.url} target="_blank" rel="noreferrer"
+                   className="lbl-mono hover-line"
+                   style={{ color: 'var(--accent)' }}>
+                  Repo ↗
+                </a>
+                {o.demo && (
+                  <a href={o.demo} target="_blank" rel="noreferrer"
+                     className="lbl-mono hover-line"
+                     style={{ color: 'var(--accent)' }}>
+                    Demo ↗
+                  </a>
+                )}
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </section>
