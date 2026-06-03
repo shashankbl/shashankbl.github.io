@@ -133,6 +133,7 @@ window.OSS = [
 // Short headlines for the marquee ticker below the nav. Curated from real site
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
+  { tag: 'Promoted', text: 'Stepped into Senior Engineering Manager · ML/MLOps at Renesas · effective 2026·06·01' },
   { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX · released 2026·05·18',
     url: 'https://gemscan.github.io/GemScan' },
   { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·05·25" },
@@ -267,7 +268,7 @@ window.PROFESSIONAL = [
   { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
     logo: 'images/logos/renesas.svg',
     roles: [
-      { y: 'Jun 2026 → now', role: 'Senior Engineering Lead and Manager · ML/MLOps',
+      { y: 'Jun 2026 → now', role: 'Senior Engineering Manager · ML/MLOps',
         bullets: [
           'Experienced Engineer managing a team of engineers in the ML solutions team.',
           'Building LLM tools: RAG and Agents for engineering workflows.',
