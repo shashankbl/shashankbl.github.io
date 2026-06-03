@@ -136,7 +136,7 @@ window.FLASH = [
   { tag: 'Promoted', text: 'Stepped into Senior Engineering Manager · ML/MLOps at Renesas · effective 2026·06·01' },
   { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX · released 2026·05·18',
     url: 'https://gemscan.github.io/GemScan' },
-  { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·05·25" },
+  { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·06·15" },
   { tag: 'Published', text: "New article in DENA (May/June 2026, page 35) — Demystifying AI Agents: The Engine Behind the Magic",
     url: 'https://flickread.com/edition/html/index.php?pdf=69f33df9534f2#35' },
   { tag: 'Shipped',  text: 'STARBOY — a tiny arcade game lives on /play · released 2026·04·28',
