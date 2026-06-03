@@ -267,7 +267,14 @@ window.PROFESSIONAL = [
   { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
     logo: 'images/logos/renesas.svg',
     roles: [
-      { y: 'Oct 2024 → now', role: 'Engineering Lead and Manager · ML/MLOps',
+      { y: 'Jun 2026 → now', role: 'Senior Engineering Lead and Manager · ML/MLOps',
+        bullets: [
+          'Experienced Engineer managing a team of engineers in the ML solutions team.',
+          'Building LLM tools: RAG and Agents for engineering workflows.',
+          'Deployed cloud-native workflows for AI model deployment and benchmarking on Renesas R-Car SoC.',
+          'Product owner for "RoX AI Studio" (https://aistudio.renesas.com).',
+        ] },
+      { y: 'Oct 2024 → May 2026', role: 'Engineering Lead and Manager · ML/MLOps',
         bullets: [
           'Experienced Engineer managing a team of engineers in the ML solutions team.',
           'Building LLM tools: RAG and Agents for engineering workflows.',
@@ -396,11 +403,11 @@ window.AFFILIATIONS = {
 //   url      — optional link the title becomes
 window.READING = [
   { kind: 'Book', title: 'Efficient Processing of Deep Neural Networks',
-    by: 'Sze et al.', progress: 55 },
+    by: 'Sze et al.', progress: 60 },
   { kind: 'Book', title: 'Start with Why',
-    by: 'Simon Sinek', progress: 40 },
+    by: 'Simon Sinek', progress: 55 },
   { kind: 'Book', title: 'Build a Large Language Model (From Scratch)',
-    by: 'Sebastian Raschka', progress: 30 },
+    by: 'Sebastian Raschka', progress: 40 },
 ];
 
 window.NOW_LINES = [
