@@ -106,6 +106,14 @@ window.OSS = [
     url:  'https://github.com/GemScan/GemScan',
     demo: 'https://gemscan.github.io/GemScan' },
 
+  { name: 'PI-hub', role: 'Author · MIT licensed', year: '2026',
+    tag: 'TOOLING · LOCAL-FIRST · PWA',
+    stack: 'PWA · IndexedDB · JavaScript',
+    tagline: 'Local-first PWA to manage research projects, teams, and deadlines — nothing leaves the browser.',
+    desc: 'A web app for research-group management — project lifecycle tracking, team rosters, deadline countdowns, PDF report generation, and JSON/ZIP backups. Fully local-first: no backend, accounts, or telemetry; data lives in IndexedDB and moves between devices via manual backup files.',
+    url:  'https://github.com/eSPUD/PI-hub',
+    demo: 'https://pi-hub-eight.vercel.app/' },
+
   { name: 'zumo-shield-arduino-rev4wifi-library', role: 'Author', year: '2026',
     tag: 'EMBEDDED · ROBOTICS',
     stack: 'Arduino · C++ · AVR · ARM Cortex-M4',
