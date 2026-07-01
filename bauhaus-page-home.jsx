@@ -10,91 +10,6 @@ window.flagEmoji = function flagEmoji(cc) {
   ).join('');
 };
 
-window.SubstackAd = function SubstackAd() {
-  const [qrFailed, setQrFailed] = React.useState(false);
-  const href = (window.SITE && SITE.social && SITE.social.substack) || 'https://shashankbl.substack.com/';
-  return (
-    <a href={href} target="_blank" rel="noreferrer"
-       className="reveal focus-outline"
-       style={{
-         display: 'block',
-         border: '1px solid var(--rule)', background: 'var(--paper)',
-         color: 'var(--ink)', textDecoration: 'none',
-         transition: 'border-color .2s ease',
-       }}
-       onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
-       onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
-      <div className="substack-ad-grid" style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr) auto',
-        gap: 32, alignItems: 'center',
-        padding: '28px 32px',
-      }}>
-        <div style={{ minWidth: 0 }}>
-          <div className="lbl-mono" style={{ color: 'var(--accent)', marginBottom: 10 }}>
-            ── HYPERSCALE · ON SUBSTACK
-          </div>
-          <h2 className="display" style={{
-            font: '500 30px/1.15 var(--display)', letterSpacing: '-.015em',
-            margin: '0 0 10px',
-          }}>
-            Read <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>HYPERSCALE</span>.
-          </h2>
-          <p style={{
-            margin: 0, color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.7,
-            maxWidth: 480,
-          }}>
-            Weekly notes from what I'm building, reading, and breaking — AI systems,
-            silicon, agents, and the connective tissue in between. No hype, first
-            principles, plain language.
-          </p>
-          <div style={{
-            display: 'flex', gap: 18, flexWrap: 'wrap',
-            marginTop: 20,
-          }}>
-            <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
-              Subscribe →
-            </span>
-            <span className="lbl-mono" style={{ color: 'var(--muted)' }}>
-              or scan the code
-            </span>
-          </div>
-        </div>
-        <div className="substack-ad-qr" style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-        }}>
-          <div style={{
-            padding: 10, background: '#000',
-            border: '1px solid var(--rule)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            width: 168, height: 168, boxSizing: 'content-box',
-          }}>
-            {!qrFailed ? (
-              <img src="images/hyperscale-qr.png"
-                   alt="Scan to open HYPERSCALE on Substack"
-                   onError={() => setQrFailed(true)}
-                   style={{
-                     display: 'block', width: 168, height: 168, objectFit: 'contain',
-                     imageRendering: 'pixelated',
-                   }}/>
-            ) : (
-              <div className="lbl-mono" style={{
-                color: 'var(--accent)', textAlign: 'center', lineHeight: 1.4,
-                width: 168,
-              }}>
-                QR code<br/>coming soon
-              </div>
-            )}
-          </div>
-          <div className="lbl-mono" style={{ color: 'var(--muted)' }}>
-            Scan to subscribe
-          </div>
-        </div>
-      </div>
-    </a>
-  );
-};
-
 window.LogoTile = function LogoTile({ item }) {
   const [failed, setFailed] = React.useState(false);
   const src = !failed && (item.file || (item.slug && `https://cdn.simpleicons.org/${item.slug}`));
@@ -364,14 +279,6 @@ window.HomePage = function HomePage({ nav }) {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* HYPERSCALE — Substack callout */}
-      <section className="pad-x section-block" style={{
-        maxWidth: 1180, margin: '0 auto', padding: '52px 32px',
-        borderTop: '1px solid var(--rule)',
-      }}>
-        <SubstackAd/>
       </section>
 
       {/* Open-source */}
