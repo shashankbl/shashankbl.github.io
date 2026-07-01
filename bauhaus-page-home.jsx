@@ -150,12 +150,24 @@ window.HomePage = function HomePage({ nav }) {
               gap: 16, alignItems: 'center',
             }}>
               <a href="https://www.utexas.edu/" target="_blank" rel="noreferrer"
-                 className="reveal"
+                 className="reveal focus-outline"
                  aria-label="hookem — UT Austin"
-                 style={{ display: 'block' }}>
-                <img src="images/hookem.png" alt="hookem — UT Austin"
+                 style={{
+                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                   padding: 10,
+                   border: '1px solid var(--rule)', background: 'var(--paper)',
+                   color: 'var(--ink)', textDecoration: 'none',
+                   transition: 'border-color .2s ease',
+                 }}
+                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+                <img src="images/hookem.png" alt=""
+                     aria-hidden="true"
                      className="hookem-img"
                      style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 176, objectFit: 'contain' }}/>
+                <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
+                  UT AUSTIN ↗
+                </span>
               </a>
               <a href={(window.SITE && SITE.social && SITE.social.substack) || 'https://shashankbl.substack.com/'}
                  target="_blank" rel="noreferrer"
