@@ -230,14 +230,44 @@ window.HomePage = function HomePage({ nav }) {
             <NewsFlash items={typeof FLASH !== 'undefined' ? FLASH : []} nav={nav}/>
           </div>
           <div style={{ display: 'grid', gap: 14 }}>
-            <a href="https://www.utexas.edu/" target="_blank" rel="noreferrer"
-               className="reveal"
-               aria-label="hookem — UT Austin"
-               style={{ display: 'block' }}>
-              <img src="images/hookem.png" alt="hookem — UT Austin"
-                   className="hookem-img"
-                   style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 176, objectFit: 'contain' }}/>
-            </a>
+            <div className="hookem-row" style={{
+              display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto',
+              gap: 16, alignItems: 'center',
+            }}>
+              <a href="https://www.utexas.edu/" target="_blank" rel="noreferrer"
+                 className="reveal"
+                 aria-label="hookem — UT Austin"
+                 style={{ display: 'block' }}>
+                <img src="images/hookem.png" alt="hookem — UT Austin"
+                     className="hookem-img"
+                     style={{ display: 'block', width: '100%', height: 'auto', maxHeight: 176, objectFit: 'contain' }}/>
+              </a>
+              <a href={(window.SITE && SITE.social && SITE.social.substack) || 'https://shashankbl.substack.com/'}
+                 target="_blank" rel="noreferrer"
+                 className="reveal focus-outline hookem-qr"
+                 aria-label="Scan to subscribe to HYPERSCALE on Substack"
+                 style={{
+                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                   padding: 10,
+                   border: '1px solid var(--rule)', background: 'var(--paper)',
+                   color: 'var(--ink)', textDecoration: 'none',
+                   transition: 'border-color .2s ease',
+                 }}
+                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--rule)'; }}>
+                <img src="images/hyperscale-qr.png"
+                     alt=""
+                     aria-hidden="true"
+                     style={{
+                       display: 'block', width: 116, height: 116, objectFit: 'contain',
+                       background: '#000', padding: 4, boxSizing: 'content-box',
+                       imageRendering: 'pixelated',
+                     }}/>
+                <span className="lbl-mono" style={{ color: 'var(--accent)' }}>
+                  HYPERSCALE ↗
+                </span>
+              </a>
+            </div>
             <div className="reveal" style={{
               border: '1px solid var(--rule)', background: 'var(--paper)', padding: 20,
             }}>
