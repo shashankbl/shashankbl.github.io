@@ -142,10 +142,8 @@ window.OSS = [
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
   { tag: 'Joined', text: 'Joined Micron Technology as Member of Technical Staff · Memory Innovation for AI · effective 2026·08·01' },
-  { tag: 'Promoted', text: 'Stepped into Senior Engineering Manager · ML/MLOps at Renesas · effective 2026·06·01' },
   { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX · released 2026·05·18',
     url: 'https://gemscan.github.io/GemScan' },
-  { tag: 'Upcoming', text: "FalconEye — an open-source ambient AI ready for on-device deployment on Nvidia Orin Super Dev Kit · releases 2026·07·15" },
   { tag: 'Published', text: "New article in DENA (May/June 2026, page 35) — Demystifying AI Agents: The Engine Behind the Magic",
     url: 'https://flickread.com/edition/html/index.php?pdf=69f33df9534f2#35' },
   { tag: 'Shipped',  text: 'STARBOY — a tiny arcade game lives on /play · released 2026·04·28',
@@ -399,16 +397,16 @@ window.ACADEMIC = [
 // neither render as a typographic wordmark.
 window.AFFILIATIONS = {
   current: [
-    { name: 'Renesas Electronics', short: 'Renesas',   file: 'images/logos/renesas.svg', kind: 'employer', cc: 'US' },
+    { name: 'Micron Technology',   short: 'Micron',    file: 'images/logos/micron.png',  kind: 'employer', cc: 'US' },
     { name: 'UT Austin',           short: 'UT Austin',                                   kind: 'school',   cc: 'US' },
   ],
   past: [
-    { name: 'Micron Technology',          short: 'Micron',      file: 'images/logos/micron.png',  kind: 'employer', cc: 'US' },
+    { name: 'Renesas Electronics',        short: 'Renesas',     file: 'images/logos/renesas.svg', kind: 'employer', cc: 'US' },
     { name: 'SanDisk',                    short: 'SanDisk',     file: 'images/logos/sandisk.svg', kind: 'employer', cc: 'US' },
     { name: 'Bosch',                      short: 'Bosch',       file: 'images/logos/bosch.svg',   kind: 'employer', cc: 'IN' },
     { name: 'Boise State University',     short: 'Boise State',                                   kind: 'school',   cc: 'US' },
-    { name: 'San Jose State University',  short: 'San Jose State',                                          kind: 'school',   cc: 'US' },
-    { name: 'Visvesvaraya Technological University',                  short: 'Visvesvaraya Tech Univ',                                           kind: 'school',   cc: 'IN' },
+    { name: 'San Jose State University',  short: 'San Jose State',                                kind: 'school',   cc: 'US' },
+    { name: 'Visvesvaraya Technological University',  short: 'Visvesvaraya Tech Univ',            kind: 'school',   cc: 'IN' },
   ],
 };
 
@@ -428,7 +426,7 @@ window.READING = [
 ];
 
 window.NOW_LINES = [
-  'Leading ML and Agentic solutions at Renesas — building RoX AI Studio for R-Car SoC customers.',
+  'Technology Leader driving agentic research for accelerated memory innovation and product pathfinding at Micron.',
   'Pursuing M.S. in Artificial Intelligence at UT Austin.',
   'Researching LLM-aided design and efficient on-device ML.',
   'AI technical advisor at Folsom Lake College and industry evaluator at UC Davis.',

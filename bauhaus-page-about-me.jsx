@@ -35,24 +35,32 @@ window.parseRange = function parseRange(y) {
 window.GanttChart = function GanttChart({ professional, academic }) {
   const svgRef = React.useRef(null);
 
-  const buildEntries = (list, kind) => (list || []).map(emp => ({
-    co: emp.co, kind,
-    roles: (emp.roles || [])
-      .map(role => {
+  // Merge entries that share a co name so a returning employer occupies a single row.
+  const buildEntries = (list, kind) => {
+    const byCo = {};
+    const order = [];
+    (list || []).forEach(emp => {
+      if (!byCo[emp.co]) {
+        byCo[emp.co] = { co: emp.co, kind, roles: [] };
+        order.push(emp.co);
+      }
+      (emp.roles || []).forEach(role => {
         const r = parseRange(role.y);
-        return r ? { role: role.role, ...r } : null;
-      })
-      .filter(Boolean),
-  })).filter(e => e.roles.length > 0);
+        if (r) byCo[emp.co].roles.push({ role: role.role, ...r });
+      });
+    });
+    return order.map(co => byCo[co]).filter(e => e.roles.length > 0);
+  };
 
   const profEntries = buildEntries(professional, 'work');
   const acadEntries = buildEntries(academic, 'school');
   if (profEntries.length === 0 && acadEntries.length === 0) return null;
 
-  // Sort each employer's roles oldest first; sort employers newest-first (resume order).
+  // Sort each employer's roles oldest first; sort employers by most-recent activity first.
+  const latestEnd = e => Math.max.apply(null, e.roles.map(r => +r.end));
   [...profEntries, ...acadEntries].forEach(e => e.roles.sort((a, b) => a.start - b.start));
-  profEntries.sort((a, b) => b.roles[0].start - a.roles[0].start);
-  acadEntries.sort((a, b) => b.roles[0].start - a.roles[0].start);
+  profEntries.sort((a, b) => latestEnd(b) - latestEnd(a));
+  acadEntries.sort((a, b) => latestEnd(b) - latestEnd(a));
 
   const allDates = [...profEntries, ...acadEntries].flatMap(e => e.roles.flatMap(r => [r.start, r.end]));
   const minYear = new Date(Math.min.apply(null, allDates)).getFullYear();
