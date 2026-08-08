@@ -208,6 +208,46 @@ window.GanttChart = function GanttChart({ professional, academic }) {
             );
           })}
 
+          {/* Chronological connectors between consecutive experiences */}
+          {(() => {
+            const collect = (entries, rowsStart) => {
+              const out = [];
+              entries.forEach((e, rowIdx) => {
+                const barTopY = rowsStart + rowIdx * rowHeight + (rowHeight - barHeight) / 2 + 4;
+                const midY = barTopY + barHeight / 2;
+                e.roles.forEach(r => out.push({
+                  rowIdx, midY,
+                  startX: xScale(r.start), endX: xScale(r.end),
+                  start: +r.start,
+                }));
+              });
+              out.sort((a, b) => a.start - b.start);
+              return out;
+            };
+            const renderConnectors = (items, keyPrefix) => items.slice(1).map((next, i) => {
+              const prev = items[i];
+              const gapPx = next.startX - prev.endX;
+              if (prev.rowIdx === next.rowIdx) {
+                if (gapPx <= 2) return null;
+                return (
+                  <line key={`${keyPrefix}-${i}`}
+                        x1={prev.endX} y1={prev.midY} x2={next.startX} y2={next.midY}
+                        stroke="rgba(26,24,20,.35)" strokeWidth="1" strokeDasharray="2 3"/>
+                );
+              }
+              const elbowX = Math.max(prev.endX, next.startX);
+              return (
+                <polyline key={`${keyPrefix}-${i}`}
+                          points={`${prev.endX},${prev.midY} ${elbowX},${prev.midY} ${elbowX},${next.midY} ${next.startX},${next.midY}`}
+                          fill="none" stroke="rgba(26,24,20,.35)" strokeWidth="1" strokeDasharray="2 3"/>
+              );
+            });
+            return (<>
+              {renderConnectors(collect(profEntries, profRowsStart), 'prof-c')}
+              {renderConnectors(collect(acadEntries, eduRowsStart), 'acad-c')}
+            </>);
+          })()}
+
           {/* Professional section */}
           {profEntries.length > 0 && renderSectionHeader('── PROFESSIONAL', profHeaderY)}
           {profEntries.map((e, i) => renderRow(e, profRowsStart + i * rowHeight + (rowHeight - barHeight) / 2 + 4))}
