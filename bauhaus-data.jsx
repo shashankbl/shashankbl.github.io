@@ -141,6 +141,7 @@ window.OSS = [
 // Short headlines for the marquee ticker below the nav. Curated from real site
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
+  { tag: 'Joined', text: 'Joined Micron Technology as Member of Technical Staff · Memory Innovation for AI · effective 2026·08·01' },
   { tag: 'Promoted', text: 'Stepped into Senior Engineering Manager · ML/MLOps at Renesas · effective 2026·06·01' },
   { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX · released 2026·05·18',
     url: 'https://gemscan.github.io/GemScan' },
@@ -273,10 +274,17 @@ window.TALKS = [
 // Each employer/institution groups one or more roles. `span` is shown beside
 // the employer header; each `role` carries its own date range and bullets.
 window.PROFESSIONAL = [
-  { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → now',
+  { co: 'Micron Technology, Inc.', loc: 'Folsom CA', span: 'Aug 2026 → now',
+    logo: 'images/logos/micron.png',
+    roles: [
+      { y: 'Aug 2026 → now', role: 'Member of Technical Staff · Memory Innovation for AI',
+        bullets: [] },
+    ] },
+
+  { co: 'Renesas Electronics America', loc: 'Remote', span: 'Jan 2024 → Jul 2026',
     logo: 'images/logos/renesas.svg',
     roles: [
-      { y: 'Jun 2026 → now', role: 'Senior Engineering Manager · ML/MLOps',
+      { y: 'Jun 2026 → Jul 2026', role: 'Senior Engineering Manager · ML/MLOps',
         bullets: [
           'Experienced Engineer managing a team of engineers in the ML solutions team.',
           'Building LLM tools: RAG and Agents for engineering workflows.',
