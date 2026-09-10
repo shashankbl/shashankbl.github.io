@@ -427,11 +427,11 @@ window.AFFILIATIONS = {
 //   url      — optional link the title becomes
 window.READING = [
   { kind: 'Book', title: 'Efficient Processing of Deep Neural Networks',
-    by: 'Sze et al.', progress: 60 },
+    by: 'Sze et al.', progress: 65 },
   { kind: 'Book', title: 'Start with Why',
-    by: 'Simon Sinek', progress: 55 },
+    by: 'Simon Sinek', progress: 75 },
   { kind: 'Book', title: 'Build a Large Language Model (From Scratch)',
-    by: 'Sebastian Raschka', progress: 40 },
+    by: 'Sebastian Raschka', progress: 45 },
 ];
 
 window.NOW_LINES = [
