@@ -99,6 +99,13 @@ window.POSTS = [
 ];
 
 window.OSS = [
+  { name: 'lipi-md', role: 'Author · MIT licensed', year: '2026',
+    tag: 'MARKDOWN · INDIC SCRIPTS · LOCAL-FIRST',
+    stack: 'React · CodeMirror 6 · Vite PWA · TypeScript',
+    tagline: 'Offline-first Markdown editor — type text, render worlds: live JS sketches and native Indic-script rendering, no server or build step.',
+    desc: 'An offline-first Markdown editor that turns plain text into interactive documents. Phonetic-to-script transliteration renders 20+ Indic scripts inline (e.g. @kannada(namaskaara) → ನಮಸ್ಕಾರ) while keeping sources searchable; live code sketches (Canvas 2D, Anime.js, p5.js) update in real time; KaTeX math, a unified media syntax, and nine themes round it out. Everything runs in the browser on IndexedDB with a service worker for full offline access, and documents export to Markdown, self-contained HTML, or PDF. Built on React + CodeMirror 6 and Vite PWA.',
+    url:  'https://github.com/edagent-ai/lipi-md' },
+
   { name: 'GemScan', role: 'Author', year: '2026',
     tag: 'iOS · ON-DEVICE AI · PRIVACY',
     tagline: 'iOS app that flags scam messages, links, and screenshots — fully on-device, in seconds.',
@@ -141,6 +148,8 @@ window.OSS = [
 // Short headlines for the marquee ticker below the nav. Curated from real site
 // activity; keep ≤ ~80 chars per text so they read at a glance.
 window.FLASH = [
+  { tag: 'Open-sourced', text: 'lipi-md — offline-first Markdown editor with live sketches + 20 Indic scripts · released 2026·09·10',
+    url: 'https://github.com/edagent-ai/lipi-md' },
   { tag: 'Joined', text: 'Joined Micron Technology as Member of Technical Staff · Memory Innovation for AI · effective 2026·08·01' },
   { tag: 'Shipped',  text: 'GemScan — on-device iOS scam detector built on Gemma 4 + MLX · released 2026·05·18',
     url: 'https://gemscan.github.io/GemScan' },
