@@ -207,12 +207,7 @@ window.ART = [
 ];
 
 window.RESEARCH = {
-  active: [
-    { id: 'maestro', year: '2026',
-      title: 'MAESTRO — Multimodal Agentic Engine for Swarm Tasking through Reasoning with Observations',
-      blurb: 'A research framework for orchestrating swarms of autonomous robots via vision-language-action models. Investigates where the boundary between foundation-model reasoning and classical control should be drawn, using a calibrated tabletop habitat with wheeled agents and static objects.',
-      url: 'https://shashankbl.github.io/MAESTRO/' },
-  ],
+  interests: 'Explainable AI, On-device AI Agents and Robotics.',
   publications: [
     { date: '2026', kind: 'engineering', venue: 'IEEE VIS · VISxAI',
       title: 'The Story of Inference-Time Scaling and the training-time loop behind it',

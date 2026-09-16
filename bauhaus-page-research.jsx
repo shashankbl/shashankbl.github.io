@@ -69,7 +69,7 @@ window.PubGroup = function PubGroup({ label, kind, items }) {
 
 window.ResearchPage = function ResearchPage() {
   const r = window.RESEARCH || {};
-  const active = r.active || [];
+  const interests = r.interests || '';
   const pubs = r.publications || [];
 
   return (
@@ -84,43 +84,12 @@ window.ResearchPage = function ResearchPage() {
         Active research and publications.
       </p>
 
-      <ResearchSection label="Active research projects">
-        {active.length === 0 ? (
-          <EmptyNote/>
-        ) : (
-          <div style={{ marginTop: 4 }}>
-            {active.map((p, i) => (
-              <article key={p.id || i} className="reveal list-row" style={{
-                display: 'grid', gridTemplateColumns: '90px 1fr 140px',
-                gap: 20, padding: '24px 0',
-                borderTop: i ? '1px solid var(--rule-soft)' : 'none',
-                alignItems: 'baseline',
-              }}>
-                <span className="lbl-mono">{p.year}</span>
-                <div>
-                  <h3 className="display" style={{ font: '500 20px/1.3 var(--display)', margin: 0 }}>
-                    {p.url ? (
-                      <a className="hover-line" href={p.url} target="_blank" rel="noreferrer"
-                         style={{ color: 'var(--ink)' }}>
-                        {p.title} ↗
-                      </a>
-                    ) : p.title}
-                  </h3>
-                  {p.blurb && (
-                    <p style={{ marginTop: 8, color: 'var(--muted)', fontSize: 14.5, lineHeight: 1.65 }}>
-                      {p.blurb}
-                    </p>
-                  )}
-                </div>
-                {p.status && (
-                  <span className="lbl-mono" style={{ color: 'var(--accent)', textAlign: 'right' }}>
-                    {p.status}
-                  </span>
-                )}
-              </article>
-            ))}
-          </div>
-        )}
+      <ResearchSection label="Research interests">
+        <p className="reveal" style={{
+          marginTop: 20, color: 'var(--ink)', fontSize: 17, lineHeight: 1.6,
+        }}>
+          Academic research interests: {interests}
+        </p>
       </ResearchSection>
 
       <ResearchSection label="Publications">
