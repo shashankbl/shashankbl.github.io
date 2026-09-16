@@ -44,6 +44,15 @@ window.PubGroup = function PubGroup({ label, kind, items }) {
                       {m.authors}
                     </div>
                   )}
+                  {m.artifact && (
+                    <div style={{ marginTop: 8 }}>
+                      <a className="lbl-mono hover-line" href={m.artifact}
+                         target="_blank" rel="noreferrer"
+                         style={{ color: 'var(--accent)' }}>
+                        Live artifact ↗
+                      </a>
+                    </div>
+                  )}
                 </div>
                 <span className="lbl-mono" style={{ textAlign: 'right' }}>
                   {m.loc}{m.url ? ' ↗' : ''}
