@@ -104,7 +104,8 @@ window.OSS = [
     stack: 'React · CodeMirror 6 · Vite PWA · TypeScript',
     tagline: 'Offline-first Markdown editor — type text, render worlds: live JS sketches and native Indic-script rendering, no server or build step.',
     desc: 'An offline-first Markdown editor that turns plain text into interactive documents. Phonetic-to-script transliteration renders 20+ Indic scripts inline (e.g. @kannada(namaskaara) → ನಮಸ್ಕಾರ) while keeping sources searchable; live code sketches (Canvas 2D, Anime.js, p5.js) update in real time; KaTeX math, a unified media syntax, and nine themes round it out. Everything runs in the browser on IndexedDB with a service worker for full offline access, and documents export to Markdown, self-contained HTML, or PDF. Built on React + CodeMirror 6 and Vite PWA.',
-    url:  'https://github.com/edagent-ai/lipi-md' },
+    url:  'https://github.com/edagent-ai/lipi-md',
+    demo: 'https://lipi-md.vercel.app' },
 
   { name: 'GemScan', role: 'Author', year: '2026',
     tag: 'iOS · ON-DEVICE AI · PRIVACY',
