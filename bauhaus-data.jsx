@@ -245,13 +245,13 @@ window.RESEARCH = {
 // Capabilities (what I do)
 window.SKILLS = [
   { group: 'Hardware Engineering',
-    items: ['Silicon characterization', 'System validation', 'Probing', 'RTL Design Verification', 'Circuit Design', 'Embedded Systems', 'Sensors and Actuators'] },
+    items: ['Silicon characterization', 'System validation', 'Benchlab', 'Probing', 'RTL Design Verification', 'Circuit Design', 'Embedded Systems', 'Sensors and Actuators'] },
   { group: 'Machine Learning',
-    items: ['Pre-training', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Model evals'] },
+    items: ['Pre-training', 'Transfer learning', 'Fine-tuning (PEFT / QLoRA)', 'Inference deployment', 'Performance evals'] },
   { group: 'AI Engineering',
-    items: ['NLP', 'LLM & Agentic AI', 'RAG', 'Computer vision', 'MLOps'] },
+    items: ['NLP', 'LLM & Agentic AI', 'RAG', 'Computer vision (CNN / ViT)', 'MLOps'] },
   { group: 'Software Engineering',
-    items: ['Spec-driven development', 'Web UI', 'API', 'Containerization', 'CI/CD · DevOps'] },
+    items: ['Spec-driven development', 'AI-assisted engineering', 'Web UI', 'API', 'Containerization', 'CI/CD · DevOps'] },
   { group: 'Leadership',
     items: ['Engineering management', 'Product ownership', 'Customer engagement', 'Technical writing', 'Patent disclosures'] },
 ];
@@ -259,13 +259,13 @@ window.SKILLS = [
 // Specific tools, libraries, frameworks, hardware (what I use)
 window.TOOLS = [
   { group: 'Languages',
-    items: ['Python', 'C / C++', 'Verilog / SystemVerilog', 'SQL'] },
+    items: ['Python', 'TypeScript / JavaScript', 'C / C++', 'Verilog / SystemVerilog', 'SQL'] },
   { group: 'ML & DL',
-    items: ['PyTorch', 'ONNX', 'scikit-learn', 'NumPy', 'Pandas', 'Hugging Face', 'OpenCV'] },
+    items: ['PyTorch', 'ONNX', 'scikit-learn', 'NumPy', 'Pandas', 'Matplotlib', 'OpenCV', 'OpenMMLab', 'Hugging Face'] },
   { group: 'LLM stack',
-    items: ['OpenAI SDK', 'LangChain', 'Autogen', 'Google ADK', 'MCP'] },
+    items: ['OpenAI SDK', 'LangChain', 'Autogen', 'Google ADK', 'MCP', 'SLM (Qwen / Llama)'] },
   { group: 'MLOps',
-    items: ['Streamlit', 'Airflow', 'MLflow', 'Matplotlib'] },
+    items: ['Streamlit', 'Airflow', 'MLflow'] },
   { group: 'Hardware',
     items: ['Nvidia A100 / T4 / RTX', 'Jetson Orin', 'Renesas R-Car SoC', 'Raspberry Pi', 'Arduino'] },
   { group: 'Cloud & DevTools',
