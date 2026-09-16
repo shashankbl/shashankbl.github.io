@@ -44,18 +44,27 @@ window.PubGroup = function PubGroup({ label, kind, items }) {
                       {m.authors}
                     </div>
                   )}
-                  {m.artifact && (
-                    <div style={{ marginTop: 8 }}>
-                      <a className="lbl-mono hover-line" href={m.artifact}
-                         target="_blank" rel="noreferrer"
-                         style={{ color: 'var(--accent)' }}>
-                        Live artifact ↗
-                      </a>
+                  {(m.url || m.artifact) && (
+                    <div style={{ marginTop: 8, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                      {m.url && (
+                        <a className="lbl-mono hover-line" href={m.url}
+                           target="_blank" rel="noreferrer"
+                           style={{ color: 'var(--accent)' }}>
+                          Paper ↗
+                        </a>
+                      )}
+                      {m.artifact && (
+                        <a className="lbl-mono hover-line" href={m.artifact}
+                           target="_blank" rel="noreferrer"
+                           style={{ color: 'var(--accent)' }}>
+                          Live artifact ↗
+                        </a>
+                      )}
                     </div>
                   )}
                 </div>
                 <span className="lbl-mono" style={{ textAlign: 'right' }}>
-                  {m.loc}{m.url ? ' ↗' : ''}
+                  {m.loc}
                 </span>
               </>
             );
@@ -65,10 +74,7 @@ window.PubGroup = function PubGroup({ label, kind, items }) {
               borderTop: i ? '1px solid var(--rule-soft)' : 'none',
               alignItems: 'baseline', gap: 16, color: 'var(--ink)',
             };
-            return m.url
-              ? <a key={i} href={m.url} target="_blank" rel="noreferrer"
-                   className="reveal hover-line list-row" style={style}>{inner}</a>
-              : <div key={i} className="reveal list-row" style={style}>{inner}</div>;
+            return <div key={i} className="reveal list-row" style={style}>{inner}</div>;
           })}
         </div>
       )}
