@@ -234,7 +234,7 @@ window.RESEARCH = {
       loc: 'Conference · abstract' },
     { date: '2025', kind: 'science', venue: 'IOVS 66(8)',
       title: 'High-Resolution Wireless EOG Sensor for Real-Time Characterization of Blink Kinematics',
-      authors: 'H Govinde, SR Singh, SB Lakshman, P Padmanabhan, S Rachapalli, et al.',
+      authors: 'H Govinde, et al. (incl. SB Lakshman)',
       url: 'https://iovs.arvojournals.org/article.aspx?articleid=2804475',
       loc: 'Journal · abstract' },
     { date: '2022', kind: 'engineering', venue: 'SERP4IoT',
