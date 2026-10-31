@@ -276,6 +276,9 @@ window.TOOLS = [
 ];
 
 window.TALKS = [
+  { date: '2026·10', venue: 'Sac State Career Fair',
+    title: 'Panelist',
+    loc: 'Sacramento, CA' },
   { date: '2026·04', venue: 'Los Rios STEM Fair',
     title: 'Keynote · STEM Professional 2.0: Thriving on the Razor Edge of AI',
     loc: 'Folsom, CA' },
